@@ -40,9 +40,9 @@ f.close()
 def printRequestToFile(artistName):
     if ( " " in artistName ):
             artistName = artistName.replace(" ","+")
-    response = urllib.request.urlopen("https://itunes.apple.com/search?term=%s&media=music&limit=100"%artistName)
+    response = urllib.request.urlopen("https://itunes.apple.com/search?term=%s&attribute=artistTerm&limit=200"%artistName)
     f = open("1.txt","w")
-    s = str(response.read().decode('utf-8'))
+    s = str(response.read().decode('utf-8', errors='ignore'))
     f.write(s)
     f.close()
 
@@ -90,13 +90,13 @@ def fixId(l, id):
 
 def main():
     
-    f = open("output_list_forbiden", "r")
-    output_list = json.load(f)
-    f.close()
-    #output_list = list()
-    counter = 162
+    #f = open("output_list_forbiden", "r")
+    #output_list = json.load(f)
+    #f.close()
+    output_list = list()
+    counter = 0
     artistNotFound = list()
-    for artist in forbiden:
+    for artist in ArtistList:
         
         temp_list = list()
         artist_id = None
@@ -142,6 +142,8 @@ def main():
 
 
 if __name__ == "__main__":
+    main()
+    """
     f = open("output_list", "r")
     l = json.load(f)
     f.close()
@@ -152,4 +154,4 @@ if __name__ == "__main__":
     f = open("output_list", "w") 
     json.dump(l, f)
     f.close()
-    
+    """

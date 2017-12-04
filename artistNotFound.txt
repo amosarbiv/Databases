@@ -1,0 +1,1 @@
+['Garth Brooks', 'Frank Sinatra', 'Nine Inch Nails', 'Carlos Santana', 'Tupac Shakur', 'Patti Smith', 'Little Richard', 'James Brown']

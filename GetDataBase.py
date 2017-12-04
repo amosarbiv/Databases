@@ -47,17 +47,21 @@ def printRequestToFile(artistName):
     f.write(s)
     f.close()
 
-def filterRawData(result):
+def filterRawData(result, artist_name):
     #filtering out desired paramters
     output_dict = defaultdict()
     
     for entry in result:
         
         if ( entry == "artistId" ):
+            
             output_dict["artistId"] = result["artistId"]
 
         if ( entry == "artistName"):
-            output_dict["artistName"] = result["artistName"]
+            if (artist_name.lower() in result["artistName"].lower()):
+                output_dict["artistName"] = result["artistName"]
+            else:
+                return defaultdict()
 
         if ( entry == "trackId" ):
             output_dict["trackId"] = result["trackId"]
@@ -122,7 +126,7 @@ def main():
         output_dict = defaultdict()
         for result in d['results']:
             
-            output_dict = filterRawData(result)
+            output_dict = filterRawData(result, artist)
 
             if ( len(output_dict) > 0 ):
                 """

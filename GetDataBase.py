@@ -1,6 +1,7 @@
 import urllib.request
 import json
 from collections import defaultdict
+import time
 """
 ArtistList = ["Talking Heads","Carl Perkins","Curtis Mayfield","R.E.M.",
               "Diana Ross and the Supremes","Lynyrd Skynyrd",
@@ -96,8 +97,13 @@ def main():
     output_list = list()
     counter = 0
     artistNotFound = list()
+    sleep_counter = 0
     for artist in ArtistList:
         
+        if sleep_counter == 20 :
+            time.sleep(40)
+            sleep_counter = 0
+
         temp_list = list()
         artist_id = None
 
@@ -128,6 +134,7 @@ def main():
         
         fixId(temp_list, counter)
         counter+=1
+        sleep_counter += 1
         output_list+=temp_list  
 
                 

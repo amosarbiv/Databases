@@ -1,18 +1,7 @@
-import mysql.connector
-from mysql.connector import errorcode
+import MySQLdb
 import json
 
-try:
-    cnx = mysql.connector.connect(user='root', password='LA1026vi',
-                                  host='127.0.0.1',
-                                  database='test')
-except mysql.connector.Error as err:
-  if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-    print("Something is wrong with your user name or password")
-  elif err.errno == errorcode.ER_BAD_DB_ERROR:
-    print("Database does not exist")
-  else:
-    print(err)
+cursor = MySQLdb.connect('localhost', db='sqldb', user='root', password='64645264', port=3306)
   
 try:
     json_data = open('Tables//ArtistsTable.json')
@@ -26,57 +15,177 @@ try:
     json_data = open('Tables//ArtistSongTable.json')
     ArtistSongTable = json.load(json_data)
     json_data = open('Tables//Playlists.json')
-    Playlists = json.load(json_data)
+    PlaylistsTable = json.load(json_data)
     json_data = open('Tables//Rankings.json')
-    Rankings = json.load(json_data)
+    RankingsTable = json.load(json_data)
     json_data = open('Tables//SongsTable.json')
     SongsTable = json.load(json_data)
     json_data = open('Tables//UserPlaylists.json')
-    UserPlaylists = json.load(json_data)
+    UserPlaylistsTable = json.load(json_data)
     json_data = open('Tables//UsersTable.json')
     UsersTable = json.load(json_data)
     json_data = open('Tables//Views.json')
-    Views = json.load(json_data)
+    ViewsTable = json.load(json_data)
     #print(jsonobject)
-    cursor = cnx.cursor()
+    cursor2=cursor.cursor()
     
-    createJson = "CREATE TABLE Artists (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE AlbumArtist (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE AlbumSongs (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE Album (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE ArtistSong (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE Playlists (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE Rankings (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE Songs (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE UserPlaylists (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE Users (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
-    createJson = "CREATE TABLE Views (artistId varchar(250),artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
-    cursor.execute(createJson)
+    createJson = "CREATE TABLE Artists (artistId int, artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE AlbumArtist (artistId int, collectionId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE AlbumSongs (trackId int, collectionId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE Album (collectionName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, collectionId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE ArtistSong (trackId int, artistId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE Playlists (playlistId int, userId int, privacy varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, trackId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE Rankings (ranking int, userId int, trackId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE Songs (primaryGenreName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, trackName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, trackTimeMillis int, releaseDate Date, trackId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE UserPlaylists (playlistId int, userId int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE Users (firstName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, lastName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, userId int, country varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, gender varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, age int);"
+    cursor.query(createJson)
+    createJson = "CREATE TABLE Views (userId int, views int, trackId int);"
+    cursor.query(createJson)
 
     columns_names = ["artistId", "artistName"]
     columns_names_str = ', '.join(columns_names)
     binds_str = ', '.join('%s' for _ in range(len(columns_names)))
-    for data_dict in jsonobject:
-        print(data_dict)
-        sql = ("INSERT INTO json_test ({columns_names}) "
+    for data_dict in ArtistsTable:
+        sql = ("INSERT INTO Artists ({columns_names}) "
                 "VALUES ({binds})"
                 .format(columns_names=columns_names_str,
                         binds=binds_str))
-        values = [data_dict["artistId"],data_dict["artistName"]]
-        cursor.execute(sql, values)
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
     print("Insert successfull!")
-    cnx.commit()
+	
+    columns_names = ["artistId", "collectionId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in AlbumArtistTable:
+        sql = ("INSERT INTO AlbumArtist ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["trackId", "collectionId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in AlbumSongsTable:
+        sql = ("INSERT INTO AlbumSongs ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["collectionName", "collectionId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in AlbumTable:
+        sql = ("INSERT INTO Album ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["trackId", "artistId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in ArtistSongTable:
+        sql = ("INSERT INTO ArtistSong ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["playlistId", "userId", "privacy", "trackId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in PlaylistsTable:
+        sql = ("INSERT INTO Playlists ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["ranking", "userId", "trackId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in RankingsTable:
+        sql = ("INSERT INTO Rankings ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["primaryGenreName", "trackName", "trackTimeMillis", "releaseDate", "trackId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in SongsTable:
+        data_dict["releaseDate"]=data_dict["releaseDate"][:10]
+        sql = ("INSERT INTO Songs ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["firstName", "lastName", "userId", "country", "gender", "age"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in UsersTable:
+        sql = ("INSERT INTO Users ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+	
+    columns_names = ["userId", "views", "trackId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in ViewsTable:
+        sql = ("INSERT INTO Views ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+
+    columns_names = ["playlistId", "userId"]
+    columns_names_str = ', '.join(columns_names)
+    binds_str = ', '.join('%s' for _ in range(len(columns_names)))
+    for data_dict in UserPlaylistsTable:
+        sql = ("INSERT INTO UserPlaylists ({columns_names}) "
+                "VALUES ({binds})"
+                .format(columns_names=columns_names_str,
+                        binds=binds_str))
+        values = [data_dict[column] for column in columns_names]
+        cursor2.execute(sql, values)
+    print("Insert successfull!")
+    cursor.commit()
 finally:
-    cnx.close()
+    cursor.close()
     
 

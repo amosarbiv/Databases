@@ -1,1 +1,467 @@
-[{"artistId": 0, "artistName": "The Rolling Stones"}, {"artistId": 1, "artistName": "Barbra Streisand"}, {"artistId": 2, "artistName": "Garth Brooks"}, {"artistId": 3, "artistName": "Elton John"}, {"artistId": 4, "artistName": "Mariah Carey"}, {"artistId": 5, "artistName": "Herb Alpert"}, {"artistId": 6, "artistName": "Taylor Swift"}, {"artistId": 7, "artistName": "Chicago"}, {"artistId": 8, "artistName": "Michael Jackson"}, {"artistId": 9, "artistName": "Led Zeppelin"}, {"artistId": 10, "artistName": "Bruce Springsteen"}, {"artistId": 11, "artistName": "Rod Stewart"}, {"artistId": 12, "artistName": "Eminem"}, {"artistId": 13, "artistName": "Whitney Houston"}, {"artistId": 14, "artistName": "Billy Joel"}, {"artistId": 15, "artistName": "Madonna"}, {"artistId": 16, "artistName": "Fleetwood Mac"}, {"artistId": 18, "artistName": "Neil Diamond"}, {"artistId": 19, "artistName": "John Denver"}, {"artistId": 20, "artistName": "Janet Jackson"}, {"artistId": 21, "artistName": "Carole King"}, {"artistId": 22, "artistName": "Miley Cyrus"}, {"artistId": 23, "artistName": "Nickelback"}, {"artistId": 24, "artistName": "Tim McGraw"}, {"artistId": 25, "artistName": "Van Halen"}, {"artistId": 26, "artistName": "Adele"}, {"artistId": 27, "artistName": "Britney Spears"}, {"artistId": 28, "artistName": "Usher"}, {"artistId": 30, "artistName": "Alan Jackson"}, {"artistId": 31, "artistName": "Bon Jovi"}, {"artistId": 32, "artistName": "Shania Twain"}, {"artistId": 33, "artistName": "Carrie Underwood"}, {"artistId": 34, "artistName": "The Monkees"}, {"artistId": 35, "artistName": "The Supremes"}, {"artistId": 36, "artistName": "Alicia Keys"}, {"artistId": 37, "artistName": "Def Leppard"}, {"artistId": 38, "artistName": "Paul McCartney"}, {"artistId": 39, "artistName": "Linda Ronstadt"}, {"artistId": 40, "artistName": "Journey"}, {"artistId": 41, "artistName": "Mary J. Blige"}, {"artistId": 42, "artistName": "Jethro Tull"}, {"artistId": 43, "artistName": "Rascal Flatts"}, {"artistId": 44, "artistName": "Foreigner"}, {"artistId": 45, "artistName": "John Mellencamp"}, {"artistId": 46, "artistName": "Kenny Chesney"}, {"artistId": 47, "artistName": "Kid Rock"}, {"artistId": 48, "artistName": "Andy Williams"}, {"artistId": 49, "artistName": "George Strait"}, {"artistId": 50, "artistName": "Backstreet Boys"}, {"artistId": 51, "artistName": "Michael Bolton"}, {"artistId": 52, "artistName": "Lionel Richie"}, {"artistId": 53, "artistName": "Cat Stevens"}, {"artistId": 54, "artistName": "Bob Seger"}, {"artistId": 56, "artistName": "Pearl Jam"}, {"artistId": 57, "artistName": "Toby Keith"}, {"artistId": 58, "artistName": "Paul Simon"}, {"artistId": 59, "artistName": "The Moody Blues"}, {"artistId": 60, "artistName": "Justin Bieber"}, {"artistId": 61, "artistName": "Norah Jones"}, {"artistId": 62, "artistName": "Creedence Clearwater Revival"}, {"artistId": 63, "artistName": "Nelly"}, {"artistId": 64, "artistName": "The Doobie Brothers"}, {"artistId": 66, "artistName": "Josh Groban"}, {"artistId": 67, "artistName": "Frank Sinatra"}, {"artistId": 68, "artistName": "Green Day"}, {"artistId": 69, "artistName": "Dixie Chicks"}, {"artistId": 70, "artistName": "Earth, Wind & Fire"}, {"artistId": 71, "artistName": "Heart"}, {"artistId": 72, "artistName": "Lady Gaga"}, {"artistId": 73, "artistName": "R. Kelly"}, {"artistId": 74, "artistName": "Boyz II Men"}, {"artistId": 75, "artistName": "Kenny G"}, {"artistId": 76, "artistName": "Talking Heads"}, {"artistId": 77, "artistName": "Carl Perkins"}, {"artistId": 78, "artistName": "Curtis Mayfield"}, {"artistId": 79, "artistName": "R.E.M."}, {"artistId": 80, "artistName": "Lynyrd Skynyrd"}, {"artistId": 81, "artistName": "Nine Inch Nails"}, {"artistId": 84, "artistName": "Tom Petty"}, {"artistId": 85, "artistName": "Carlos Santana"}, {"artistId": 86, "artistName": "The Yardbirds"}, {"artistId": 87, "artistName": "Jay-Z"}, {"artistId": 88, "artistName": "Gram Parsons"}, {"artistId": 89, "artistName": "Tupac Shakur"}, {"artistId": 90, "artistName": "Black Sabbath"}, {"artistId": 91, "artistName": "James Taylor"}, {"artistId": 92, "artistName": "Creedence Clearwater Revival"}, {"artistId": 93, "artistName": "The Drifters"}, {"artistId": 94, "artistName": "Elvis Costello"}, {"artistId": 96, "artistName": "The Stooges"}, {"artistId": 97, "artistName": "Beastie Boys"}, {"artistId": 98, "artistName": "The Shirelles"}, {"artistId": 99, "artistName": "Eagles"}, {"artistId": 100, "artistName": "Hank Williams"}, {"artistId": 101, "artistName": "Radiohead"}, {"artistId": 102, "artistName": "AC/DC"}, {"artistId": 103, "artistName": "Frank Zappa"}, {"artistId": 104, "artistName": "The Police"}, {"artistId": 105, "artistName": "Jackie Wilson"}, {"artistId": 106, "artistName": "The Temptations"}, {"artistId": 107, "artistName": "Cream"}, {"artistId": 108, "artistName": "Al Green"}, {"artistId": 109, "artistName": "The Kinks"}, {"artistId": 110, "artistName": "Phil Spector"}, {"artistId": 111, "artistName": "Tina Turner"}, {"artistId": 112, "artistName": "Joni Mitchell"}, {"artistId": 113, "artistName": "Metallica"}, {"artistId": 115, "artistName": "Aerosmith"}, {"artistId": 117, "artistName": "Grateful Dead"}, {"artistId": 118, "artistName": "Dr. Dre"}, {"artistId": 119, "artistName": "Eric Clapton"}, {"artistId": 120, "artistName": "Howlin' Wolf"}, {"artistId": 121, "artistName": "The Allman Brothers Band"}, {"artistId": 122, "artistName": "Queen"}, {"artistId": 123, "artistName": "Pink Floyd"}, {"artistId": 124, "artistName": "The Band"}, {"artistId": 125, "artistName": "Run-DMC"}, {"artistId": 126, "artistName": "Patti Smith"}, {"artistId": 127, "artistName": "Janis Joplin"}, {"artistId": 128, "artistName": "The Byrds"}, {"artistId": 129, "artistName": "Public Enemy"}, {"artistId": 131, "artistName": "Van Morrison"}, {"artistId": 132, "artistName": "The Doors"}, {"artistId": 134, "artistName": "David Bowie"}, {"artistId": 135, "artistName": "John Lennon"}, {"artistId": 136, "artistName": "Roy Orbison"}, {"artistId": 137, "artistName": "Neil Young"}, {"artistId": 138, "artistName": "The Everly Brothers"}, {"artistId": 140, "artistName": "Johnny Cash"}, {"artistId": 141, "artistName": "Nirvana"}, {"artistId": 142, "artistName": "The Who"}, {"artistId": 143, "artistName": "The Clash"}, {"artistId": 144, "artistName": "Prince"}, {"artistId": 146, "artistName": "Fats Domino"}, {"artistId": 147, "artistName": "Jerry Lee Lewis"}, {"artistId": 148, "artistName": "U2"}, {"artistId": 149, "artistName": "Otis Redding"}, {"artistId": 150, "artistName": "Bo Diddley"}, {"artistId": 151, "artistName": "The Velvet Underground"}, {"artistId": 152, "artistName": "Marvin Gaye"}, {"artistId": 153, "artistName": "Muddy Waters"}, {"artistId": 154, "artistName": "Sam Cooke"}, {"artistId": 155, "artistName": "Stevie Wonder"}, {"artistId": 156, "artistName": "Buddy Holly"}, {"artistId": 157, "artistName": "The Beach Boys"}, {"artistId": 158, "artistName": "Bob Marley"}, {"artistId": 159, "artistName": "Ray Charles"}, {"artistId": 160, "artistName": "Aretha Franklin"}, {"artistId": 161, "artistName": "Little Richard"}, {"artistId": 162, "artistName": "James Brown"}, {"artistId": 163, "artistName": "Jimi Hendrix"}, {"artistId": 164, "artistName": "Chuck Berry"}, {"artistId": 165, "artistName": "Elvis Presley"}, {"artistId": 166, "artistName": "Bob Dylan"}, {"artistId": 167, "artistName": "The Beatles"}]
+[{
+		"artistId": 0,
+		"artistName": "The Rolling Stones"
+	}, {
+		"artistId": 1,
+		"artistName": "Barbra Streisand"
+	}, {
+		"artistId": 2,
+		"artistName": "Garth Brooks"
+	}, {
+		"artistId": 3,
+		"artistName": "Elton John"
+	}, {
+		"artistId": 4,
+		"artistName": "Mariah Carey"
+	}, {
+		"artistId": 5,
+		"artistName": "Herb Alpert"
+	}, {
+		"artistId": 6,
+		"artistName": "Taylor Swift"
+	}, {
+		"artistId": 7,
+		"artistName": "Chicago"
+	}, {
+		"artistId": 8,
+		"artistName": "Michael Jackson"
+	}, {
+		"artistId": 9,
+		"artistName": "Led Zeppelin"
+	}, {
+		"artistId": 10,
+		"artistName": "Bruce Springsteen"
+	}, {
+		"artistId": 11,
+		"artistName": "Rod Stewart"
+	}, {
+		"artistId": 12,
+		"artistName": "Eminem"
+	}, {
+		"artistId": 13,
+		"artistName": "Whitney Houston"
+	}, {
+		"artistId": 14,
+		"artistName": "Billy Joel"
+	}, {
+		"artistId": 15,
+		"artistName": "Madonna"
+	}, {
+		"artistId": 16,
+		"artistName": "Fleetwood Mac"
+	}, {
+		"artistId": 18,
+		"artistName": "Neil Diamond"
+	}, {
+		"artistId": 19,
+		"artistName": "John Denver"
+	}, {
+		"artistId": 20,
+		"artistName": "Janet Jackson"
+	}, {
+		"artistId": 21,
+		"artistName": "Carole King"
+	}, {
+		"artistId": 22,
+		"artistName": "Miley Cyrus"
+	}, {
+		"artistId": 23,
+		"artistName": "Nickelback"
+	}, {
+		"artistId": 24,
+		"artistName": "Tim McGraw"
+	}, {
+		"artistId": 25,
+		"artistName": "Van Halen"
+	}, {
+		"artistId": 26,
+		"artistName": "Adele"
+	}, {
+		"artistId": 27,
+		"artistName": "Britney Spears"
+	}, {
+		"artistId": 28,
+		"artistName": "Usher"
+	}, {
+		"artistId": 30,
+		"artistName": "Alan Jackson"
+	}, {
+		"artistId": 31,
+		"artistName": "Bon Jovi"
+	}, {
+		"artistId": 32,
+		"artistName": "Shania Twain"
+	}, {
+		"artistId": 33,
+		"artistName": "Carrie Underwood"
+	}, {
+		"artistId": 34,
+		"artistName": "The Monkees"
+	}, {
+		"artistId": 35,
+		"artistName": "The Supremes"
+	}, {
+		"artistId": 36,
+		"artistName": "Alicia Keys"
+	}, {
+		"artistId": 37,
+		"artistName": "Def Leppard"
+	}, {
+		"artistId": 38,
+		"artistName": "Paul McCartney"
+	}, {
+		"artistId": 39,
+		"artistName": "Linda Ronstadt"
+	}, {
+		"artistId": 40,
+		"artistName": "Journey"
+	}, {
+		"artistId": 41,
+		"artistName": "Mary J. Blige"
+	}, {
+		"artistId": 42,
+		"artistName": "Jethro Tull"
+	}, {
+		"artistId": 43,
+		"artistName": "Rascal Flatts"
+	}, {
+		"artistId": 44,
+		"artistName": "Foreigner"
+	}, {
+		"artistId": 45,
+		"artistName": "John Mellencamp"
+	}, {
+		"artistId": 46,
+		"artistName": "Kenny Chesney"
+	}, {
+		"artistId": 47,
+		"artistName": "Kid Rock"
+	}, {
+		"artistId": 48,
+		"artistName": "Andy Williams"
+	}, {
+		"artistId": 49,
+		"artistName": "George Strait"
+	}, {
+		"artistId": 50,
+		"artistName": "Backstreet Boys"
+	}, {
+		"artistId": 51,
+		"artistName": "Michael Bolton"
+	}, {
+		"artistId": 52,
+		"artistName": "Lionel Richie"
+	}, {
+		"artistId": 53,
+		"artistName": "Cat Stevens"
+	}, {
+		"artistId": 54,
+		"artistName": "Bob Seger"
+	}, {
+		"artistId": 56,
+		"artistName": "Pearl Jam"
+	}, {
+		"artistId": 57,
+		"artistName": "Toby Keith"
+	}, {
+		"artistId": 58,
+		"artistName": "Paul Simon"
+	}, {
+		"artistId": 59,
+		"artistName": "The Moody Blues"
+	}, {
+		"artistId": 60,
+		"artistName": "Justin Bieber"
+	}, {
+		"artistId": 61,
+		"artistName": "Norah Jones"
+	}, {
+		"artistId": 62,
+		"artistName": "Creedence Clearwater Revival"
+	}, {
+		"artistId": 63,
+		"artistName": "Nelly"
+	}, {
+		"artistId": 64,
+		"artistName": "The Doobie Brothers"
+	}, {
+		"artistId": 66,
+		"artistName": "Josh Groban"
+	}, {
+		"artistId": 67,
+		"artistName": "Frank Sinatra"
+	}, {
+		"artistId": 68,
+		"artistName": "Green Day"
+	}, {
+		"artistId": 69,
+		"artistName": "Dixie Chicks"
+	}, {
+		"artistId": 70,
+		"artistName": "Earth, Wind & Fire"
+	}, {
+		"artistId": 71,
+		"artistName": "Heart"
+	}, {
+		"artistId": 72,
+		"artistName": "Lady Gaga"
+	}, {
+		"artistId": 73,
+		"artistName": "R. Kelly"
+	}, {
+		"artistId": 74,
+		"artistName": "Boyz II Men"
+	}, {
+		"artistId": 75,
+		"artistName": "Kenny G"
+	}, {
+		"artistId": 76,
+		"artistName": "Talking Heads"
+	}, {
+		"artistId": 77,
+		"artistName": "Carl Perkins"
+	}, {
+		"artistId": 78,
+		"artistName": "Curtis Mayfield"
+	}, {
+		"artistId": 79,
+		"artistName": "R.E.M."
+	}, {
+		"artistId": 80,
+		"artistName": "Lynyrd Skynyrd"
+	}, {
+		"artistId": 81,
+		"artistName": "Nine Inch Nails"
+	}, {
+		"artistId": 84,
+		"artistName": "Tom Petty"
+	}, {
+		"artistId": 85,
+		"artistName": "Carlos Santana"
+	}, {
+		"artistId": 86,
+		"artistName": "The Yardbirds"
+	}, {
+		"artistId": 87,
+		"artistName": "Jay-Z"
+	}, {
+		"artistId": 88,
+		"artistName": "Gram Parsons"
+	}, {
+		"artistId": 89,
+		"artistName": "Tupac Shakur"
+	}, {
+		"artistId": 90,
+		"artistName": "Black Sabbath"
+	}, {
+		"artistId": 91,
+		"artistName": "James Taylor"
+	}, {
+		"artistId": 92,
+		"artistName": "Creedence Clearwater Revival"
+	}, {
+		"artistId": 93,
+		"artistName": "The Drifters"
+	}, {
+		"artistId": 94,
+		"artistName": "Elvis Costello"
+	}, {
+		"artistId": 96,
+		"artistName": "The Stooges"
+	}, {
+		"artistId": 97,
+		"artistName": "Beastie Boys"
+	}, {
+		"artistId": 98,
+		"artistName": "The Shirelles"
+	}, {
+		"artistId": 99,
+		"artistName": "Eagles"
+	}, {
+		"artistId": 100,
+		"artistName": "Hank Williams"
+	}, {
+		"artistId": 101,
+		"artistName": "Radiohead"
+	}, {
+		"artistId": 102,
+		"artistName": "AC/DC"
+	}, {
+		"artistId": 103,
+		"artistName": "Frank Zappa"
+	}, {
+		"artistId": 104,
+		"artistName": "The Police"
+	}, {
+		"artistId": 105,
+		"artistName": "Jackie Wilson"
+	}, {
+		"artistId": 106,
+		"artistName": "The Temptations"
+	}, {
+		"artistId": 107,
+		"artistName": "Cream"
+	}, {
+		"artistId": 108,
+		"artistName": "Al Green"
+	}, {
+		"artistId": 109,
+		"artistName": "The Kinks"
+	}, {
+		"artistId": 110,
+		"artistName": "Phil Spector"
+	}, {
+		"artistId": 111,
+		"artistName": "Tina Turner"
+	}, {
+		"artistId": 112,
+		"artistName": "Joni Mitchell"
+	}, {
+		"artistId": 113,
+		"artistName": "Metallica"
+	}, {
+		"artistId": 115,
+		"artistName": "Aerosmith"
+	}, {
+		"artistId": 117,
+		"artistName": "Grateful Dead"
+	}, {
+		"artistId": 118,
+		"artistName": "Dr. Dre"
+	}, {
+		"artistId": 119,
+		"artistName": "Eric Clapton"
+	}, {
+		"artistId": 120,
+		"artistName": "Howlin' Wolf"
+	}, {
+		"artistId": 121,
+		"artistName": "The Allman Brothers Band"
+	}, {
+		"artistId": 122,
+		"artistName": "Queen"
+	}, {
+		"artistId": 123,
+		"artistName": "Pink Floyd"
+	}, {
+		"artistId": 124,
+		"artistName": "The Band"
+	}, {
+		"artistId": 125,
+		"artistName": "Run-DMC"
+	}, {
+		"artistId": 126,
+		"artistName": "Patti Smith"
+	}, {
+		"artistId": 127,
+		"artistName": "Janis Joplin"
+	}, {
+		"artistId": 128,
+		"artistName": "The Byrds"
+	}, {
+		"artistId": 129,
+		"artistName": "Public Enemy"
+	}, {
+		"artistId": 131,
+		"artistName": "Van Morrison"
+	}, {
+		"artistId": 132,
+		"artistName": "The Doors"
+	}, {
+		"artistId": 134,
+		"artistName": "David Bowie"
+	}, {
+		"artistId": 135,
+		"artistName": "John Lennon"
+	}, {
+		"artistId": 136,
+		"artistName": "Roy Orbison"
+	}, {
+		"artistId": 137,
+		"artistName": "Neil Young"
+	}, {
+		"artistId": 138,
+		"artistName": "The Everly Brothers"
+	}, {
+		"artistId": 140,
+		"artistName": "Johnny Cash"
+	}, {
+		"artistId": 141,
+		"artistName": "Nirvana"
+	}, {
+		"artistId": 142,
+		"artistName": "The Who"
+	}, {
+		"artistId": 143,
+		"artistName": "The Clash"
+	}, {
+		"artistId": 144,
+		"artistName": "Prince"
+	}, {
+		"artistId": 146,
+		"artistName": "Fats Domino"
+	}, {
+		"artistId": 147,
+		"artistName": "Jerry Lee Lewis"
+	}, {
+		"artistId": 148,
+		"artistName": "U2"
+	}, {
+		"artistId": 149,
+		"artistName": "Otis Redding"
+	}, {
+		"artistId": 150,
+		"artistName": "Bo Diddley"
+	}, {
+		"artistId": 151,
+		"artistName": "The Velvet Underground"
+	}, {
+		"artistId": 152,
+		"artistName": "Marvin Gaye"
+	}, {
+		"artistId": 153,
+		"artistName": "Muddy Waters"
+	}, {
+		"artistId": 154,
+		"artistName": "Sam Cooke"
+	}, {
+		"artistId": 155,
+		"artistName": "Stevie Wonder"
+	}, {
+		"artistId": 156,
+		"artistName": "Buddy Holly"
+	}, {
+		"artistId": 157,
+		"artistName": "The Beach Boys"
+	}, {
+		"artistId": 158,
+		"artistName": "Bob Marley"
+	}, {
+		"artistId": 159,
+		"artistName": "Ray Charles"
+	}, {
+		"artistId": 160,
+		"artistName": "Aretha Franklin"
+	}, {
+		"artistId": 161,
+		"artistName": "Little Richard"
+	}, {
+		"artistId": 162,
+		"artistName": "James Brown"
+	}, {
+		"artistId": 163,
+		"artistName": "Jimi Hendrix"
+	}, {
+		"artistId": 164,
+		"artistName": "Chuck Berry"
+	}, {
+		"artistId": 165,
+		"artistName": "Elvis Presley"
+	}, {
+		"artistId": 166,
+		"artistName": "Bob Dylan"
+	}, {
+		"artistId": 167,
+		"artistName": "The Beatles"
+	}
+]

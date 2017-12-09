@@ -1,7 +1,7 @@
 import MySQLdb
 import json
 
-cursor = MySQLdb.connect('localhost', db='sqldb', user='root', password='', port=3306)
+cursor = MySQLdb.connect('localhost', db='sqldatabase15', user='root', password='THKfruc97##', port=3306)
   
 try:
     json_data = open('Tables//ArtistsTable.json')
@@ -49,7 +49,7 @@ try:
     cursor.query(createJson)
     createJson = "CREATE TABLE Users (firstName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, lastName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, userId int, country varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, gender varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, age int);"
     cursor.query(createJson)
-    createJson = "CREATE TABLE Views (userId int, views int, trackId int);"
+    createJson = "CREATE TABLE UserViews (userId int, numOfViews int, trackId int);"
     cursor.query(createJson)
 
     columns_names = ["artistId", "artistName"]
@@ -161,11 +161,11 @@ try:
         cursor2.execute(sql, values)
     print("Insert successfull!")
 	
-    columns_names = ["userId", "views", "trackId"]
+    columns_names = ["userId", "numOfViews", "trackId"]
     columns_names_str = ', '.join(columns_names)
     binds_str = ', '.join('%s' for _ in range(len(columns_names)))
     for data_dict in ViewsTable:
-        sql = ("INSERT INTO Views ({columns_names}) "
+        sql = ("INSERT INTO UserViews ({columns_names}) "
                 "VALUES ({binds})"
                 .format(columns_names=columns_names_str,
                         binds=binds_str))

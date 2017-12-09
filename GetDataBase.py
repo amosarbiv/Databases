@@ -1,7 +1,6 @@
 import urllib.request
-import json
+import json, time
 from collections import defaultdict
-import time
 """
 ArtistList = ["Talking Heads","Carl Perkins","Curtis Mayfield","R.E.M.",
               "Diana Ross and the Supremes","Lynyrd Skynyrd",
@@ -34,6 +33,7 @@ ArtistList = ["Talking Heads","Carl Perkins","Curtis Mayfield","R.E.M.",
 forbiden = ['Jackie Wilson', 'Cream', 'The Everly Brothers', 'Jimi Hendrix']
 
 
+#f = open("artists.json", "r")
 f = open("artists.json", "r")
 ArtistList = json.load(f)
 f.close()
@@ -41,27 +41,28 @@ f.close()
 def printRequestToFile(artistName):
     if ( " " in artistName ):
             artistName = artistName.replace(" ","+")
-    response = urllib.request.urlopen("https://itunes.apple.com/search?term=%s&attribute=artistTerm&limit=200"%artistName)
+    response = urllib.request.urlopen("https://itunes.apple.com/search?term=%s&entity=song&attribute=artistTerm&limit=200"%artistName)
     f = open("1.txt","w")
-    s = str(response.read().decode('utf-8', errors='ignore'))
+    s = response.read().decode('utf-8').encode('ascii','ignore')
+    s = s.decode('utf-8')
     f.write(s)
     f.close()
 
-def filterRawData(result, artist_name):
+def filterRawData(artistName, result):
     #filtering out desired paramters
     output_dict = defaultdict()
     
     for entry in result:
         
         if ( entry == "artistId" ):
-            
             output_dict["artistId"] = result["artistId"]
 
         if ( entry == "artistName"):
-            if (artist_name.lower() in result["artistName"].lower()):
+            if(artistName in result["artistName"]):
                 output_dict["artistName"] = result["artistName"]
             else:
-                return defaultdict()
+                output_dict = defaultdict()
+                return output_dict
 
         if ( entry == "trackId" ):
             output_dict["trackId"] = result["trackId"]
@@ -99,15 +100,12 @@ def main():
     #output_list = json.load(f)
     #f.close()
     output_list = list()
-    counter = 0
+    counter = 167
     artistNotFound = list()
-    sleep_counter = 0
     for artist in ArtistList:
+        if((artist != "Beatles")):
+            continue
         
-        if sleep_counter == 20 :
-            time.sleep(40)
-            sleep_counter = 0
-
         temp_list = list()
         artist_id = None
 
@@ -126,7 +124,7 @@ def main():
         output_dict = defaultdict()
         for result in d['results']:
             
-            output_dict = filterRawData(result, artist)
+            output_dict = filterRawData(artist, result)
 
             if ( len(output_dict) > 0 ):
                 """
@@ -138,14 +136,15 @@ def main():
         
         fixId(temp_list, counter)
         counter+=1
-        sleep_counter += 1
         output_list+=temp_list  
+        if(counter%20==0):
+            time.sleep(60)
 
                 
 
         f.close()
     
-    f = open("output_list_forbiden","w")
+    f = open("output_list","w")
     json.dump(output_list, f)
 
     print("Artists not found:")

@@ -3,7 +3,7 @@ from collections import defaultdict
 
 def main():
     
-    f = open("output_list", "r")
+    f = open("output_list_forbiden", "r")
     
     dataBase = json.load(f)
     f.close()
@@ -73,6 +73,10 @@ def main():
         artistsTable.append(artistDict)
         albumArtistTable.append(albumArtistDict)
 
+    
+    
+    
+
     f = open("Tables//SongsTable.json","w")
     json.dump(songsTable, f)
     f.close()
@@ -93,11 +97,49 @@ def main():
     json.dump(artistSongTable, f)
     f.close()
 
-    f = open("AlbumArtistTable.json","w")
+    f = open("Tables//AlbumArtistTable.json","w")
     json.dump(albumArtistTable, f)
     f.close()    
 
-            
+
+def removeduplicate(it):
+    seen = set()
+    for x in it:
+        t = tuple(x.items())
+        if t not in seen:
+            yield x
+            seen.add(t)      
         
 if __name__ == "__main__":
-    main()
+    f = open("Tables//AlbumTable.json","r")
+    albumTable = json.load(f)
+    f.close()
+    albumTableNew = []
+    for d in removeduplicate(albumTable):
+        albumTableNew.append(d)
+
+    f = open("Tables//AlbumTable.json","w")
+    json.dump(albumTableNew, f)
+    f.close()
+
+    f = open("Tables//ArtistsTable.json","r")
+    ArtistsTable = json.load(f)
+    f.close()
+    ArtistsTableNew = []
+    for d in removeduplicate(ArtistsTable):
+        ArtistsTableNew.append(d)
+
+    f = open("Tables//ArtistsTable.json","w")
+    json.dump(ArtistsTableNew, f)
+    f.close()
+
+    f = open("Tables//AlbumArtistTable.json","r")
+    AlbumArtistTable = json.load(f)
+    f.close()
+    AlbumArtistTableNew = []
+    for d in removeduplicate(AlbumArtistTable):
+        AlbumArtistTableNew.append(d)
+
+    f = open("Tables//AlbumArtistTable.json","w")
+    json.dump(AlbumArtistTableNew, f)
+    f.close() 

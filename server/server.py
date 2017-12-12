@@ -35,7 +35,7 @@ def post_login3(name):
     return 'failedddddddd'
 
 
-@app.route('/try')
+@app.route('/try', methods=['GET', 'POST'])
 def fuck():
     if request.method == 'GET':
         return render_template('loginPage.html', name = "fuck")
@@ -77,10 +77,11 @@ def post_login2(name):
     else:
         return 'failedddddddd'
 
+"""
 @app.route("/cover/<path>")
 def cover(path):
     return send_file("Styles/"+path, mimetype='image/jpg')
-
+"""
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():

@@ -1,6 +1,6 @@
 body {
   /* Location of the image */
-  background: url(http://127.0.0.1:8888/cover/coverPhoto.jpg);
+  background: url(/static/images/coverPhoto.jpg);
   
   /* Image is centered vertically and horizontally at all times */
   background-position: center center;

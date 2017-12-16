@@ -45,17 +45,17 @@ def main():
                 playlistDic["privacy"] = "private"
             viewDic["trackId"] = songsId[songIdRand]["trackId"]
             rankDic["trackId"] = songsId[songIdRand]["trackId"]
-            viewDic["views"] = viewNum
+            viewDic["numberOfViews"] = viewNum
             rankDic["ranking"] = rank
             views.append(viewDic)
             ranks.append(rankDic)
             playlist.append(playlistDic)
         counter += 1
 
-    f = open("Tables//Views.json","w")
+    f = open("Tables//UserViews.json","w")
     json.dump(views, f)
     f.close()
-    f = open("Tables//Rankings.json","w")
+    f = open("Tables//UserRankings.json","w")
     json.dump(ranks, f)
     f.close()
     f = open("Tables//UserPlaylists.json","w")

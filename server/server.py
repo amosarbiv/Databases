@@ -7,6 +7,7 @@ FB = ""
 
 @app.route('/sign/loginPage.html', methods=['GET', 'POST'])
 def loginPage():
+    global DB
     if request.method == 'GET':
         return GET_Login()
 
@@ -50,9 +51,10 @@ def post_login2(name):
 
 if __name__ == '__main__':
     global DB
+    DB = DBapi.DB("root", "", "DbMysql15")
     app.secret_key = 'itsasecret'
     app.run(port=8888, host="0.0.0.0", debug=True)
-    DB = DBapi.DB("root", "", "DbMysql15")
+    
 
 
 

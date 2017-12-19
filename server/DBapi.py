@@ -5,7 +5,7 @@ import os
 class DB():
     def __init__(self, DBUserName, DBPasswd,DBName, DBPort=3306,DBhost="localhost"):
 
-        logging.basicConfig(fillename="API.log", level=logging.DEBUG)
+        logging.basicConfig(level=logging.DEBUG)
         self.logger = logging.getLogger("DBapi")
         
         try:

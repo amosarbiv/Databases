@@ -3,17 +3,17 @@ import logging
 import os
 
 class DB():
-    def __init__(self):
+    def __init__(self, DBUserName, DBPasswd,DBName, DBPort=3306,DBhost="localhost"):
 
         logging.basicConfig(fillename="API.log", level=logging.DEBUG)
         self.logger = logging.getLogger("DBapi")
         
         try:
-            self.DB = sql.connect(host="localhost",
-                                    user="root",
-                                    passwd="",
-                                    db="DbMysql15",
-                                    port=3305)
+            self.DB = sql.connect(host=DBhost,
+                                    user=DBUserName,
+                                    passwd=DBPasswd,
+                                    db=DBName,
+                                    port=DBPort)
         except Exception as e:
             self.logger.error("Error in logging to DB: %s"%str(e))
             os._exit(0)

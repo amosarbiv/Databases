@@ -52,7 +52,7 @@ if __name__ == '__main__':
     global DB
     app.secret_key = 'itsasecret'
     app.run(port=8888, host="0.0.0.0", debug=True)
-    DB = DBapi.DB()
+    DB = DBapi.DB("root", "", "DbMysql15")
 
 
 

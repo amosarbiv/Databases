@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request, make_response,session, send_file
 import datetime
+import DBapi
+
 app = Flask(__name__)
+FB = ""
 
 @app.route('/sign/loginPage.html', methods=['GET', 'POST'])
 def loginPage():
@@ -10,6 +13,14 @@ def loginPage():
     if request.method == 'POST':
         user = request.form['userNameLogin']
         password = request.form['passwordLogin']
+        result = DB.checkPass(user, password)
+        if ( result == -1 ):
+            print("No Such User")
+        else:
+            if ( result ):
+                print("Success")
+            else:
+                print("Failure")
         if user == 'lavi' and password == '1234':
             POST_Login(user, 'False')
         else:
@@ -38,9 +49,10 @@ def post_login2(name):
         return 'failedddddddd'
 
 if __name__ == '__main__':
+    global DB
     app.secret_key = 'itsasecret'
     app.run(port=8888, host="0.0.0.0", debug=True)
-
+    DB = DBapi.DB()
 
 
 

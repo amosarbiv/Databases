@@ -4,10 +4,10 @@ import DBapi
 
 app = Flask(__name__)
 FB = ""
+DB = DBapi.DB("root", "LA1026vi", "test")
 
 @app.route('/sign/loginPage.html', methods=['GET', 'POST'])
 def loginPage():
-    global DB
     if request.method == 'GET':
         return GET_Login()
 
@@ -20,13 +20,10 @@ def loginPage():
             print("No Such User")
         else:
             if ( result ):
-                print("Success")
+                POST_Login(user, "True", chkBox)
             else:
-                print("Failure")
-        if user == 'lavi' and password == '1234':
-            return POST_Login(user, "True", chkBox)
-        else:
-            return render_template('sign/loginPage.html')
+                return render_template('sign/loginPage.html')
+            
 
 def GET_Login():
     is_successful = request.cookies.get('successful_login')
@@ -48,8 +45,6 @@ def PrivateZone(name):
     return render_template('PrivateZone.html', user=name)
 
 if __name__ == '__main__':
-    global DB
-    DB = DBapi.DB("root", "", "DbMysql15")
     app.secret_key = 'itsasecret'
     app.run(port=8888, host="0.0.0.0", debug=True)
     

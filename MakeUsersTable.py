@@ -32,12 +32,15 @@ def main():
                 
         age = randint(0, len(Ages)-1)
         country = randint(0, len(Countries)-1)
-        output_dict["UserId"] = idc
-        output_dict["FirstName"] = MaleFirstNames[countFirst]
-        output_dict["LastName"] = LastNames[countLast]
-        output_dict["Gender"] = "Male"
-        output_dict["Age"] = Ages[age]
-        output_dict["Country"] = Countries[country]
+        privacy = randint(0,1)
+        output_dict["userName"] = MaleFirstNames[countFirst] + LastNames[countLast]
+        output_dict["firstName"] = MaleFirstNames[countFirst]
+        output_dict["lastName"] = LastNames[countLast]
+        output_dict["country"] = Countries[country]
+        output_dict["gender"] = "Male"
+        output_dict["age"] = Ages[age]
+        output_dict["privacy"] = privacy
+        
                         
         idc += 1
         countFirst += 1
@@ -53,12 +56,14 @@ def main():
                 
         age = randint(0, len(Ages)-1)
         country = randint(0, len(Countries)-1)
-        output_dict["UserId"] = idc
+        privacy = randint(0,1)
+        output_dict["userName"] = FemaleFirstNames[countFirst] + LastNames[countLast]
         output_dict["FirstName"] = FemaleFirstNames[countFirst]
         output_dict["LastName"] = LastNames[countLast]
+        output_dict["Country"] = Countries[country]
         output_dict["Gender"] = "Female"
         output_dict["Age"] = Ages[age]
-        output_dict["Country"] = Countries[country]
+        output_dict["privacy"] = privacy
                         
         idc += 1
         countFirst += 1

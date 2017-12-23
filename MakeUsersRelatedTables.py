@@ -9,60 +9,61 @@ def main():
     f = open("Tables//UsersTable.json","r")
     users = json.load(f)
     f.close()
+    f = open("Tables//ArtistsTable.json","r")
+    artists = json.load(f)
+    f.close()
 
-    views = []
-    ranks = []
-    playlistUser = []
-    playlist = []
+    trackUser = []
+    artistRanking = []
     counter = 0
     
     for user in users:
-        playlistUserDic = {}
-        playlistUserDic["userId"] = user["userId"]
-        playlistUserDic["playlistId"] = counter
-        playlistUser.append(playlistUserDic)
-        length = randint(10, 20)
+        length = randint(20, 30)
         for i in range(0,length):
             s = set()
-            viewDic = {}
-            rankDic = {}
-            playlistDic = {}
-            playlistDic["userId"] = user["userId"]
-            viewDic["userId"] = user["userId"]
-            rankDic["userId"] = user["userId"]
-            viewNum = randint(0, 20)
+            trackUserDic = {}
+            
+            isInPlaylist = randint(0,1)
+
+            if(isInPlaylist == 1):
+                viewNum = randint(1, 20)
+            else:
+                viewNum = randint(0, 20)
+            
             songIdRand = randint(0, len(songsId)-1)
             while(songIdRand in s):
                 songIdRand = randint(0, len(songsId)-1)
             s.add(songIdRand)
-            rank = randint(0, 10)
-            publicPrivate = randint(0, 1)
-            playlistDic["playlistId"] = counter
-            playlistDic["trackId"] = songsId[songIdRand]["trackId"]
-            if(publicPrivate == 0):
-                playlistDic["privacy"] = "public"
-            else:
-                playlistDic["privacy"] = "private"
-            viewDic["trackId"] = songsId[songIdRand]["trackId"]
-            rankDic["trackId"] = songsId[songIdRand]["trackId"]
-            viewDic["numberOfViews"] = viewNum
-            rankDic["ranking"] = rank
-            views.append(viewDic)
-            ranks.append(rankDic)
-            playlist.append(playlistDic)
+            rankTrack = randint(1, 10)
+            
+
+            trackUserDic["trackId"] = songsId[songIdRand]["trackId"]
+            trackUserDic["userName"] = user["userName"]
+            trackUserDic["numberOfViews"] = viewNum
+            trackUserDic["trackRank"] = rankTrack
+            trackUserDic["isInPlaylist"] = isInPlaylist
+
+            trackUser.append(trackUserDic)
+
+
+            
+            rankArtists = randint(1, 10)
+            for i in range(0,rankArtists):
+                artistRankingDic = {}
+                randArtist = randint(0, len(artists)-1)
+                rank = randint(1, 10)
+                artistRankingDic["userName"] = user["userName"]
+                artistRankingDic["artistId"] = artists[randArtist]["artistId"]
+                artistRankingDic["artistRanking"] = rank
+                artistRanking.append(artistRankingDic)
         counter += 1
 
-    f = open("Tables//UserViews.json","w")
-    json.dump(views, f)
+
+    f = open("Tables//ArtistRankingTable.json","w")
+    json.dump(artistRanking, f)
     f.close()
-    f = open("Tables//UserRankings.json","w")
-    json.dump(ranks, f)
-    f.close()
-    f = open("Tables//UserPlaylists.json","w")
-    json.dump(playlistUser, f)
-    f.close()
-    f = open("Tables//Playlists.json","w")
-    json.dump(playlist, f)
+    f = open("Tables//TrackUserTable.json","w")
+    json.dump(trackUser, f)
     f.close()
 
 

@@ -13,6 +13,7 @@ def unique(sequence):
     return new_l
 
 def main():
+    """
     f = open("Tables//ArtistsTable.json", "r")
     ArtistList = json.load(f)
     f.close()
@@ -22,11 +23,21 @@ def main():
     f = open("Tables//ArtistCollectionTable.json", "r")
     artistCollectionList = json.load(f)
     f.close()
+    """
+    f = open("Tables//SongsTable.json", "r")
+    songsList = json.load(f)
+    f.close()
 
-    ArtistListResult = unique(ArtistList)
+    songslistResult = unique(songsList)
+    """
     AlbumListResult = unique(AlbumList)
     ArtistCollectionResult = unique(artistCollectionList)
+    """
 
+    f = open("Tables//SongsTable.json", "w")
+    json.dump(songslistResult, f)
+    f.close()
+    """
     f = open("Tables//ArtistsTable.json","w")
     json.dump(ArtistListResult, f)
     f.close()
@@ -36,6 +47,7 @@ def main():
     f = open("Tables//ArtistCollectionTable.json", "w")
     json.dump(ArtistCollectionResult, f)
     f.close()
+    """
 
 if __name__ == "__main__":
     main()

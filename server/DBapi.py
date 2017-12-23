@@ -23,18 +23,20 @@ class DB():
     def CheckUserLogin(self, userName, password):
         query = "SELECT userLogin.UserName, userLogin.Password FROM userLogin WHERE userLogin.UserName='%s'"%userName
         self.cur.execute(query)
-
         results = self.cur.fetchall()
-
         if ( len(results) == 0 ):
             return -1 #meaning no such user 
-        
-        if ( len(results) > 1 ):
-            self.logger.error("got more than one user...its a problem")
-            return None
 
         (user, passwd) = results[0]
         if ( password == passwd ):
             return True
         else:
             return False
+
+    def CreateUser(self, user, password, firstName, lastName, age, country):
+        userExist = CheckUserLogin(self, user, password)
+        if(userExist != -1):
+            return False
+        else:
+            query = "INSERT INTO test.userlogin (userName, userPass, firstName, lastName, age, country) VALUES ('%s', '%s', '%s', %s, '%s');"
+            self.cur.execute(query, (user, password, firstName, lastName, age, country))

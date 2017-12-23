@@ -35,6 +35,8 @@ def SignUpAction():
         lastName = request.form['lastName']
         age = request.form['age']
         country = request.form['country']
+
+        result = DB.CreateUser(user, password, firstName, lastName, age, country)
             
 
 def GET_Login():

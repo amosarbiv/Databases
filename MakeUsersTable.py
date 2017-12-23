@@ -39,7 +39,7 @@ def main():
         output_dict["firstName"] = MaleFirstNames[countFirst]
         output_dict["lastName"] = LastNames[countLast]
         output_dict["country"] = Countries[country]
-        output_dict["gender"] = "Male"
+        output_dict["gender"] = "M"
         output_dict["age"] = Ages[age]
         output_dict["privacy"] = privacy
         
@@ -61,11 +61,11 @@ def main():
         privacy = randint(0,1)
         output_dict["userName"] = FemaleFirstNames[countFirst] + LastNames[countLast]
         output_dict["password"] = ''.join(choices(string.ascii_uppercase + string.digits, k=8))
-        output_dict["FirstName"] = FemaleFirstNames[countFirst]
-        output_dict["LastName"] = LastNames[countLast]
-        output_dict["Country"] = Countries[country]
-        output_dict["Gender"] = "Female"
-        output_dict["Age"] = Ages[age]
+        output_dict["firstName"] = FemaleFirstNames[countFirst]
+        output_dict["lastName"] = LastNames[countLast]
+        output_dict["country"] = Countries[country]
+        output_dict["gender"] = "F"
+        output_dict["age"] = Ages[age]
         output_dict["privacy"] = privacy
                         
         idc += 1

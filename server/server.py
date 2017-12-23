@@ -4,9 +4,9 @@ import DBapi
 
 app = Flask(__name__)
 FB = ""
-DB = DBapi.DB("root", "LA1026vi", "test")
+dataBase = DBapi.DB("root", "LA1026vi", "test")
 
-@app.route('/sign/loginPage.html', methods=['GET', 'POST'])
+@app.route('/sign/loginPage.html', methods=['GET'])
 def loginPage():
     if request.method == 'GET':
         return GET_Login()
@@ -17,7 +17,7 @@ def LoginAction():
         chkBox = request.form.get("checkbox-1")
         user = request.form['userNameLogin']
         password = request.form['passwordLogin']
-        result = DB.CheckUserLogin(user, password)
+        result = dataBase.CheckUserLogin(user, password)
         if ( result == -1 ):
              return render_template('sign/loginPage.html')
         else:
@@ -35,8 +35,19 @@ def SignUpAction():
         lastName = request.form['lastName']
         age = request.form['age']
         country = request.form['country']
+        radioGender = request.form.get("radioGender")
+        if(radioGender == "Male"):
+            radioGender = "M"
+        if(radioGender == "Female"):
+            radioGender = "F"
+        else:
+            radioGender = "N"
 
-        result = DB.CreateUser(user, password, firstName, lastName, age, country)
+        result = dataBase.CreateUser(user, password, firstName, lastName, age, country, radioGender)
+        if(result):
+            return POST_Login(user, "True", False)
+        else:
+            return render_template('sign/loginPage.html')
             
 
 def GET_Login():

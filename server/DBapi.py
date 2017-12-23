@@ -20,8 +20,23 @@ class DB():
         
         self.cur = self.DB.cursor() 
 
+    def CreateUser(self, user, password, firstName, lastName, age, country, radioButton):
+        userExist = self.CheckUserLogin(user, password)
+        if(userExist != -1):
+            print("There is user")
+            return False
+        else:
+            query = "INSERT INTO test.userlogin (userName, userPass, firstName, lastName, age, country, gender) VALUES ('{}', '{}', '{}', '{}', {}, '{}', '{}');".format(user, password, firstName, lastName, age, country, radioButton)
+            try:
+                self.cur.execute(query)
+                self.DB.commit()
+                return True
+            except:
+                self.DB.rollback()
+                return False
+
     def CheckUserLogin(self, userName, password):
-        query = "SELECT userLogin.UserName, userLogin.Password FROM userLogin WHERE userLogin.UserName='%s'"%userName
+        query = "SELECT userLogin.userName, userLogin.userPass FROM userLogin WHERE userLogin.userName='%s'"%userName
         self.cur.execute(query)
         results = self.cur.fetchall()
         if ( len(results) == 0 ):
@@ -32,11 +47,3 @@ class DB():
             return True
         else:
             return False
-
-    def CreateUser(self, user, password, firstName, lastName, age, country):
-        userExist = CheckUserLogin(self, user, password)
-        if(userExist != -1):
-            return False
-        else:
-            query = "INSERT INTO test.userlogin (userName, userPass, firstName, lastName, age, country) VALUES ('%s', '%s', '%s', %s, '%s');"
-            self.cur.execute(query, (user, password, firstName, lastName, age, country))

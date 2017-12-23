@@ -12,6 +12,7 @@ def loginPage():
         return GET_Login()
 
     if request.method == 'POST':
+        chkBox = request.form.get("checkbox-1")
         user = request.form['userNameLogin']
         password = request.form['passwordLogin']
         result = DB.checkPass(user, password)
@@ -23,31 +24,28 @@ def loginPage():
             else:
                 print("Failure")
         if user == 'lavi' and password == '1234':
-            POST_Login(user, 'False')
+            return POST_Login(user, "True", chkBox)
         else:
-            POST_Login('fail', 'True')
+            return render_template('sign/loginPage.html')
 
 def GET_Login():
     is_successful = request.cookies.get('successful_login')
     if is_successful == 'True':
         user = request.cookies.get('userNameLogin')
-        return 'welcome %s' % user
+        return PrivateZone(user)
     else:
         return render_template('sign/loginPage.html')
 
-def POST_Login(user, isSucces):
-    resp = make_response(redirect(url_for('post_login2', name = user)))
-    resp.set_cookie('successful_login', isSucces)
-    resp.set_cookie('userNameLogin', user)
+def POST_Login(user, isSucces, chkBox):
+    resp = make_response(redirect(url_for('PrivateZone', name=user)))
+    if(chkBox):
+        resp.set_cookie('successful_login', isSucces)
+        resp.set_cookie('userNameLogin', user)
     return resp
 
-@app.route('/after_login2/<name>')
-def post_login2(name):
-    is_successful = request.cookies.get('successful_login')
-    if is_successful == 'True':
-        return 'welcome %s' % name
-    else:
-        return 'failedddddddd'
+@app.route('/PrivateZone.html/<name>', methods=['GET', 'POST'])
+def PrivateZone(name):
+    return render_template('PrivateZone.html', user=name)
 
 if __name__ == '__main__':
     global DB

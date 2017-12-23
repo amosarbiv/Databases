@@ -10,6 +10,7 @@ def main():
     artistsTable = list()
     songsTable = list()
     collectionTable = list()
+    artistCollectionTable = list()
 
     for  dictionary in dataBase:
 
@@ -29,7 +30,6 @@ def main():
         #Album Dictionary
         albumDict = defaultdict()
         albumDict["collectionId"] = dictionary["collectionId"]
-        albumDict["artistId"] = dictionary["artistId"]
         albumDict["collectionName"] = dictionary["collectionName"]
         albumDict["collectionReleaseDate"] = dictionary["albumReleaseDate"]
         albumDict["collectionPrice"] = dictionary["collectionPrice"]
@@ -44,6 +44,12 @@ def main():
         artistDict["artistName"] = dictionary["artistName"]
         artistDict["artistPrimaryGenre"] = dictionary["artistPrimaryGenreName"]
         artistsTable.append(artistDict)
+
+        #artistCollection Dictionary
+        artistCollectionDict = defaultdict()
+        artistCollectionDict["artistId"] = dictionary["artistId"]
+        artistCollectionDict["collectionId"] = dictionary["collectionId"]
+        artistCollectionTable.append(artistCollectionDict)
         
     f = open("Tables//SongsTable.json","w")
     json.dump(songsTable, f)
@@ -55,6 +61,10 @@ def main():
 
     f = open("Tables//ArtistsTable.json","w")
     json.dump(artistsTable, f)
+    f.close() 
+
+    f = open("Tables//ArtistCollectionTable.json","w")
+    json.dump(artistCollectionTable, f)
     f.close() 
 
 

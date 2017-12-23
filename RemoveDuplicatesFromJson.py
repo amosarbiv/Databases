@@ -19,15 +19,22 @@ def main():
     f = open("Tables//CollectionTable.json", "r")
     AlbumList = json.load(f)
     f.close()
+    f = open("Tables//ArtistCollectionTable.json", "r")
+    artistCollectionList = json.load(f)
+    f.close()
 
     ArtistListResult = unique(ArtistList)
     AlbumListResult = unique(AlbumList)
+    ArtistCollectionResult = unique(artistCollectionList)
 
     f = open("Tables//ArtistsTable.json","w")
     json.dump(ArtistListResult, f)
     f.close()
     f = open("Tables//CollectionTable.json","w")
     json.dump(AlbumListResult, f)
+    f.close()
+    f = open("Tables//ArtistCollectionTable.json", "w")
+    json.dump(ArtistCollectionResult, f)
     f.close()
 
 if __name__ == "__main__":

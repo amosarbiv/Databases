@@ -20,9 +20,11 @@ class DB():
         
         self.cur = self.DB.cursor() 
 
-    def checkPass(self,gotUser, gotPasswd):
-        results = self.cur.excute("SELECT userLogin.UserName, userLogin.Password FROM userLogin \
-                        WHERE %s=userLogin.UserName" %gotUser)
+    def CheckUserLogin(self, userName, password):
+        query = "SELECT userLogin.UserName, userLogin.Password FROM userLogin WHERE userLogin.UserName='%s'"%userName
+        self.cur.execute(query)
+
+        results = self.cur.fetchall()
 
         if ( len(results) == 0 ):
             return -1 #meaning no such user 
@@ -31,8 +33,8 @@ class DB():
             self.logger.error("got more than one user...its a problem")
             return None
 
-        (userId, user, passwd) = results[0]
-        if ( gotPasswd == passwd ):
+        (user, passwd) = results[0]
+        if ( password == passwd ):
             return True
         else:
             return False

@@ -42,10 +42,7 @@ def main():
             trackUserDic["numberOfViews"] = viewNum
             trackUserDic["trackRank"] = rankTrack
             trackUserDic["isInPlaylist"] = isInPlaylist
-
             trackUser.append(trackUserDic)
-
-
             
             rankArtists = randint(1, 10)
             for i in range(0,rankArtists):

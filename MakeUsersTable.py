@@ -1,7 +1,8 @@
 import urllib.request
 import json
 from collections import defaultdict
-from random import randint
+from random import randint, choices
+import string
 
 def ReadData(fname, listData):
     with open(fname) as f:
@@ -34,6 +35,7 @@ def main():
         country = randint(0, len(Countries)-1)
         privacy = randint(0,1)
         output_dict["userName"] = MaleFirstNames[countFirst] + LastNames[countLast]
+        output_dict["password"] = ''.join(choices(string.ascii_uppercase + string.digits, k=8))
         output_dict["firstName"] = MaleFirstNames[countFirst]
         output_dict["lastName"] = LastNames[countLast]
         output_dict["country"] = Countries[country]
@@ -58,6 +60,7 @@ def main():
         country = randint(0, len(Countries)-1)
         privacy = randint(0,1)
         output_dict["userName"] = FemaleFirstNames[countFirst] + LastNames[countLast]
+        output_dict["password"] = ''.join(choices(string.ascii_uppercase + string.digits, k=8))
         output_dict["FirstName"] = FemaleFirstNames[countFirst]
         output_dict["LastName"] = LastNames[countLast]
         output_dict["Country"] = Countries[country]

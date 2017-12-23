@@ -23,13 +23,13 @@
                   <label>
                     UserName<span class="req">*</span>
                   </label>
-                  <input type="text"required autocomplete="off"/>
+                  <input type="text" name="userNameSignUp" required autocomplete="off"/>
               </div>
               <div class="field-wrap">
                   <label>
                     Password<span class="req">*</span>
                   </label>
-                  <input type="password"required autocomplete="off"/>
+                  <input type="password" name="passwordSignUp" required autocomplete="off"/>
               </div>
           </div>
 
@@ -38,13 +38,13 @@
               <label>
                 First Name<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text" name="firstName" required autocomplete="off" />
             </div>
             <div class="field-wrap">
               <label>
                 Last Name<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input type="text" name="lastName" required autocomplete="off"/>
             </div>
           </div>
 
@@ -53,14 +53,14 @@
                 <label>
                   Age<span class="req">*</span>
                 </label>
-                <input type="text" required autocomplete="off" />
+                <input type="text" name="age" required autocomplete="off" />
               </div>
           
               <div class="field-wrap">
                 <label>
                   Country<span class="req">*</span>
                 </label>
-                <input type="text"required autocomplete="off"/>
+                <input type="text" name="country" required autocomplete="off"/>
               </div>
               <div class="field-wrap">
                   <input type="radio" class="customRadioMale" name="Male" value="Male">
@@ -79,7 +79,7 @@
         <div id="login">   
             <h1> </h1>
           
-          <form action="http://127.0.0.1:8888/sign/loginPage.html" method="POST">          
+          <form action="http://127.0.0.1:8888/sign/LoginAction" method="POST">          
            <div class="field-wrap">
             <label>
               UserName<span class="req">*</span>

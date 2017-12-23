@@ -11,18 +11,30 @@ def loginPage():
     if request.method == 'GET':
         return GET_Login()
 
+@app.route('/sign/LoginAction', methods=['POST'])
+def LoginAction():
     if request.method == 'POST':
         chkBox = request.form.get("checkbox-1")
         user = request.form['userNameLogin']
         password = request.form['passwordLogin']
-        result = DB.checkPass(user, password)
+        result = DB.CheckUserLogin(user, password)
         if ( result == -1 ):
-            print("No Such User")
+             return render_template('sign/loginPage.html')
         else:
             if ( result ):
-                POST_Login(user, "True", chkBox)
+                return POST_Login(user, "True", chkBox)
             else:
                 return render_template('sign/loginPage.html')
+
+@app.route('/sign/SignUpAction', methods=['POST'])
+def SignUpAction():
+    if request.method == 'POST':
+        user = request.form['userNameSignUp']
+        password = request.form['passwordSignUp']
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
+        age = request.form['age']
+        country = request.form['country']
             
 
 def GET_Login():

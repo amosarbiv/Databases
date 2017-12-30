@@ -19,22 +19,19 @@ def main():
     
     for user in users:
         length = randint(20, 30)
+        s = set()
         for i in range(0,length):
-            s = set()
             trackUserDic = {}
             
             isInPlaylist = randint(0,1)
 
-            if(isInPlaylist == 1):
-                viewNum = randint(1, 20)
-            else:
-                viewNum = randint(0, 20)
+            viewNum = randint(1, 20)
             
             songIdRand = randint(0, len(songsId)-1)
             while(songIdRand in s):
                 songIdRand = randint(0, len(songsId)-1)
             s.add(songIdRand)
-            rankTrack = randint(1, 10)
+            rankTrack = randint(1, 5)
             
 
             trackUserDic["trackId"] = songsId[songIdRand]["trackId"]
@@ -48,7 +45,7 @@ def main():
             for i in range(0,rankArtists):
                 artistRankingDic = {}
                 randArtist = randint(0, len(artists)-1)
-                rank = randint(1, 10)
+                rank = randint(1, 5)
                 artistRankingDic["userName"] = user["userName"]
                 artistRankingDic["artistId"] = artists[randArtist]["artistId"]
                 artistRankingDic["artistRanking"] = rank

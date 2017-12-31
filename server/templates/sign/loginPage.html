@@ -11,10 +11,14 @@
   <div class="form">
       <img align="middle" src="{{ url_for('static', filename='css/jukebox.png') }}"/>
       {% if errorLogin %}
-         <p class=error><strong>Error:</strong> {{ errorLogin }}
+         <script type="text/javascript">
+            window.alert("Wrong Login Credintials!")
+         </script>
       {% endif %}
       {% if errorSign %}
-        <p class=error><strong>Error:</strong> {{ errorSign }}
+        <script type="text/javascript">
+          window.alert("userName already exists. Please choose another one.")
+        </script>
       {% endif %}
       <ul class="tab-group">
         <li class="tab active"><a href="#signup">Sign Up</a></li>

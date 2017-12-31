@@ -23,7 +23,6 @@ class DB():
     def CreateUser(self, user, password, firstName, lastName, age, country, radioButton):
         userExist = self.CheckUserLogin(user, password)
         if(userExist != -1):
-            print("There is user")
             return False
         else:
             query = "INSERT INTO test.userlogin (userName, userPass, firstName, lastName, age, country, gender) VALUES ('{}', '{}', '{}', '{}', {}, '{}', '{}');".format(user, password, firstName, lastName, age, country, radioButton)

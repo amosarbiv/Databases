@@ -7,28 +7,25 @@ FB = ""
 dataBase = DBapi.DB("root", "LA1026vi", "test")
 
 @app.route('/sign/loginPage.html', methods=['GET'])
-def loginPage(errorLogin, errorSign):
+def loginPage():
     if request.method == 'GET':
-        return GET_Login(errorLogin=errorLogin, errorSign=errorSign)
+        return GET_Login(errorLogin=None, errorSign=None)
 
 @app.route('/sign/LoginAction', methods=['POST'])
 def LoginAction():
     if request.method == 'POST':
-        errorLogin = None
-        errorSign = None
         chkBox = request.form.get("checkbox-1")
         user = request.form['userNameLogin']
         password = request.form['passwordLogin']
         result = dataBase.CheckUserLogin(user, password)
         if ( result ):
             return POST_Login(user, "True", chkBox)
-        return render_template('sign/loginPage.html', errorLogin=errorLogin, errorSign=errorSign)
+        else:
+            return render_template('sign/loginPage.html', errorLogin="WrongCredentials", errorSign=None)
 
 @app.route('/sign/SignUpAction', methods=['POST'])
 def SignUpAction():
     if request.method == 'POST':
-        errorLogin = None
-        errorSign = None
         user = request.form['userNameSignUp']
         password = request.form['passwordSignUp']
         firstName = request.form['firstName']
@@ -47,7 +44,7 @@ def SignUpAction():
         if(result):
             return POST_Login(user, "True", False)
         else:
-            return render_template('sign/loginPage.html', errorLogin=errorLogin, errorSign=errorSign)
+            return render_template('sign/loginPage.html', errorLogin=None, errorSign="UserExists")
             
 
 def GET_Login(errorLogin, errorSign):

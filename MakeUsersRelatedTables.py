@@ -37,14 +37,19 @@ def main():
             trackUserDic["trackId"] = songsId[songIdRand]["trackId"]
             trackUserDic["userName"] = user["userName"]
             trackUserDic["numberOfViews"] = viewNum
-            trackUserDic["trackRank"] = rankTrack
+            trackUserDic["ranking"] = rankTrack
             trackUserDic["isInPlaylist"] = isInPlaylist
             trackUser.append(trackUserDic)
             
             rankArtists = randint(1, 10)
+            s1 = set()
             for i in range(0,rankArtists):
                 artistRankingDic = {}
                 randArtist = randint(0, len(artists)-1)
+                while(randArtist in s1):
+                    randArtist = randint(0, len(artists)-1)
+                s1.add(randArtist)
+                
                 rank = randint(1, 5)
                 artistRankingDic["userName"] = user["userName"]
                 artistRankingDic["artistId"] = artists[randArtist]["artistId"]
@@ -53,7 +58,7 @@ def main():
         counter += 1
 
 
-    f = open("Tables//ArtistRankingTable.json","w")
+    f = open("Tables//ArtistUserTable.json","w")
     json.dump(artistRanking, f)
     f.close()
     f = open("Tables//TrackUserTable.json","w")

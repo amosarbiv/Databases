@@ -14,7 +14,7 @@ try:
     CollectionsTable = json.load(json_data)
     json_data = open('Tables//TrackUserTable.json')
     TrackUserTable = json.load(json_data)
-    json_data = open('Tables//ArtistRankingTable.json')
+    json_data = open('Tables//ArtistUserTable.json')
     ArtistRankingTable = json.load(json_data)
     json_data = open('Tables//ArtistCollectionTable.json')
     ArtistCollectionTable = json.load(json_data)
@@ -22,11 +22,12 @@ try:
     
     cursor2=cursor.cursor()
     
+    
     DropTable = "DROP TABLE TrackUser;"
     cursor.query(DropTable)
     DropTable = "DROP TABLE CollectionsArtist;"
     cursor.query(DropTable)
-    DropTable = "DROP TABLE ArtistRanking;"
+    DropTable = "DROP TABLE ArtistUser;"
     cursor.query(DropTable)
     DropTable = "DROP TABLE Users;"
     cursor.query(DropTable)
@@ -37,11 +38,12 @@ try:
     DropTable = "DROP TABLE Artists;"
     cursor.query(DropTable)
     
+    
 	
     createJson = "CREATE TABLE Artists (artistId int NOT NULL, artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, artistPrimaryGenre varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, PRIMARY KEY(artistId));"
     cursor.query(createJson)
 	
-    createJson = "CREATE TABLE Users (userName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, password varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, firstName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, lastName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, country varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, gender varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, age int NOT NULL, privacy BIT NOT NULL, PRIMARY KEY(userName));"
+    createJson = "CREATE TABLE Users (userName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, userPassword varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, userFirstName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin, userLastName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, userCountry varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, userGender varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, userAge int NOT NULL, playlistPrivacy BIT NOT NULL, PRIMARY KEY(userName));"
     cursor.query(createJson)
 	
     createJson = "CREATE TABLE Collections (collectionId int NOT NULL, collectionName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, collectionReleaseDate Date NOT NULL, collectionPrice int NOT NULL, country varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, collectionGenre varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, numberOfTracks int NOT NULL, PRIMARY KEY(collectionId));"
@@ -53,10 +55,10 @@ try:
     createJson = "CREATE TABLE Songs (trackId int NOT NULL, trackName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, collectionId int NOT NULL, discNumber int NOT NULL, trackPosition int NOT NULL, trackReleaseDate Date NOT NULL, trackTimeMillis int NOT NULL, trackGenre varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, trackPrice int NOT NULL, FOREIGN KEY(collectionId) REFERENCES Collections(collectionId), PRIMARY KEY (trackId));"
     cursor.query(createJson)
 	
-    createJson = "CREATE TABLE TrackUser(trackId int NOT NULL, userName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, numberOfViews int NOT NULL, trackRank int NOT NULL, isInPlaylist BIT NOT NULL, FOREIGN KEY (trackId) REFERENCES Songs(trackId), FOREIGN KEY (userName) REFERENCES Users(userName), PRIMARY KEY(trackId, userName));"
+    createJson = "CREATE TABLE TrackUser(trackId int NOT NULL, userName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, numberOfViews int NOT NULL, ranking int NOT NULL, isInPlaylist BIT NOT NULL, FOREIGN KEY (trackId) REFERENCES Songs(trackId), FOREIGN KEY (userName) REFERENCES Users(userName), PRIMARY KEY(trackId, userName));"
     cursor.query(createJson)
 	
-    createJson = "CREATE TABLE ArtistRanking (artistId int NOT NULL, userName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, artistRanking int NOT NULL, FOREIGN KEY (artistId) REFERENCES Artists(artistId), FOREIGN KEY (userName) REFERENCES Users(userName));"
+    createJson = "CREATE TABLE ArtistUser (artistId int NOT NULL, userName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, artistRanking int NOT NULL, FOREIGN KEY (artistId) REFERENCES Artists(artistId), FOREIGN KEY (userName) REFERENCES Users(userName));"
     cursor.query(createJson)
 	
     columns_names = ["artistId", "artistName", "artistPrimaryGenre"]
@@ -99,7 +101,7 @@ try:
     print("Insert successfull!")
 
 
-    columns_names = ["userName", "password", "firstName", "lastName", "country", "gender", "age", "privacy"]
+    columns_names = ["userName", "userPassword", "userFirstName", "userLastName", "userCountry", "userGender", "userAge", "playlistPrivacy"]
     columns_names_str = ', '.join(columns_names)
     binds_str = ', '.join('%s' for _ in range(len(columns_names)))
     for data_dict in UsersTable:
@@ -111,7 +113,7 @@ try:
         cursor2.execute(sql, values)
     print("Insert successfull!")
     
-    columns_names = ["trackId", "userName", "numberOfViews", "trackRank", "isInPlaylist"]
+    columns_names = ["trackId", "userName", "numberOfViews", "ranking", "isInPlaylist"]
     columns_names_str = ', '.join(columns_names)
     binds_str = ', '.join('%s' for _ in range(len(columns_names)))
     for data_dict in TrackUserTable:
@@ -127,7 +129,7 @@ try:
     columns_names_str = ', '.join(columns_names)
     binds_str = ', '.join('%s' for _ in range(len(columns_names)))
     for data_dict in ArtistRankingTable:
-        sql = ("INSERT INTO ArtistRanking ({columns_names}) "
+        sql = ("INSERT INTO ArtistUser ({columns_names}) "
                 "VALUES ({binds})"
                 .format(columns_names=columns_names_str,
                         binds=binds_str))

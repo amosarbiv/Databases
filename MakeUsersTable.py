@@ -35,13 +35,13 @@ def main():
         country = randint(0, len(Countries)-1)
         privacy = randint(0,1)
         output_dict["userName"] = MaleFirstNames[countFirst] + LastNames[countLast]
-        output_dict["password"] = ''.join(choices(string.ascii_uppercase + string.digits, k=8))
-        output_dict["firstName"] = MaleFirstNames[countFirst]
-        output_dict["lastName"] = LastNames[countLast]
-        output_dict["country"] = Countries[country]
-        output_dict["gender"] = "M"
-        output_dict["age"] = Ages[age]
-        output_dict["privacy"] = privacy
+        output_dict["userPassword"] = ''.join(choices(string.ascii_uppercase + string.digits, k=8))
+        output_dict["userFirstName"] = MaleFirstNames[countFirst]
+        output_dict["userLastName"] = LastNames[countLast]
+        output_dict["userCountry"] = Countries[country]
+        output_dict["userGender"] = "M"
+        output_dict["userAge"] = Ages[age]
+        output_dict["playlistPrivacy"] = privacy
         
                         
         idc += 1
@@ -60,13 +60,13 @@ def main():
         country = randint(0, len(Countries)-1)
         privacy = randint(0,1)
         output_dict["userName"] = FemaleFirstNames[countFirst] + LastNames[countLast]
-        output_dict["password"] = ''.join(choices(string.ascii_uppercase + string.digits, k=8))
-        output_dict["firstName"] = FemaleFirstNames[countFirst]
-        output_dict["lastName"] = LastNames[countLast]
-        output_dict["country"] = Countries[country]
-        output_dict["gender"] = "F"
-        output_dict["age"] = Ages[age]
-        output_dict["privacy"] = privacy
+        output_dict["userPassword"] = ''.join(choices(string.ascii_uppercase + string.digits, k=8))
+        output_dict["userFirstName"] = FemaleFirstNames[countFirst]
+        output_dict["userLastName"] = LastNames[countLast]
+        output_dict["userCountry"] = Countries[country]
+        output_dict["userGender"] = "F"
+        output_dict["userAge"] = Ages[age]
+        output_dict["playlistPrivacy"] = privacy
                         
         idc += 1
         countFirst += 1

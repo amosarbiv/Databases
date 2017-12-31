@@ -40,7 +40,7 @@ class DB():
         self.cur.execute(query)
         results = self.cur.fetchall()
         if ( len(results) == 0 ):
-            return -1 #meaning no such user 
+            return False #meaning no such user 
 
         (user, passwd) = results[0]
         if ( password == passwd ):

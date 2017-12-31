@@ -7,28 +7,28 @@ FB = ""
 dataBase = DBapi.DB("root", "LA1026vi", "test")
 
 @app.route('/sign/loginPage.html', methods=['GET'])
-def loginPage():
+def loginPage(errorLogin, errorSign):
     if request.method == 'GET':
-        return GET_Login()
+        return GET_Login(errorLogin=errorLogin, errorSign=errorSign)
 
 @app.route('/sign/LoginAction', methods=['POST'])
 def LoginAction():
     if request.method == 'POST':
+        errorLogin = None
+        errorSign = None
         chkBox = request.form.get("checkbox-1")
         user = request.form['userNameLogin']
         password = request.form['passwordLogin']
         result = dataBase.CheckUserLogin(user, password)
-        if ( result == -1 ):
-             return render_template('sign/loginPage.html')
-        else:
-            if ( result ):
-                return POST_Login(user, "True", chkBox)
-            else:
-                return render_template('sign/loginPage.html')
+        if ( result ):
+            return POST_Login(user, "True", chkBox)
+        return render_template('sign/loginPage.html', errorLogin=errorLogin, errorSign=errorSign)
 
 @app.route('/sign/SignUpAction', methods=['POST'])
 def SignUpAction():
     if request.method == 'POST':
+        errorLogin = None
+        errorSign = None
         user = request.form['userNameSignUp']
         password = request.form['passwordSignUp']
         firstName = request.form['firstName']
@@ -47,16 +47,16 @@ def SignUpAction():
         if(result):
             return POST_Login(user, "True", False)
         else:
-            return render_template('sign/loginPage.html')
+            return render_template('sign/loginPage.html', errorLogin=errorLogin, errorSign=errorSign)
             
 
-def GET_Login():
+def GET_Login(errorLogin, errorSign):
     is_successful = request.cookies.get('successful_login')
     if is_successful == 'True':
         user = request.cookies.get('userNameLogin')
         return PrivateZone(user)
     else:
-        return render_template('sign/loginPage.html')
+        return render_template('sign/loginPage.html', errorLogin=errorLogin, errorSign=errorSign)
 
 def POST_Login(user, isSucces, chkBox):
     resp = make_response(redirect(url_for('PrivateZone', name=user)))

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, make_response,session, send_file
 import datetime
 import DBapi
+import json
 
 app = Flask(__name__)
 FB = ""
@@ -19,7 +20,7 @@ def LoginAction():
         password = request.form['passwordLogin']
         result = dataBase.CheckUserLogin(user, password)
         if ( result ):
-            return POST_Login(user, "True", chkBox)
+            return POST_Login(user, "True", chkBox, True)
         else:
             return render_template('sign/loginPage.html', errorLogin="WrongCredentials", errorSign=None)
 
@@ -42,7 +43,7 @@ def SignUpAction():
 
         result = dataBase.CreateUser(user, password, firstName, lastName, age, country, radioGender)
         if(result):
-            return POST_Login(user, "True", False)
+            return POST_Login(user, "True", False, False)
         else:
             return render_template('sign/loginPage.html', errorLogin=None, errorSign="UserExists")
             
@@ -51,20 +52,34 @@ def GET_Login(errorLogin, errorSign):
     is_successful = request.cookies.get('successful_login')
     if is_successful == 'True':
         user = request.cookies.get('userNameLogin')
-        return PrivateZone(user)
+        return POST_Login(user,True,True,False)
     else:
         return render_template('sign/loginPage.html', errorLogin=errorLogin, errorSign=errorSign)
 
-def POST_Login(user, isSucces, chkBox):
+def POST_Login(user, isSucces, chkBox, setCookie):
     resp = make_response(redirect(url_for('PrivateZone', name=user)))
-    if(chkBox):
+    if(chkBox and setCookie):
         resp.set_cookie('successful_login', isSucces)
         resp.set_cookie('userNameLogin', user)
+    dataBase.MakeJsonUserDetails(user)
     return resp
 
 @app.route('/PrivateZone.html/<name>', methods=['GET', 'POST'])
 def PrivateZone(name):
-    return render_template('PrivateZone.html', user=name)
+    if request.method == 'GET':
+        return render_template('PrivateZone.html', user=name)
+
+@app.route('/UserDetails', methods=['GET','PUT'])
+def UserDetails():
+    if(request.method == 'GET'):
+        f = open("server//tmpFiles//userDetails.json", "r")
+        details = json.load(f)
+        stringDetails = str(details)
+        f.close()
+        return json.dumps(details)
+    #if(request.method == 'PUT'):
+        #print(data)
+        #return render_template('UserDetails.html',userDetails=stringDetails)
 
 if __name__ == '__main__':
     app.secret_key = 'itsasecret'

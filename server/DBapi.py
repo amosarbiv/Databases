@@ -1,6 +1,7 @@
 import MySQLdb as sql
 import logging
 import os
+import json
 
 class DB():
     def __init__(self, DBUserName, DBPasswd, DBName, DBPort=3306, DBhost="127.0.0.1"):
@@ -33,6 +34,16 @@ class DB():
             except:
                 self.DB.rollback()
                 return False
+
+    def MakeJsonUserDetails(self,user):
+        query = "SELECT * FROM userLogin WHERE userLogin.userName='%s'"%user
+        self.cur.execute(query)
+        results = self.cur.fetchall()
+        (userName, password,firstName,lastName,age,country,gender) = results[0]
+        dic = {"UserName":userName,"Password":password,"FirstName":firstName,"LastName":lastName,"Age":age,"Country":country,"Gender":gender}
+        f = open("server//tmpFiles//userDetails.json","w")
+        json.dump(dic, f)
+        f.close() 
 
     def CheckUserLogin(self, userName, password):
         query = "SELECT userLogin.userName, userLogin.userPass FROM userLogin WHERE userLogin.userName='%s'"%userName

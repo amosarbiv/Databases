@@ -21,13 +21,13 @@ a:hover {
 
 .form {
   text-align: center;
-  background: rgba(19, 35, 47, 0.9);
+  background: rgba(73, 73, 73, 0.9);
   padding: 40px;
   max-width: 700px;
   margin: 40px auto;
   border-radius: 4px;
-  -webkit-box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
-          box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  -webkit-box-shadow: 0 4px 10px 4px rgba(97, 97, 97, 0.3);
+          box-shadow: 0 4px 10px 4px rgba(97, 97, 97, 0.3);
   transition: .5s ease;
 }
 

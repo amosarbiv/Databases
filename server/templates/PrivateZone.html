@@ -1,8 +1,151 @@
 <!DOCTYPE html>
-<html>
-    <body>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>JukeBox - Lavi Zone</title>
+    <script src="https://use.fontawesome.com/cd0dbeb8d3.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cssPrivateZone/StylePrivate.css') }}">
+    <link rel="icon" href= "{{ url_for('static', filename='css/icon.png') }}">
+</head>
+<body>
+
+    <nav class="nav2">
+        <div class="burger2">
+            <form id="demo-2">
+                <input type="search" placeholder="Search">
+            </form>
+            <a href="#" class="myButton">Search</a>
+            <img src="{{ url_for('static', filename='cssPrivateZone/jukeboxTitle.png') }}" alt="" />
+            <a class="alert" href=#><i class="fa fa-circle fa-4x icon-background2"></i></a>
+            <a class="alert" href=#><i class="fa fa-user-o fa-2x icon-background3" aria-hidden="true"></i></a>
+    </nav>
+    <nav class="nav">
+        <div class="burger">
+            <div class="burger__patty"></div>
+        </div>
+        <ul class="nav__list">
+            <li class="nav__item">
+                <a href="#1" class="nav__link c-blue"><i class="fa fa-music"></i><span class="tooltiptext">Playlist</span></a>
+            </li>
+            <li class="nav__item">
+                <a href="#2" class="nav__link c-yellow scrolly"><i class="fa fa-bolt"></i><span class="tooltiptext">Trending</span></a>
+            </li>
+            <li class="nav__item">
+                <a href="#3" class="nav__link c-red"><i class="fa fa-heart-o"></i><span class="tooltiptext">Just 4 U</span></a>
+            </li>
+            <li class="nav__item">
+                <a href="#4" class="nav__link c-green"><i class="fa fa-paper-plane"></i><span class="tooltiptext">Time Machine</span></a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="panel b-blue" id="1">
+        <article class="panel__wrapper">
+            <div class="panel__content">
+                <h1 class="panel__headline"><i class="fa fa-music"></i>&nbsp;{{user}}'s Playlist</h1>
+                <div class="panel__block"></div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea molestias ducimus, eos asperiores, ab officia sint nostrum quia, corporis officiis id praesentium expedita numquam ad non error optio est in.</p>
+            </div>
+        </article>
+    </section>
+    <section class="panel b-yellow" id="2">
+        <article class="panel__wrapper">
+            <div class="panel__content">
+                <h1 class="panel__headline"><i class="fa fa-bolt"></i>&nbsp;Trending</h1>
+                <div class="panel__block"></div>
+                <p>Paleo authentic mlkshk taxidermy, vinyl meditation lomo drinking vinegar sartorial raw denim Thundercats bitters selvage listicle. Keffiyeh Williamsburg gastropub McSweeney's.</p>
+            </div>
+        </article>
+    </section>
+    <section class="panel b-red" id="3">
+        <article class="panel__wrapper">
+            <div class="panel__content">
+                <h1 class="panel__headline"><i class="fa fa-heart-o"></i>&nbsp;Just 4 U {{user}}</h1>
+                <div class="panel__block"></div>
+                <p>Beard sriracha kitsch literally, taxidermy normcore aesthetic wayfarers salvia keffiyeh farm-to-table sartorial gluten-free mlkshk. Selvage normcore 3 wolf moon, umami Kickstarter artisan meggings cardigan drinking vinegar bicycle rights.</p>
+            </div>
+        </article>
+    </section>
+    <section class="panel b-green" id="4">
+        <article class="panel__wrapper">
+            <div class="panel__content">
+                <h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;Time Machine</h1>
+                <div class="panel__block"></div>
+                <p>Hey {{user}}! Let's go back.</p>
+            </div>
+        </article>
+    </section>
+
+    <!-- The form which is used to populate the item data -->
+    <form id="userForm" class="form-horizontal" style="display: none;" data-toggle="validator">
+        <div class="form-group">
+            <label class="col-xs-3 control-label">userName</label>
+            <div class="col-xs-5">
+                <input type="text" class="form-control" name="userName" disabled="disabled" />
+            </div>
+        </div>
+
+        <div class="form-group">
+                <label class="col-xs-3 control-label">password</label>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" name="passWord" required/>
+                </div>
+        </div>
     
-       <h1>Hi {{user}}, Welcome to the JUKEBOX</h1>
-       
-    </body>
- </html>
+        <div class="form-group">
+            <label class="col-xs-3 control-label">First Name</label>
+            <div class="col-xs-5">
+                <input type="text" class="form-control" name="firstName" required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+                <label class="col-xs-3 control-label">Last Name</label>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" name="lastName" required/>
+                </div>
+        </div>
+    
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Country</label>
+            <div class="col-xs-5">
+                <input type="text" class="form-control" name="country" required/>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Age</label>
+            <div class="col-xs-5">
+                <input type="text" class="form-control" name="age" required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+                <label class="col-xs-3 control-label">Male</label>
+                <div class="col-xs-1">
+                    <input type="radio" class="form-control" name="gender" />
+                </div>
+                <label class="col-xs-3 control-label">Female</label>
+                <div class="col-xs-1">
+                    <input type="radio" class="form-control" name="gender" />
+                </div>
+            </div>
+    
+        <div class="form-group">
+            <div class="col-xs-5 col-xs-offset-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script  src="{{ url_for('static', filename='jsPrivateZone/index.js') }}"></script>
+</body>
+</html>

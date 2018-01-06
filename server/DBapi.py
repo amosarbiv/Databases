@@ -22,11 +22,11 @@ class DB():
         self.cur = self.DB.cursor() 
 
     def CreateUser(self, user, password, firstName, lastName, age, country, radioButton):
-        userExist = self.CheckUserLogin(user, password)
-        if(userExist != -1):
+        userExist = self.CheckUserExists(user)
+        if(userExist == False):
             return False
         else:
-            query = "INSERT INTO test.userlogin (userName, userPass, firstName, lastName, age, country, gender) VALUES ('{}', '{}', '{}', '{}', {}, '{}', '{}');".format(user, password, firstName, lastName, age, country, radioButton)
+            query = "INSERT INTO test.users (userName, userPassword, userFirstName, userLastName, userCountry, userGender, userAge, playlistPrivacy) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', {}, {});".format(user, password, firstName, lastName, country, radioButton, age, 1)
             try:
                 self.cur.execute(query)
                 self.DB.commit()
@@ -34,19 +34,41 @@ class DB():
             except:
                 self.DB.rollback()
                 return False
-
-    def MakeJsonUserDetails(self,user):
-        query = "SELECT * FROM userLogin WHERE userLogin.userName='%s'"%user
+    
+    def CheckUserExists(self,user):
+        query = "SELECT users.userName FROM users WHERE users.userName='%s'"%user
         self.cur.execute(query)
         results = self.cur.fetchall()
-        (userName, password,firstName,lastName,age,country,gender) = results[0]
-        dic = {"UserName":userName,"Password":password,"FirstName":firstName,"LastName":lastName,"Age":age,"Country":country,"Gender":gender}
-        f = open("server//tmpFiles//userDetails.json","w")
+        if ( len(results) == 0 ):
+            return True #meaning no such user
+        else:
+            return False
+
+
+    def UpdateUserProfile(self, user, password, firstName, lastName, country, age):
+        query = "UPDATE test.users SET userPassword='{}', userFirstName='{}', userLastName='{}', userCountry='{}', userAge={} WHERE userName='{}';".format(password, firstName, lastName, country, age, user)
+        try:
+            self.cur.execute(query)
+            self.DB.commit()
+            return True
+        except:
+            self.DB.rollback()
+            return False
+
+    def MakeJsonUserDetails(self,user):
+        query = "SELECT * FROM users WHERE users.userName='%s'"%user
+        self.cur.execute(query)
+        results = self.cur.fetchall()
+        (userName, password,firstName,lastName,country,gender,age,privacy) = results[0]
+        if((privacy and 1) == 1): privacy=1
+        else: privacy = 0
+        dic = {"UserName":userName,"Password":password,"FirstName":firstName,"LastName":lastName,"Country":country,"Age":age,"PlaylistPrivacy":privacy}
+        f = open("server//tmpFiles//userProfile.json","w")
         json.dump(dic, f)
         f.close() 
 
     def CheckUserLogin(self, userName, password):
-        query = "SELECT userLogin.userName, userLogin.userPass FROM userLogin WHERE userLogin.userName='%s'"%userName
+        query = "SELECT users.userName, users.userPassword FROM users WHERE users.userName='%s'"%userName
         self.cur.execute(query)
         results = self.cur.fetchall()
         if ( len(results) == 0 ):
@@ -57,3 +79,13 @@ class DB():
             return True
         else:
             return False
+
+    def UpdatePrivacy(self, privacy, user):
+        query = "UPDATE test.users SET playlistPrivacy={} WHERE userName='{}';".format(privacy, user)
+        try:
+            self.cur.execute(query)
+            self.DB.commit()
+            return True
+        except:
+            self.DB.rollback()
+            return False  

@@ -1,11 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, request, make_response,session, send_file
 import datetime
-import DBapi
+import LogicInterface
 import json
 
 app = Flask(__name__)
-FB = ""
-dataBase = DBapi.DB("root", "LA1026vi", "test")
+logic = LogicInterface.LogicInter("root", "LA1026vi", "test")
 
 @app.route('/sign/loginPage.html', methods=['GET'])
 def loginPage():
@@ -18,7 +17,7 @@ def LoginAction():
         chkBox = request.form.get("checkbox-1")
         user = request.form['userNameLogin']
         password = request.form['passwordLogin']
-        result = dataBase.CheckUserLogin(user, password)
+        result = logic.HandleLoginAction(chkBox,user,password)
         if ( result ):
             return POST_Login(user, "True", chkBox, True)
         else:
@@ -34,14 +33,7 @@ def SignUpAction():
         age = request.form['age']
         country = request.form['country']
         radioGender = request.form.get("radioGender")
-        if(radioGender == "Male"):
-            radioGender = "M"
-        if(radioGender == "Female"):
-            radioGender = "F"
-        else:
-            radioGender = "N"
-
-        result = dataBase.CreateUser(user, password, firstName, lastName, age, country, radioGender)
+        result = logic.HandleUserCreation(user, password, firstName, lastName, age, country, radioGender)
         if(result):
             return POST_Login(user, "True", False, False)
         else:
@@ -61,7 +53,7 @@ def POST_Login(user, isSucces, chkBox, setCookie):
     if(chkBox and setCookie):
         resp.set_cookie('successful_login', isSucces)
         resp.set_cookie('userNameLogin', user)
-    dataBase.MakeJsonUserDetails(user)
+    logic.MakeUserProfileJson(user)
     return resp
 
 @app.route('/PrivateZone.html/<name>', methods=['GET', 'POST'])
@@ -69,17 +61,28 @@ def PrivateZone(name):
     if request.method == 'GET':
         return render_template('PrivateZone.html', user=name)
 
-@app.route('/UserDetails', methods=['GET','PUT'])
-def UserDetails():
-    if(request.method == 'GET'):
-        f = open("server//tmpFiles//userDetails.json", "r")
-        details = json.load(f)
-        stringDetails = str(details)
-        f.close()
-        return json.dumps(details)
-    #if(request.method == 'PUT'):
-        #print(data)
-        #return render_template('UserDetails.html',userDetails=stringDetails)
+@app.route('/GetUserProfile', methods=['GET'])
+def GetUserProfile():
+    return logic.GetUserProfile()
+
+@app.route('/ChangePlaylistPrivacy', methods=['POST'])
+def ChangePlaylistPrivacy():
+    privacy = request.get_json(silent=True)
+    result = logic.ChangePlaylistPrivacy(privacy['privacy'])
+    return ('', 204)
+
+
+@app.route('/UpdateUserProfile', methods=['POST'])
+def UpdateUserProfile():
+    password = request.form['passWord']
+    firstName =  request.form['firstName']
+    lastName = request.form['lastName']
+    country =  request.form['country']
+    age = request.form['age']
+    currUserName = logic.UpdateUserProfile(password,firstName,lastName,country,age)
+    resp = make_response(redirect(url_for('PrivateZone', name=currUserName)))
+    return resp
+
 
 if __name__ == '__main__':
     app.secret_key = 'itsasecret'

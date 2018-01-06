@@ -51,14 +51,27 @@ var init = function() {
   window.addEventListener('scroll', scrollFx, false);
   window.addEventListener('load', scrollFx, false);
   $('a[href^="#"]').on('click',scrolly);
-  $('#userForm').on('submit', function (e) {
-    if (e.isDefaultPrevented()) {
-      // handle the invalid form...
-    } else {
-      modalUser.modal('hide');
-      window.alert("Lavi, your profile has been updated");
-      
-    }
+  $.ajax({
+    url: 'http://127.0.0.1:8888/GetUserProfile',
+    method: 'GET',
+    }).success(function(response) {
+      responseParse = JSON.parse(response);
+      if(responseParse.PlaylistPrivacy == 1){
+        $('#toggle-trigger').bootstrapToggle('on');
+      }
+      else{
+        $('#toggle-trigger').bootstrapToggle('off');
+      }
+  });
+  
+  $('#toggle-trigger').change(function() {
+    $.ajax({
+      url: 'http://127.0.0.1:8888/ChangePlaylistPrivacy',
+      type: "POST",
+      data: JSON.stringify({"privacy":$(this).prop('checked')}),
+      dataType: "json",
+      contentType: "application/json"
+  })
   });
 }
 
@@ -67,7 +80,7 @@ doc.on("click", ".alert", function(e) {
   //var id = $(this).attr('data-id');
 
   $.ajax({
-    url: 'http://127.0.0.1:8888/UserDetails',
+    url: 'http://127.0.0.1:8888/GetUserProfile',
     method: 'GET',
     //data: $form.serialize()
 }).success(function(response) {
@@ -79,8 +92,7 @@ doc.on("click", ".alert", function(e) {
         .find('[name="firstName"]').val(responseParse.FirstName).end()
         .find('[name="lastName"]').val(responseParse.LastName).end()
         .find('[name="country"]').val(responseParse.Country).end()
-        .find('[name="age"]').val(responseParse.Age).end();
-        //.find('[name="lastName"]').val(response.LastName).end();
+        .find('[name="age"]').val(responseParse.Age).end()
 
     // Show the dialog
     modalUser = bootbox

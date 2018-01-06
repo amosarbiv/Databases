@@ -71,6 +71,13 @@ a:hover {
   display: none;
 }
 
+.details{
+  font-size: 30px;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: bold;
+  text-decoration-color: white;
+}
+
 h1 {
   position: relative;
   text-align: center;

@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>JukeBox - Lavi Zone</title>
+    <title>JukeBox - {{user}} Zone</title>
     <script src="https://use.fontawesome.com/cd0dbeb8d3.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,10 +17,17 @@
 
     <nav class="nav2">
         <div class="burger2">
-            <form id="demo-2">
-                <input type="search" placeholder="Search">
+            <form id="demo-2" data-toggle="validator">
+                <input id="serachText" type="search" placeholder="Search" required>
+                <button type="submit" class="myButton">Search</button>
             </form>
-            <a href="#" class="myButton">Search</a>
+            <div class="styled-select">
+                    <select>
+                       <option>Song</option>
+                       <option>Artist</option>
+                       <option>Album</option>
+                    </select>
+            </div>
             <img src="{{ url_for('static', filename='cssPrivateZone/jukeboxTitle.png') }}" alt="" />
             <a class="alert" href=#><i class="fa fa-circle fa-4x icon-background2"></i></a>
             <a class="alert" href=#><i class="fa fa-user-o fa-2x icon-background3" aria-hidden="true"></i></a>

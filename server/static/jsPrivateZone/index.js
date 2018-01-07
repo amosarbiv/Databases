@@ -4,7 +4,7 @@ var doc = $(document);
 var l = $('.scrolly');
 var panel = $('.panel');
 var vh = $(window).height();
-var modalUser = null;
+var firstTimeToggle = true;
 
 var openMenu = function() {
   burger.classList.toggle('burger--active');
@@ -56,6 +56,7 @@ var init = function() {
     method: 'GET',
     }).success(function(response) {
       responseParse = JSON.parse(response);
+      console.log(responseParse.PlaylistPrivacy)
       if(responseParse.PlaylistPrivacy == 1){
         $('#toggle-trigger').bootstrapToggle('on');
       }
@@ -65,13 +66,18 @@ var init = function() {
   });
   
   $('#toggle-trigger').change(function() {
-    $.ajax({
-      url: 'http://127.0.0.1:8888/ChangePlaylistPrivacy',
-      type: "POST",
-      data: JSON.stringify({"privacy":$(this).prop('checked')}),
-      dataType: "json",
-      contentType: "application/json"
-  })
+    if(!firstTimeToggle){
+        $.ajax({
+          url: 'http://127.0.0.1:8888/ChangePlaylistPrivacy',
+          type: "POST",
+          data: JSON.stringify({"privacy":$(this).prop('checked')}),
+          dataType: "json",
+          contentType: "application/json"
+      })
+    }
+    else{
+      firstTimeToggle = false;
+    }
   });
 }
 

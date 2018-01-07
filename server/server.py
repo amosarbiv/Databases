@@ -71,7 +71,6 @@ def ChangePlaylistPrivacy():
     result = logic.ChangePlaylistPrivacy(privacy['privacy'])
     return ('', 204)
 
-
 @app.route('/UpdateUserProfile', methods=['POST'])
 def UpdateUserProfile():
     password = request.form['passWord']
@@ -82,7 +81,6 @@ def UpdateUserProfile():
     currUserName = logic.UpdateUserProfile(password,firstName,lastName,country,age)
     resp = make_response(redirect(url_for('PrivateZone', name=currUserName)))
     return resp
-
 
 if __name__ == '__main__':
     app.secret_key = 'itsasecret'

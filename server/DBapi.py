@@ -3,6 +3,27 @@ import logging
 import os
 import json
 
+ArtistSearch = "SELECT	artists.artistName AS Artist, artists.artistPrimaryGenre AS Genre FROM	artists, artistuser   WHERE	artistuser.artistId = artists.artistId AND LOWER(artists.artistName) LIKE LOWER('%{}%') GROUP BY artists.artistName"
+SongSearch = """SELECT Songs.trackName as Song, Artists.artistName AS Artist, Collections.collectionName AS Album,
+		Songs.discNumber AS 'Disc Number', Songs.trackPosition AS 'Track Position', Songs.trackTimeMillis AS 'Length (msec)',
+        Songs.trackReleaseDate AS 'Release Date',
+        Songs.trackGenre AS Genre, Songs.trackPrice AS 'Price ($)'
+        FROM	Songs, Collections, collectionsartist, Artists	
+        WHERE	Songs.collectionId = collections.collectionId AND
+		collections.collectionId = collectionsartist.collectionId AND
+        collectionsartist.artistId = Artists.artistId AND
+        LOWER(Songs.trackName) LIKE LOWER('{}')
+        ORDER BY 2 ASC;"""
+CollectionSearch = """ SELECT	collections.collectionName AS Album, Artists.artistName AS Artist,
+        collections.numberOfTracks AS 'Number of Tracks',
+        collections.collectionGenre AS Genre, Collections.collectionPrice AS 'Price ($)',
+        Collections.country AS 'Country of Origin', collections.collectionReleaseDate AS 'Release Date'
+        FROM	collections, collectionsartist, artists
+        WHERE	collections.collectionId = collectionsartist.collectionId AND
+		collectionsartist.artistId = artists.artistId AND
+        LOWER(collections.collectionName) LIKE LOWER('{}')
+        GROUP BY 2"""
+
 class DB():
     def __init__(self, DBUserName, DBPasswd, DBName, DBPort=3306, DBhost="127.0.0.1"):
 
@@ -57,15 +78,18 @@ class DB():
 
     def MakeJsonUserDetails(self,user):
         query = "SELECT * FROM users WHERE users.userName='%s'"%user
-        self.cur.execute(query)
-        results = self.cur.fetchall()
-        (userName, password,firstName,lastName,country,gender,age,privacy) = results[0]
-        if((privacy and 1) == 1): privacy=1
-        else: privacy = 0
-        dic = {"UserName":userName,"Password":password,"FirstName":firstName,"LastName":lastName,"Country":country,"Age":age,"PlaylistPrivacy":privacy}
-        f = open("server//tmpFiles//userProfile.json","w")
-        json.dump(dic, f)
-        f.close() 
+        try:
+            self.cur.execute(query)
+            results = self.cur.fetchall()
+            (userName, password,firstName,lastName,country,gender,age,privacy) = results[0]
+            dic = {"UserName":userName,"Password":password,"FirstName":firstName,"LastName":lastName,"Country":country,"Age":age,"PlaylistPrivacy":privacy}
+            f = open("server//tmpFiles//userProfile.json","w")
+            json.dump(dic, f)
+            f.close() 
+            return True
+        except:
+            self.DB.rollback()
+            return False
 
     def CheckUserLogin(self, userName, password):
         query = "SELECT users.userName, users.userPassword FROM users WHERE users.userName='%s'"%userName
@@ -85,6 +109,7 @@ class DB():
         try:
             self.cur.execute(query)
             self.DB.commit()
+            print("commited")
             return True
         except:
             self.DB.rollback()

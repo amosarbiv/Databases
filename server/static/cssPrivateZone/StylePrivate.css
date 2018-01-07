@@ -423,8 +423,43 @@ input::-webkit-input-placeholder {
 #demo-2 input::-webkit-input-placeholder {
 	color: transparent;
 }
+  
+.styled-select {
+    position: fixed;
+    z-index: 1;
+    top: 14px;
+    left: 354px;
+    background-color:#7892c2;
+    border: none;
+    overflow: hidden;
+    color: rgb(0, 0, 0);
+    width: 70px;
+    font-family: 'Open Sans', sans-serif;
+    
+    height: 36px;
+    -webkit-appearance: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    }
+
+    .styled-select select {
+        font-family:Arial;
+        padding: 0 0px 0 0px;
+        font-size: 14px;
+        font-weight: 300;
+        background: transparent;
+        border: none;
+        color: rgb(0, 0, 0);
+        height: 29px;
+        width: 70px;
+        cursor: pointer;
+     }
+
 
 .myButton {
+    overflow: hidden;
     position: fixed;
     z-index: 1;
     top: 14px;
@@ -433,16 +468,13 @@ input::-webkit-input-placeholder {
 	-moz-border-radius:8em;
 	-webkit-border-radius:8em;
 	border-radius:8em;
-    border:2px solid #4e6096;
-    
-    
-    
+    border:none;
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:12px;
+	font-size:15px;
 	font-weight:bold;
-	padding:8px 17px;
+	padding:9.5px 17px;
 	text-decoration:none;
     text-shadow:0px 1px 0px #283966;
     display: inline-block;

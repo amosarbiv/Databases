@@ -89,3 +89,13 @@ class DB():
         except:
             self.DB.rollback()
             return False  
+
+    def getPlayList(self, user):
+        query = "Select * FROM test.artists"
+        try:
+            self.cur.execute(query)
+            results = self.cur.fetchall()
+            print(type(results))
+            return results
+        except:
+            return False

@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>JukeBox - Lavi Zone</title>
+    <title>JukeBox - {{user}}</title>
     <script src="https://use.fontawesome.com/cd0dbeb8d3.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -50,8 +50,34 @@
         <article class="panel__wrapper">
             <div class="panel__content">
                 <h1 class="panel__headline"><i class="fa fa-music"></i>&nbsp;{{user}}'s Playlist    <input id="toggle-trigger" type="checkbox" data-toggle="toggle" data-on="Public" data-off="Private"></h1>
-                <div class="panel__block"></div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea molestias ducimus, eos asperiores, ab officia sint nostrum quia, corporis officiis id praesentium expedita numquam ad non error optio est in.</p>
+                <div class="panel__block" >
+                    <div class="table-responsive header-fixed" style="height:300px;overflow:auto;">
+                        <table class="table table-striped ">
+                            <thead >
+                                <tr>
+                                        <th>#</th>
+                                        <th>Song Name</th>
+                                        <th>Album</th>
+                                        <th>Artist</th>
+                                        <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <script>
+                                    var playlist = {{playlist | tojson | safe}};
+                                    for (x=0; x < {{playlistLen}} ;x++){
+                                        var row = playlist[x];
+                                        document.write( "<tr>" +
+                                            "<td>"+row[0]+"</td>" +
+                                            "<td>"+row[1]+"</td>" +
+                                            "<td>"+row[2]+"</td>" +
+                                            "<td>"+x+"</td>" +
+                                            "<td>"+x+"</td>" +
+                                        "</tr>");    
+                                }</script>
+                            </tbody>
+                        </table>
+                    </div>
             </div>
         </article>
     </section>

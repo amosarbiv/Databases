@@ -7,7 +7,7 @@ import DBapi
 class LogicInter:
 
     def __init__(self, DBUserName, DBPasswd, DBName):
-        self.dataBase = DBapi.DB("root", "LA1026vi", "test")
+        self.dataBase = DBapi.DB(DBUserName, DBPasswd, DBName)
 
     def HandleLoginAction(self,chkBox,user,password):
         return self.dataBase.CheckUserLogin(user, password)
@@ -59,6 +59,12 @@ class LogicInter:
         f.close() 
         return result
 
+    def displayPlayList(self, user):
+        playList = self.dataBase.getPlayList(user)
+        if (not playList):
+            return ""
+        else:
+            return playList
 
 
     

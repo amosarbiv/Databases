@@ -4,7 +4,7 @@ import LogicInterface
 import json
 
 app = Flask(__name__)
-logic = LogicInterface.LogicInter("root", "LA1026vi", "test")
+logic = LogicInterface.LogicInter("root", "amos", "test")
 
 @app.route('/sign/loginPage.html', methods=['GET'])
 def loginPage():
@@ -59,7 +59,8 @@ def POST_Login(user, isSucces, chkBox, setCookie):
 @app.route('/PrivateZone.html/<name>', methods=['GET', 'POST'])
 def PrivateZone(name):
     if request.method == 'GET':
-        return render_template('PrivateZone.html', user=name)
+        playlist = logic.displayPlayList(name)
+        return render_template('PrivateZone.html', user=name, playlist=playlist, playlistLen=len(playlist   ))
 
 @app.route('/GetUserProfile', methods=['GET'])
 def GetUserProfile():

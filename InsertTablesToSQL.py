@@ -1,7 +1,7 @@
 import MySQLdb
 import json
 
-cursor = MySQLdb.connect('localhost', db='test', user='root', password='LA1026vi', port=3306)
+cursor = MySQLdb.connect('localhost', db='test', user='root', password='amos', port=3306)
   
 try:
     json_data = open('Tables//ArtistsTable.json')
@@ -22,7 +22,7 @@ try:
     
     cursor2=cursor.cursor()
     
-    
+    """
     DropTable = "DROP TABLE TrackUser;"
     cursor.query(DropTable)
     DropTable = "DROP TABLE CollectionsArtist;"
@@ -37,7 +37,7 @@ try:
     cursor.query(DropTable)
     DropTable = "DROP TABLE Artists;"
     cursor.query(DropTable)
-    
+    """
     
 	
     createJson = "CREATE TABLE Artists (artistId int NOT NULL, artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, artistPrimaryGenre varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, PRIMARY KEY(artistId));"

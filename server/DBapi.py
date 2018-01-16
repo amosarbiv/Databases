@@ -204,7 +204,7 @@ class DB():
 
 
     def UpdateUserProfile(self, user, firstName, lastName, country, age):
-        query = "UPDATE test.users SET userFirstName='{}', userLastName='{}', userCountry='{}', userAge={} WHERE userName='{}';".format(firstName, lastName, country, age, user)
+        query = "UPDATE test.users 	FirstName='{}', userLastName='{}', userCountry='{}', userAge={} WHERE userName='{}';".format(firstName, lastName, country, age, user)
         try:
             self.cur.execute(query)
             self.DB.commit()

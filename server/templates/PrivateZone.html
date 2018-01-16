@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>JukeBox - {{user}} Zone</title>
+    <title>JukeBox - {{user}}</title>
     <script src="https://use.fontawesome.com/cd0dbeb8d3.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,20 +14,17 @@
     <link rel="icon" href= "{{ url_for('static', filename='css/icon.png') }}">
 </head>
 <body>
-
+    {% if SearchError %}
+        <script type="text/javascript">
+           window.alert("Wrong search pattern! Please use the help button to know how you can search in JukeBox.")
+        </script>
+     {% endif %}
     <nav class="nav2">
         <div class="burger2">
-            <form id="demo-2" data-toggle="validator">
-                <input id="serachText" type="search" placeholder="Search" required>
+            <form id="demo-2" action="http://127.0.0.1:8888/RetrieveSearchInfo" method="POST" data-toggle="validator">
+                <input id="serachText" name="serachText" type="search" placeholder="Search" required>
                 <button type="submit" class="myButton">Search</button>
             </form>
-            <div class="styled-select">
-                    <select>
-                       <option>Song</option>
-                       <option>Artist</option>
-                       <option>Album</option>
-                    </select>
-            </div>
             <img src="{{ url_for('static', filename='cssPrivateZone/jukeboxTitle.png') }}" alt="" />
             <a class="alert" href=#><i class="fa fa-circle fa-4x icon-background2"></i></a>
             <a class="alert" href=#><i class="fa fa-user-o fa-2x icon-background3" aria-hidden="true"></i></a>
@@ -51,44 +48,183 @@
             </li>
         </ul>
     </nav>
-
-    <form id="playlistForm" action="http://127.0.0.1:8888/UpdateUserProfile" method="POST">
     <section class="panel b-blue" id="1">
-        <article class="panel__wrapper">
-            <div class="panel__content">
-                <h1 class="panel__headline"><i class="fa fa-music"></i>&nbsp;{{user}}'s Playlist    <input id="toggle-trigger" type="checkbox" data-toggle="toggle" data-on="Public" data-off="Private"></h1>
-                <div class="panel__block"></div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea molestias ducimus, eos asperiores, ab officia sint nostrum quia, corporis officiis id praesentium expedita numquam ad non error optio est in.</p>
+    <div class="wrapper1" >
+        <div class="first">
+            <h1 class="panel__headline">
+                <i class="fa fa-music"></i>&nbsp;{{user}}'s Playlist
+                <input id="toggle-trigger" type="checkbox" data-toggle="toggle" data-on="Public" data-off="Private">
+            </h1>
+        </div>
+        <div class="second">
+            <div class="table-responsive header-fixed" style="padding-top:-60px;text-align:left;height:500px;overflow-y:auto;">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Song Name</th>
+                            <th>Album</th>
+                            <th>Artist</th>
+                            <th>Plays</th>
+                            <th>Length</th>
+                            <th>Rating</th>
+                            <th>Media player</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <script>
+                            var playlist = {{ playlist | tojson | safe }};
+                            console.log(playlist);
+                            for (x = 0; x < {{ playlistLen }}; x++) {
+                                var row = playlist[x];
+                                document.write("<tr>" +
+                                                "<td>" + (x+1) + "</td>" +
+                                                "<td class='col-md-2'><a id='"+row[0]+"songPressed' href=# style='color:black;'>" + row[1] + "</a></td>" +
+                                                "<td class='col-md-2'>" + row[3] + "</td>" +
+                                                "<td >" + row[2] + "</td>" +
+                                                "<td>" + row[5] + "</td>" +
+                                                "<td>" + msToTime(row[8]) + "</td>" +
+                                                "<td class='col-md-1'>" +
+                                                    "<div class='row lead'>\
+                                                        <div id='"+row[0]+" starsSong' class='starrr' data-rating="+row[4]+"></div>\
+                                                    </div>" +
+                                                "</td>" +
+                                                "<td><audio controls><source src='https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/Music/v4/4e/44/b7/4e44b7dc-aaa2-c63b-fb38-88e1635b5b29/mzaf_1844128138535731917.plus.aac.p.m4a' type='audio/ogg'></audio></td>" +
+                                                "</tr>");
+                            }
+                            function msToTime(s) {
+                                var ms = s % 1000;
+                                s = (s - ms) / 1000;
+                                var secs = s % 60;
+                                s = (s - secs) / 60;
+                                var mins = s % 60;
+                                var hrs = (s - mins) / 60;
+                                                        
+                                return mins + ':' + secs;
+                            };
+                        </script>
+                    </tbody>
+                </table>
             </div>
-        </article>
+        </div>
+    </div>
     </section>
-    </form>
-    <section class="panel b-yellow" id="2">
-        <article class="panel__wrapper">
-            <div class="panel__content">
-                <h1 class="panel__headline"><i class="fa fa-bolt"></i>&nbsp;Trending</h1>
-                <div class="panel__block"></div>
-                <p>Paleo authentic mlkshk taxidermy, vinyl meditation lomo drinking vinegar sartorial raw denim Thundercats bitters selvage listicle. Keffiyeh Williamsburg gastropub McSweeney's.</p>
-            </div>
-        </article>
+    <section class="panel b-green" id="2">
+            <div class="wrapperTrending">
+                    <div class="navGridTrending"></div>
+                    <div class="headTrending"><h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;Ooh that's hot!</h1>
+                        <div class="panel__block"></div>
+                    </div>
+                    <div class="twoTrending">
+                        <p>Most trending artists</p>
+                        <select value="trendingArtists" name="trendingArtists" id="trendingArtists" class="custom-select4 sources">
+                                <option value="top20">Top 20</option>
+                                <option value="girls">Top 10 by girls</option>
+                                <option value="guys">Top 10 by guys</option>
+                                <option value="pop">Top 5 in pop</option>
+                                <option value="rock">Top 5 in rock</option>
+                        </select>
+                    </div>
+                    <div class="threeTrending">
+                        <p>Most trending songs</p>
+                        <select value="trendingSongs" name="trendingSongs" id="trendingSongs" class="custom-select5 sources">
+                                <option value="top25">Top 25</option>
+                                <option value="girls">Top 10 by girls</option>
+                                <option value="guys">Top 10 by guys</option>
+                                <option value="above50">Top 10 by people > 50</option>
+                                <option value="30and50">Top 10 by people 30-50</option>
+                                <option value="under30">Top 10 by people < 30</option>
+                        </select>
+                    </div>
+                    <div class="fourTrending">
+                        <p>Most trending collections</p>
+                        <select value="trendingAlbums" name="trendingAlbums" id="trendingAlbums" class="custom-select6 sources">
+                                <option value="top10">Top 10</option>
+                                <option value="girls">Top 10 by girls</option>
+                                <option value="guys">Top 10 by guys</option>
+                                <option value="pop">Top 5 in pop</option>
+                                <option value="rock">Top 5 in rock</option>
+                        </select>
+                    </div>
+                    <div class="fiveTrending" id="fiveTrending"></div>
+                    <div class="sixTrending" id="sixTrending"></div>
+                    <div class="sevenTrending" id="sevenTrending"></div>
+                  </div>
     </section>
-    <section class="panel b-red" id="3">
-        <article class="panel__wrapper">
-            <div class="panel__content">
-                <h1 class="panel__headline"><i class="fa fa-heart-o"></i>&nbsp;Just 4 U {{user}}</h1>
-                <div class="panel__block"></div>
-                <p>Beard sriracha kitsch literally, taxidermy normcore aesthetic wayfarers salvia keffiyeh farm-to-table sartorial gluten-free mlkshk. Selvage normcore 3 wolf moon, umami Kickstarter artisan meggings cardigan drinking vinegar bicycle rights.</p>
+    <section class="panel b-blue" id="3">
+        <div class="wrapperRecommended">
+            <div class="navGridRecom"></div>
+            <div class="headRecom"><h1 class="panel__headline"><i class="fa fa-heart-o"></i>&nbsp;Just 4 U {{user}}</h1>
             </div>
-        </article>
+            <div class="SongSlide">
+                <div id="slider1" style="width: 1230px; height: 240px;">
+                    <a href="#" class="control_next1"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    <a href="#" class="control_prev1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                    <ul id=songSlideRows>
+                    </ul>  
+                </div>
+            </div>
+            <div class="ArtistSlide">
+                <div id="slider2" style="width: 560px; height: 170px;">
+                    <a href="#" class="control_next2"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    <a href="#" class="control_prev2"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                    <ul id=artistSlideRows>
+                    </ul>  
+                </div>
+            </div>
+            <div class="CollectionSlide">
+                <div id="slider3" style="width: 640px; height: 170px;">
+                    <a href="#" class="control_next3"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    <a href="#" class="control_prev3"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                    <ul id=collectionSlideRows>
+                    </ul>  
+                </div>
+            </div>
+        </div>
     </section>
     <section class="panel b-green" id="4">
-        <article class="panel__wrapper">
-            <div class="panel__content">
-                <h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;Time Machine</h1>
-                <div class="panel__block"></div>
-                <p>Hey {{user}}! Let's go back.</p>
-            </div>
-        </article>
+        <div class="wrapperTimeMachine">
+                <div class="navGrid"></div>
+                <div class="head"><h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;Hey {{user}}, this is Time Machine</h1>
+                    <div class="panel__block"></div>
+                </div>
+                <div class="two">
+                    <p>Top 5 Artists, by decades</p>
+                    <select value="sourcesArtist" name="sourcesArtist" id="sourcesArtist" class="custom-select sources">
+                            <option value="50s">50's</option>
+                            <option value="60s">60's</option>
+                            <option value="70s">70's</option>
+                            <option value="80s">80's</option>
+                            <option value="90s">90's</option>
+                            <option value="90s">2000's</option>
+                    </select>
+                </div>
+                <div class="three">
+                    <p>Top 5 Songs, by decades</p>
+                    <select value="sourcesSongs" name="sourcesSongs" id="sourcesSongs" class="custom-select2 sources">
+                            <option value="50s">50's</option>
+                            <option value="60s">60's</option>
+                            <option value="70s">70's</option>
+                            <option value="80s">80's</option>
+                            <option value="90s">90's</option>
+                            <option value="90s">2000's</option>
+                    </select>
+                </div>
+                <div class="four">
+                    <p>Top 5 Genres, by decades</p>
+                    <select value="sourcesAlbums" name="sourcesAlbums" id="sourcesGenre" class="custom-select3 sources">
+                            <option value="50s">50's</option>
+                            <option value="60s">60's</option>
+                            <option value="70s">70's</option>
+                            <option value="80s">80's</option>
+                            <option value="90s">90's</option>
+                            <option value="90s">2000's</option>
+                    </select>
+                </div>
+                <div class="five" id="five"></div>
+                <div class="six" id="six"></div>
+                <div class="seven" id="seven"></div>
+              </div>
     </section>
 
     <!-- The form which is used to populate the item data -->
@@ -138,7 +274,7 @@
     
         <div class="form-group">
             <div class="col-xs-5 col-xs-offset-3">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" id="saveProfile">Save</button>
             </div>
         </div>
     </form>
@@ -146,7 +282,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script  src="{{ url_for('static', filename='jsPrivateZone/star.js') }}"></script>
     <script  src="{{ url_for('static', filename='jsPrivateZone/index.js') }}"></script>
 </body>
 </html>

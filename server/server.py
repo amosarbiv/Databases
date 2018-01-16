@@ -5,6 +5,8 @@ import json
 
 app = Flask(__name__)
 logic = LogicInterface.LogicInter("root", "LA1026vi", "test")
+wrongPatterntSearch = False
+tableResult = {}
 
 @app.route('/sign/loginPage.html', methods=['GET'])
 def loginPage():
@@ -59,7 +61,32 @@ def POST_Login(user, isSucces, chkBox, setCookie):
 @app.route('/PrivateZone.html/<name>', methods=['GET', 'POST'])
 def PrivateZone(name):
     if request.method == 'GET':
-        return render_template('PrivateZone.html', user=name)
+        playlist = logic.displayPlayList(name)
+        global wrongPatterntSearch
+        if (wrongPatterntSearch == True):
+            SearchErrorPattern = "Wrong"
+        else:
+            SearchErrorPattern = None
+        wrongPatterntSearch = False
+        return render_template('PrivateZone.html', user=name, playlist=playlist, playlistLen=len(playlist), SearchError = SearchErrorPattern)
+
+@app.route('/GetUserRating', methods = ['POST'])
+def GetUserRating():
+    results = request.get_json(silent=True)
+    rating = results['rating']
+    user = results['name'].split('-')[1].replace(" ","")
+    songId = [int(s) for s in results['id'].split() if s.isdigit()][0]
+    isInPlaylist = results['isInPlaylist']
+    logic.playlistChangeRating(user, rating, songId, isInPlaylist)
+    return ('', 204)
+
+@app.route('/AddSongToPlaylist', methods = ['POST'])
+def AddSongToPlaylist():
+    results = request.get_json(silent=True)
+    user = logic.GetUserName()
+    songId = [int(s) for s in results['id'].split() if s.isdigit()][0]
+    logic.AddSongToPlaylist(user, songId)
+    return ('', 204)
 
 @app.route('/GetUserProfile', methods=['GET'])
 def GetUserProfile():
@@ -79,16 +106,62 @@ def UpdateUserProfile():
     country =  request.form['country']
     age = request.form['age']
     currUserName = logic.UpdateUserProfile(password,firstName,lastName,country,age)
-    resp = make_response(redirect(url_for('PrivateZone', name=currUserName)))
-    return resp
+    return ('', 204)
+
+@app.route('/GetTableTimeMachine', methods=['GET'])
+def GetTableTimeMachine():
+     tableJson = logic.GetTableTimeMachine()
+     return json.dumps(tableJson)
+
+@app.route('/GetTableTrending', methods=['GET'])
+def GetTableTrending():
+     tableJson = logic.GetTableTrending()
+     return json.dumps(tableJson)
+
+@app.route('/GetUserSearchTerm', methods=['POST'])
+def GetUserSearchTerm():
+    arguments = request.get_json(silent=True)
+    logic.GetUserSearchTerm(arguments)
+    return ('', 204)
+
+@app.route('/GetRecommendedData', methods=['GET'])
+def GetRecommendedData():
+    tableJson = logic.GetRecommendedData()
+    return json.dumps(tableJson)
+
+@app.route('/RetrieveSearchInfo', methods=['POST'])
+def RetrieveSearchInfo():
+    searchTerm = request.form['serachText']
+    userName = logic.GetUserName()
+    global tableResult
+    tableResult = logic.RetrieveSearchInfo(userName, searchTerm)
+    if(tableResult == False):
+        global wrongPatterntSearch
+        wrongPatterntSearch = True
+        resp = make_response(redirect(url_for('PrivateZone', name=userName)))
+        return resp
+    else:
+        resp = make_response(redirect(url_for('SearchZone', userName=userName,searchTerm=searchTerm)))
+        return resp
+
+@app.route('/SearchZone.html/<userName>/<searchTerm>', methods=['GET'])
+def SearchZone(userName, searchTerm):
+    global tableResult
+    songsCount = len(tableResult['songs'])
+    albumsCount = len(tableResult['album'])
+    artistsCount = len(tableResult['artist'])
+    return render_template('SearchZone.html', userName=userName, searchTerm=searchTerm, SearchResult=tableResult, songsCount=songsCount,albumsCount=albumsCount,artistsCount=artistsCount)
+
+@app.route('/GetInfoPage', methods=['POST'])
+def GetInfoPage():
+    results = request.get_json(silent=True)
+    user = logic.GetUserName()
+    songId = [int(s) for s in results['id'].split() if s.isdigit()][0]
+    logic.AddSongToPlaylist(user, songId)
+    return ('', 204)
 
 if __name__ == '__main__':
+    """result = logic.RetrieveSearchInfo('AARONBENNETT','<rolling>')
+    print(result)"""
     app.secret_key = 'itsasecret'
     app.run(port=8888, host="0.0.0.0", debug=True)
-    
-
-
-
-
-
-

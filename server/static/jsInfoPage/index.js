@@ -47,8 +47,6 @@ var scrolly = function(e) {
 }
 
 var init = function() {
-  
-  burger.addEventListener('click', openMenu, false);
   window.addEventListener('scroll', scrollFx, false);
   window.addEventListener('load', scrollFx, false);
   $('a[href^="#"]').on('click',scrolly);
@@ -84,6 +82,7 @@ var init = function() {
     var classes = $(this).attr("class"),
         id      = $(this).attr("id"),
         name    = $(this).attr("name");
+        console.log(id);
     var template =  '<div class="' + classes + '">';
         template += '<span class="custom-select-trigger">' + 'Decade' + '</span>';
         template += '<div class="custom-options">';
@@ -128,6 +127,7 @@ var init = function() {
           type: 'GET',
           }).success(function(response) {
             responseParse = JSON.parse(response);
+            console.log(responseParse);
             var node = document.getElementById('five');
             node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Artist</th><th>Ranking</th></tr></thead><tbody id="artistTable"></tbody></table></div>';
             var node = document.getElementById('artistTable');
@@ -150,6 +150,7 @@ var init = function() {
     var classes = $(this).attr("class"),
         id      = $(this).attr("id"),
         name    = $(this).attr("name");
+        console.log(id);
     var template =  '<div class="' + classes + '">';
         template += '<span class="custom-select-trigger2">' + 'Decade' + '</span>';
         template += '<div class="custom-options2">';
@@ -194,6 +195,7 @@ var init = function() {
           type: 'GET',
           }).success(function(response) {
             responseParse = JSON.parse(response);
+            console.log(responseParse);
             var node = document.getElementById('six');
             node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Song</th><th>Number of Views</th></tr></thead><tbody id="songTable"></tbody></table></div>';
             var node = document.getElementById('songTable');
@@ -216,6 +218,7 @@ var init = function() {
     var classes = $(this).attr("class"),
         id      = $(this).attr("id"),
         name    = $(this).attr("name");
+        console.log(id);
     var template =  '<div class="' + classes + '">';
         template += '<span class="custom-select-trigger3">' + 'Decade' + '</span>';
         template += '<div class="custom-options3">';
@@ -278,204 +281,6 @@ var init = function() {
     });
   });
 
-  $(".custom-select4").each(function() {
-    var classes = $(this).attr("class"),
-        id      = $(this).attr("id"),
-        name    = $(this).attr("name");
-    var template =  '<div class="' + classes + '">';
-        template += '<span class="custom-select-trigger4">' + 'Select' + '</span>';
-        template += '<div class="custom-options4">';
-        $(this).find("option").each(function() {
-          template += '<span class="custom-option4 ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
-        });
-    template += '</div></div>';
-    
-    $(this).wrap('<div class="custom-select-wrapper4"></div>');
-    $(this).hide();
-    $(this).after(template);
-  });
-  $(".custom-option4:first-of-type").hover(function() {
-    $(this).parents(".custom-options4").addClass("option-hover4");
-  }, function() {
-    $(this).parents(".custom-options4").removeClass("option-hover4");
-  });
-  $(".custom-select-trigger4").on("click", function() {
-    $('html').one('click',function() {
-      $(".custom-select4").removeClass("opened");
-    });
-    $(this).parents(".custom-select4").toggleClass("opened");
-    event.stopPropagation();
-  });
-  $(".custom-option4").on("click", function() {
-    $(this).parents(".custom-select-wrapper4").find("select").val($(this).data("value"));
-    $(this).parents(".custom-options4").find(".custom-option4").removeClass("selection");
-    $(this).addClass("selection");
-    $(this).parents(".custom-select4").removeClass("opened");
-    $(this).parents(".custom-select4").find(".custom-select-trigger4").text($(this).text());
-
-    var typeOfSearch = $(this).text();
-    $.ajax({
-      url: 'http://127.0.0.1:8888/GetUserSearchTerm',
-      type: 'POST',
-      data: JSON.stringify({"Type":'Artist',"TypeOfSearch":typeOfSearch}),
-      dataType: "json",
-      contentType: "application/json"
-      }).success(function() {
-        $.ajax({
-          url: 'http://127.0.0.1:8888/GetTableTrending',
-          type: 'GET',
-          }).success(function(response) {
-            responseParse = JSON.parse(response);
-            var node = document.getElementById('fiveTrending');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Artist</th><th>#Number</th></tr></thead><tbody id="artistsTable"></tbody></table></div>';
-            var node = document.getElementById('artistsTable');
-            var htmlTableInsert = "";
-            var index = 1;
-            responseParse.forEach(element => {
-              htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col1']+"</td>" +
-              "<td>"+element['col2']+"</td>" +
-              "</tr>"
-              index++;
-            });
-            node.innerHTML = htmlTableInsert;
-          });
-    });
-  });
-
-  $(".custom-select5").each(function() {
-    var classes = $(this).attr("class"),
-        id      = $(this).attr("id"),
-        name    = $(this).attr("name");
-    var template =  '<div class="' + classes + '">';
-        template += '<span class="custom-select-trigger5">' + 'Select' + '</span>';
-        template += '<div class="custom-options5">';
-        $(this).find("option").each(function() {
-          template += '<span class="custom-option5 ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
-        });
-    template += '</div></div>';
-    
-    $(this).wrap('<div class="custom-select-wrapper5"></div>');
-    $(this).hide();
-    $(this).after(template);
-  });
-  $(".custom-option5:first-of-type").hover(function() {
-    $(this).parents(".custom-options5").addClass("option-hover5");
-  }, function() {
-    $(this).parents(".custom-options5").removeClass("option-hover5");
-  });
-  $(".custom-select-trigger5").on("click", function() {
-    $('html').one('click',function() {
-      $(".custom-select5").removeClass("opened");
-    });
-    $(this).parents(".custom-select5").toggleClass("opened");
-    event.stopPropagation();
-  });
-  $(".custom-option5").on("click", function() {
-    $(this).parents(".custom-select-wrapper5").find("select").val($(this).data("value"));
-    $(this).parents(".custom-options5").find(".custom-option5").removeClass("selection");
-    $(this).addClass("selection");
-    $(this).parents(".custom-select5").removeClass("opened");
-    $(this).parents(".custom-select5").find(".custom-select-trigger5").text($(this).text());
-
-    var typeOfSearch = $(this).text();
-    $.ajax({
-      url: 'http://127.0.0.1:8888/GetUserSearchTerm',
-      type: 'POST',
-      data: JSON.stringify({"Type":'Songs',"TypeOfSearch":typeOfSearch}),
-      dataType: "json",
-      contentType: "application/json"
-      }).success(function() {
-        $.ajax({
-          url: 'http://127.0.0.1:8888/GetTableTrending',
-          type: 'GET',
-          }).success(function(response) {
-            responseParse = JSON.parse(response);
-            var node = document.getElementById('sixTrending');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Song</th><th>#Number</th></tr></thead><tbody id="songsTable"></tbody></table></div>';
-            var node = document.getElementById('songsTable');
-            var htmlTableInsert = "";
-            var index = 1;
-            responseParse.forEach(element => {
-              htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col1']+"</td>" +
-              "<td>"+element['col2']+"</td>" +
-              "</tr>"
-              index++;
-            });
-            node.innerHTML = htmlTableInsert;
-          });
-    });
-  });
-
-  $(".custom-select6").each(function() {
-    var classes = $(this).attr("class"),
-        id      = $(this).attr("id"),
-        name    = $(this).attr("name");
-    var template =  '<div class="' + classes + '">';
-        template += '<span class="custom-select-trigger6">' + 'Select' + '</span>';
-        template += '<div class="custom-options6">';
-        $(this).find("option").each(function() {
-          template += '<span class="custom-option6 ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
-        });
-    template += '</div></div>';
-    
-    $(this).wrap('<div class="custom-select-wrapper6"></div>');
-    $(this).hide();
-    $(this).after(template);
-  });
-  $(".custom-option6:first-of-type").hover(function() {
-    $(this).parents(".custom-options6").addClass("option-hover6");
-  }, function() {
-    $(this).parents(".custom-options6").removeClass("option-hover6");
-  });
-  $(".custom-select-trigger6").on("click", function() {
-    $('html').one('click',function() {
-      $(".custom-select6").removeClass("opened");
-    });
-    $(this).parents(".custom-select6").toggleClass("opened");
-    event.stopPropagation();
-  });
-  $(".custom-option6").on("click", function() {
-    $(this).parents(".custom-select-wrapper6").find("select").val($(this).data("value"));
-    $(this).parents(".custom-options6").find(".custom-option6").removeClass("selection");
-    $(this).addClass("selection");
-    $(this).parents(".custom-select6").removeClass("opened");
-    $(this).parents(".custom-select6").find(".custom-select-trigger6").text($(this).text());
-
-    var typeOfSearch = $(this).text();
-    $.ajax({
-      url: 'http://127.0.0.1:8888/GetUserSearchTerm',
-      type: 'POST',
-      data: JSON.stringify({"Type":'Collection',"TypeOfSearch":typeOfSearch}),
-      dataType: "json",
-      contentType: "application/json"
-      }).success(function() {
-        $.ajax({
-          url: 'http://127.0.0.1:8888/GetTableTrending',
-          type: 'GET',
-          }).success(function(response) {
-            responseParse = JSON.parse(response);
-            var node = document.getElementById('sevenTrending');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Collection</th><th>#Number</th></tr></thead><tbody id="collectionTable"></tbody></table></div>';
-            var node = document.getElementById('collectionTable');
-            var htmlTableInsert = "";
-            var index = 1;
-            responseParse.forEach(element => {
-              htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col1']+"</td>" +
-              "<td>"+element['col2']+"</td>" +
-              "</tr>"
-              index++;
-            });
-            node.innerHTML = htmlTableInsert;
-          });
-    });
-  });
-
   //Inchare of retrieving the recommended data
   $.ajax({
     url: 'http://127.0.0.1:8888/GetRecommendedData',
@@ -487,7 +292,7 @@ var init = function() {
       collectionTable = responseParse['collections'];
       var songNode = document.getElementById('songSlideRows');
       var artistNode = document.getElementById('artistSlideRows');
-      var collectionNode = document.getElementById('collectionSlideRows');
+      var collectionNode = document.getElementById('slider3');
       var htmlTableInsert1 = "";
       songTable.forEach(element => {
         htmlTableInsert1 += "<li>" +
@@ -499,7 +304,6 @@ var init = function() {
         "<source src='https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/Music/v4/4e/44/b7/4e44b7dc-aaa2-c63b-fb38-88e1635b5b29/mzaf_1844128138535731917.plus.aac.p.m4a' type='audio/ogg'></audio></h1>"+
         "</li>"
       });
-
       songNode.innerHTML = htmlTableInsert1;
 
       var htmlTableInsert2 = "";
@@ -636,7 +440,24 @@ jQuery(document).ready(function ($) {
           $('a.control_next3').click(function () {
               moveRight3();
           });
-  
+
+
+          $(document).on("click", ".AddToPlaylist", function (e) {
+            $.ajax({
+              url: "http://127.0.0.1:8888/AddSongToPlaylist",
+              data: JSON.stringify({'id': e.target.id}),
+              dataType: "json",
+              type: 'POST',
+              contentType: "application/json"
+            }).success(function() {
+              alert("The song has been added to your playlist");
+              var list = (e.target.id).split(" ");
+              var tdId = "AddToPlaylist"+list[0];
+              console.log(tdId);
+              var node = document.getElementById(tdId);
+              node.innerHTML = "<i class='fa fa-check fa-2x' style='color:#1a1a1a;' aria-hidden='true'></i>" 
+              });
+          });
   });    
 
 doc.on("click", ".alert", function(e) {

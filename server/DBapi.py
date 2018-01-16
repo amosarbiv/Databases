@@ -256,7 +256,7 @@ class DB():
 		trackUser.ranking AS 'You Rated', trackUser.numberOfViews AS 'Plays',\
 		Songs.discNumber AS 'Disc Number', Songs.trackPosition AS 'Track Position', Songs.trackTimeMillis AS 'Length (msec)',\
         convert(Songs.trackReleaseDate using utf8) AS 'Release Date',\
-        Songs.trackGenre AS Genre, Songs.trackPrice AS 'Price ($)'\
+        Songs.trackGenre AS Genre, Songs.trackPrice AS 'Price ($)', Songs.previewSong\
         FROM Songs, Collections, collectionsartist, Artists, trackUser\
         WHERE Songs.collectionId = collections.collectionId AND\
 		collections.collectionId = collectionsartist.collectionId AND\
@@ -387,28 +387,32 @@ class DB():
             return {}
 
     def GetRecommendedSongs(self,user):
-        query = """SELECT	Songs.trackName as Song, convert(sum(TrackUser.ranking),signed) as 'Users Rated', Collections.collectionName, convert(Songs.trackReleaseDate using utf8), Songs.trackGenre, Songs.trackPrice, userPlaylist.artistName
+        query = """SELECT	Songs.trackName as Song, collections.collectionName AS Album, Artists.artistName AS Artist, CAST(TrackUser.isInPlaylist as signed),
+		        Songs.previewSong AS Preview, Songs.trackId AS 'Track ID', TrackUser.ranking AS Rating,
+		        Songs.trackGenre AS Genre, convert(Songs.trackReleaseDate using utf8), songs.trackPrice AS Price
                 FROM	(
-		        SELECT	TrackUser.userName as tempUser, TrackUser.trackId as track, Artists.artistId as artist,Artists.artistName
+		        SELECT	TrackUser.userName as tempUser, TrackUser.trackId as track, Artists.artistId as artist
 		        FROM	TrackUser, Songs, Collections, collectionsartist, Artists
 		        WHERE	TrackUser.isInPlaylist = '1' AND
-				TrackUser.userName = "{}" AND
+				TrackUser.userName = "%s" AND
 				TrackUser.trackId = Songs.trackId AND
 				Songs.collectionId = Collections.collectionId AND
 				Collections.collectionId = collectionsartist.collectionId AND
 				collectionsartist.artistId = Artists.artistId
-		        ) AS userPlaylist, Songs, TrackUser, Collections, collectionsartist
-                WHERE	userPlaylist.artist = collectionsartist.artistId AND
+		        ) AS userPlaylist, Songs, TrackUser, Collections, collectionsartist, Artists
+
+                WHERE	Artists.artistId = userPlaylist.artist AND
+		        userPlaylist.artist = collectionsartist.artistId AND
 		        collectionsartist.collectionId = Collections.collectionId AND
 		        Collections.collectionId = Songs.collectionId AND
 		        TrackUser.trackId = Songs.trackId
                 GROUP BY TrackUser.trackId
                 ORDER BY 2 DESC
-                LIMIT 50
-                """.format(user)
+                LIMIT 100"""%user
         try:
             self.cur.execute(query)
             results = self.cur.fetchall()
+            print(results)
             return results
         except:
             self.DB.rollback()
@@ -416,21 +420,21 @@ class DB():
 
     def GetRecommendedCollections(self,user):
         query = """SELECT	Collections.collectionName AS Album, Collections.collectionPrice AS 'Price ($)', userPlaylist.artistName, convert(Collections.collectionReleaseDate using utf8),Collections.collectionGenre
-                FROM	(
-		        SELECT	TrackUser.userName as tempUser, TrackUser.trackId as track, Artists.artistId as artistid, Artists.artistName
-		        FROM	TrackUser, Songs, Collections, collectionsartist, Artists
-		        WHERE	TrackUser.isInPlaylist = '1' AND
-				TrackUser.userName = "{}" AND
+FROM	(
+		SELECT	TrackUser.userName as tempUser, TrackUser.trackId as track, Artists.artistId as artistid, Artists.artistName
+		FROM	TrackUser, Songs, Collections, collectionsartist, Artists
+		WHERE	TrackUser.isInPlaylist = '1' AND
+				TrackUser.userName = "%s" AND
 				TrackUser.trackId = Songs.trackId AND
 				Songs.collectionId = Collections.collectionId AND
 				Collections.collectionId = collectionsartist.collectionId AND
 				collectionsartist.artistId = Artists.artistId
-		        ) AS userPlaylist, Collections, collectionsartist
-                WHERE	userPlaylist.artistid = collectionsartist.artistId AND
-		        collectionsartist.collectionId = Collections.collectionId
-                ORDER BY 1 ASC
-                LIMIT 10        
-                """.format(user)
+		) AS userPlaylist, Collections, collectionsartist
+WHERE	userPlaylist.artistid = collectionsartist.artistId AND
+		collectionsartist.collectionId = Collections.collectionId
+ORDER BY 1 ASC
+LIMIT 10    
+                """%user
         try:
             self.cur.execute(query)
             results = self.cur.fetchall()
@@ -440,12 +444,13 @@ class DB():
             return {}
 
     def GetRecommendedArtists(self,user):
-        query = """SELECT	Artists.artistName as Artist, count(userPlaylist.track) as 'Rated', Artists.artistPrimaryGenre
+        query = """SELECT	Artists.artistName as Artist, count(userPlaylist.track) as 'Number of Songs You Like of This Artist',
+		        Artists.artistId AS 'Artist ID'
                 FROM	(
 		        SELECT	TrackUser.userName as tempUser, TrackUser.trackId as track, Artists.artistId as artist
 		        FROM	TrackUser, Songs, Collections, collectionsartist, Artists
 		        WHERE	TrackUser.isInPlaylist = '1' AND
-				TrackUser.userName = "{}" AND
+				TrackUser.userName = "%s" AND
 				TrackUser.trackId = Songs.trackId AND
 				Songs.collectionId = Collections.collectionId AND
 				Collections.collectionId = collectionsartist.collectionId AND
@@ -454,7 +459,7 @@ class DB():
                 GROUP BY userPlaylist.artist
                 ORDER BY 2 DESC
                 LIMIT 5
-                """.format(user)
+                """%user
         try:
             self.cur.execute(query)
             results = self.cur.fetchall()

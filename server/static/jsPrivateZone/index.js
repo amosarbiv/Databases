@@ -483,17 +483,24 @@ var init = function() {
       var artistNode = document.getElementById('artistSlideRows');
       var collectionNode = document.getElementById('collectionSlideRows');
       var htmlTableInsert1 = "";
-      songTable.forEach(element => {
-        htmlTableInsert1 += "<li>" +
-        "<h1 class='panel__textHeader'>&nbsp;<a href=# data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"+
-        "<h1 class='panel__text'>&nbsp;Average Rating:&nbsp;"+element[1]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[2]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[6]+"&emsp;&emsp;Release Date:&nbsp;"+element[3]+"&emsp;&emsp;Genre:&nbsp;"+element[4]+"&emsp;&emsp;Price:&nbsp;"+element[5]+"$</h1>"+
+      console.log(songTable);
+      for (let index = 0; index < songTable.length; index++) {
+        const element = songTable[index];
+        console.log(element);
+        htmlTableInsert1 += "<li>"
+        if(element[3] == 1){
+          htmlTableInsert1 += "<h1 class='panel__textHeader'>&nbsp;<i class='fa fa-check fa-1x' style='color:#1a1a1a;' aria-hidden='true'></i>&nbsp;&nbsp;"+element[0]+"</h1>"
+        }
+        else{
+          htmlTableInsert1 += "<h1 class='panel__textHeader' id='AddToPlaylist"+element[5]+"'>&nbsp;<a href=# class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"
+        }
+        htmlTableInsert1 += "<h1 class='panel__text'>&nbsp;Average Rating:&nbsp;"+element[6]+"</h1>" +
+        "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[1]+"</h1>" +
+        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[2]+"&emsp;&emsp;Release Date:&nbsp;"+element[8]+"&emsp;&emsp;Genre:&nbsp;"+element[7]+"&emsp;&emsp;Price:&nbsp;"+element[9]+"$</h1>"+
         "<h1 class='panel__text'><audio controls>"+
-        "<source src='https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/Music/v4/4e/44/b7/4e44b7dc-aaa2-c63b-fb38-88e1635b5b29/mzaf_1844128138535731917.plus.aac.p.m4a' type='audio/ogg'></audio></h1>"+
+        "<source src='"+element[4]+"' type='audio/ogg'></audio></h1>"+
         "</li>"
-      });
-
+      }
       songNode.innerHTML = htmlTableInsert1;
 
       var htmlTableInsert2 = "";

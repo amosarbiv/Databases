@@ -27,10 +27,10 @@ def LoginAction():
 
 @app.route('/logOut/<userName>', methods=['GET'])
 def logOut(userName):
-    resp = make_response(redirect(url_for('PrivateZone', name=userName)))
-    resp.set_cookie('failed_login', '', expires=0)
-    resp.set_cookie('userNameLogin', '', expires=0)
-    return make_response(redirect(url_for('loginPage')))
+    resp = make_response(redirect(url_for('loginPage')))
+    resp.set_cookie('successful_login', 'False')
+    resp.set_cookie('userNameLogin', '')
+    return resp
 
 
 @app.route('/sign/SignUpAction', methods=['POST'])

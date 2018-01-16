@@ -1,7 +1,7 @@
 import MySQLdb
 import json
 
-cursor = MySQLdb.connect('localhost', db='test', user='root', password='amos', port=3306)
+cursor = MySQLdb.connect('localhost', db='test', user='root', password='6464', port=3306)
   
 try:
     json_data = open('Tables//ArtistsTable.json')
@@ -19,12 +19,15 @@ try:
     json_data = open('Tables//ArtistCollectionTable.json')
     ArtistCollectionTable = json.load(json_data)
     
-    
+
     cursor2=cursor.cursor()
     
-    """
+    
+    """print("connected")
     DropTable = "DROP TABLE TrackUser;"
     cursor.query(DropTable)
+    cursor.commit()
+    print("Drop success")
     DropTable = "DROP TABLE CollectionsArtist;"
     cursor.query(DropTable)
     DropTable = "DROP TABLE ArtistUser;"
@@ -36,10 +39,8 @@ try:
     DropTable = "DROP TABLE Collections;"
     cursor.query(DropTable)
     DropTable = "DROP TABLE Artists;"
-    cursor.query(DropTable)
-    """
-    
-	
+    cursor.query(DropTable)"""
+
     createJson = "CREATE TABLE Artists (artistId int NOT NULL, artistName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, artistPrimaryGenre varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, PRIMARY KEY(artistId));"
     cursor.query(createJson)
 	
@@ -60,7 +61,8 @@ try:
 	
     createJson = "CREATE TABLE ArtistUser (artistId int NOT NULL, userName varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, artistRanking int NOT NULL, FOREIGN KEY (artistId) REFERENCES Artists(artistId), FOREIGN KEY (userName) REFERENCES Users(userName));"
     cursor.query(createJson)
-	
+    cursor.commit()
+    print("create success")
     columns_names = ["artistId", "artistName", "artistPrimaryGenre"]
     columns_names_str = ', '.join(columns_names)
     binds_str = ', '.join('%s' for _ in range(len(columns_names)))

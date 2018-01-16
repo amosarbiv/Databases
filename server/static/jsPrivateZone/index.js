@@ -129,15 +129,14 @@ var init = function() {
           }).success(function(response) {
             responseParse = JSON.parse(response);
             var node = document.getElementById('five');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Artist</th><th>Ranking</th></tr></thead><tbody id="artistTable"></tbody></table></div>';
+            node.innerHTML = '<div class=scrollbox><div class="table-responsive header-fixed" style="text-align:left;height:300px;"><table class="table table-striped "><thead><tr><th>#</th><th>Artist</th></tr></thead><tbody id="artistTable"></tbody></table></div></div>';
             var node = document.getElementById('artistTable');
             var htmlTableInsert = "";
             var index = 1;
             responseParse.forEach(element => {
               htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col2']+"</td>" +
-              "<td>"+element['col1']+"</td>" +
+              "<td class='col-md-1'>"+index+"</td>" +
+              "<td class='col-md-8'>"+element['col2']+"</td>" +
               "</tr>"
               index++;
             });
@@ -195,15 +194,14 @@ var init = function() {
           }).success(function(response) {
             responseParse = JSON.parse(response);
             var node = document.getElementById('six');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Song</th><th>Number of Views</th></tr></thead><tbody id="songTable"></tbody></table></div>';
+            node.innerHTML = '<div class=scrollbox><div class="table-responsive header-fixed" style="text-align:left;height:300px;"><table class="table table-striped "><thead><tr><th>#</th><th>Song</th></tr></thead><tbody id="songTable"></tbody></table></div></div>';
             var node = document.getElementById('songTable');
             var htmlTableInsert = "";
             var index = 1;
             responseParse.forEach(element => {
               htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col2']+"</td>" +
-              "<td>"+element['col1']+"</td>" +
+              "<td class='col-md-1'>"+index+"</td>" +
+              "<td class='col-md-8'>"+element['col2']+"</td>" +
               "</tr>"
               index++;
             });
@@ -261,15 +259,14 @@ var init = function() {
           }).success(function(response) {
             responseParse = JSON.parse(response);
             var node = document.getElementById('seven');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Genre</th><th>Number of Views</th></tr></thead><tbody id="genreTable"></tbody></table></div>';
+            node.innerHTML = '<div class=scrollbox><div class="table-responsive header-fixed" style="text-align:left;height:300px;"><table class="table table-striped "><thead><tr><th>#</th><th>Genre</th></tr></thead><tbody id="genreTable"></tbody></table></div></div>';
             var node = document.getElementById('genreTable');
             var htmlTableInsert = "";
             var index = 1;
             responseParse.forEach(element => {
               htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col2']+"</td>" +
-              "<td>"+element['col1']+"</td>" +
+              "<td class='col-md-1'>"+index+"</td>" +
+              "<td class='col-md-8'>"+element['col2']+"</td>" +
               "</tr>"
               index++;
             });
@@ -327,15 +324,14 @@ var init = function() {
           }).success(function(response) {
             responseParse = JSON.parse(response);
             var node = document.getElementById('fiveTrending');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Artist</th><th>#Number</th></tr></thead><tbody id="artistsTable"></tbody></table></div>';
+            node.innerHTML = '<div class=scrollbox><div class="table-responsive header-fixed" style="text-align:left;height:270px;"><table class="table table-striped "><thead><tr><th>#</th><th>Artist</th></tr></thead><tbody id="artistsTable"></tbody></table></div></div>';
             var node = document.getElementById('artistsTable');
             var htmlTableInsert = "";
             var index = 1;
             responseParse.forEach(element => {
               htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col1']+"</td>" +
-              "<td>"+element['col2']+"</td>" +
+              "<td class='col-md-1'>"+index+"</td>" +
+              "<td class='col-md-8'>"+element['col1']+"</td>" +
               "</tr>"
               index++;
             });
@@ -393,15 +389,14 @@ var init = function() {
           }).success(function(response) {
             responseParse = JSON.parse(response);
             var node = document.getElementById('sixTrending');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Song</th><th>#Number</th></tr></thead><tbody id="songsTable"></tbody></table></div>';
+            node.innerHTML = '<div class=scrollbox><div class="table-responsive header-fixed" style="text-align:left;height:270px;"><table class="table table-striped "><thead><tr><th>#</th><th>Song</th></tr></thead><tbody id="songsTable"></tbody></table></div></div>';
             var node = document.getElementById('songsTable');
             var htmlTableInsert = "";
             var index = 1;
             responseParse.forEach(element => {
               htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col1']+"</td>" +
-              "<td>"+element['col2']+"</td>" +
+              "<td class='col-md-1'>"+index+"</td>" +
+              "<td class='col-md-8'>"+element['col1']+"</td>" +
               "</tr>"
               index++;
             });
@@ -459,15 +454,14 @@ var init = function() {
           }).success(function(response) {
             responseParse = JSON.parse(response);
             var node = document.getElementById('sevenTrending');
-            node.innerHTML = '<div class="table-responsive header-fixed" style="text-align:left;height:300px;overflow:auto;"><table class="table table-striped "><thead><tr><th>#</th><th>Collection</th><th>#Number</th></tr></thead><tbody id="collectionTable"></tbody></table></div>';
+            node.innerHTML = '<div class=scrollbox><div class="table-responsive header-fixed" style="text-align:left;height:270px;"><table class="table table-striped "><thead><tr><th>#</th><th>Collection</th></tr></thead><tbody id="collectionTable"></tbody></table></div></div>';
             var node = document.getElementById('collectionTable');
             var htmlTableInsert = "";
             var index = 1;
             responseParse.forEach(element => {
               htmlTableInsert += "<tr>" +
-              "<td>"+index+"</td>" +
-              "<td>"+element['col1']+"</td>" +
-              "<td>"+element['col2']+"</td>" +
+              "<td class='col-md-1'>"+index+"</td>" +
+              "<td class='col-md-8'>"+element['col1']+"</td>" +
               "</tr>"
               index++;
             });
@@ -491,10 +485,10 @@ var init = function() {
       var htmlTableInsert1 = "";
       songTable.forEach(element => {
         htmlTableInsert1 += "<li>" +
-        "<h1 class='panel__textHeader'>&nbsp;Song:&nbsp;"+element[0]+"&emsp;&emsp;Rated:&nbsp;"+element[1]+"&emsp;&emsp;" +
-        "<a href=# data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' style='color:#1a1a1a;' aria-hidden='true'></i></a></h1>" +
-        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[6]+"&emsp;&emsp;Collection:&nbsp;"+element[2]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Release Date:&nbsp;"+element[3]+"&emsp;&emsp;Genre:&nbsp;"+element[4]+"&emsp;&emsp;Price:&nbsp;"+element[5]+"$</h1>"+
+        "<h1 class='panel__textHeader'>&nbsp;<a href=# data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"+
+        "<h1 class='panel__text'>&nbsp;Average Rating:&nbsp;"+element[1]+"</h1>" +
+        "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[2]+"</h1>" +
+        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[6]+"&emsp;&emsp;Release Date:&nbsp;"+element[3]+"&emsp;&emsp;Genre:&nbsp;"+element[4]+"&emsp;&emsp;Price:&nbsp;"+element[5]+"$</h1>"+
         "<h1 class='panel__text'><audio controls>"+
         "<source src='https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/Music/v4/4e/44/b7/4e44b7dc-aaa2-c63b-fb38-88e1635b5b29/mzaf_1844128138535731917.plus.aac.p.m4a' type='audio/ogg'></audio></h1>"+
         "</li>"
@@ -505,8 +499,8 @@ var init = function() {
       var htmlTableInsert2 = "";
       artistTable.forEach(element => {
         htmlTableInsert2 += "<li>" +
-        "<h1 class='panel__textHeader__Small'>&nbsp;Artist:&nbsp;"+element[0]+"</h1>"+
-        "<h1 class='panel__text__Small'>&nbsp;Rated:&nbsp;"+element[1]+"&emsp;&emsp;Genre:&nbsp;"+element[2]+"</h1>" +
+        "<h1 class='panel__textHeader__Small'>&nbsp;"+element[0]+"</h1>"+
+        "<h1 class='panel__text__Small'>&nbsp;Average Rating::&nbsp;"+element[1]+"&emsp;&emsp;Genre:&nbsp;"+element[2]+"</h1>" +
         "</li>"
       });
       artistNode.innerHTML = htmlTableInsert2;
@@ -514,7 +508,7 @@ var init = function() {
       var htmlTableInsert3 = "";
       collectionTable.forEach(element => {
         htmlTableInsert3 += "<li>" +
-        "<h1 class='panel__textHeader__Small'>&nbsp;Collection:&nbsp;"+element[0]+"</h1>" +
+        "<h1 class='panel__textHeader__Small'>&nbsp;"+element[0]+"</h1>" +
         "<h1 class='panel__text__Small'>&nbsp;Artist:&nbsp;"+element[2]+"</h1>" +
         "<h1 class='panel__text__Small'>&nbsp;Release Date:&nbsp;"+element[3]+"&emsp;&emsp;Genre:&nbsp;"+element[4]+"&emsp;&emsp;Price:&nbsp;"+element[1]+"$</h1>" +
         "</li>"
@@ -661,7 +655,7 @@ doc.on("click", ".alert", function(e) {
     // Show the dialog
     modalUser = bootbox
   .dialog({
-      title: 'Hey '+responseParse.UserName+', here you can edit your profile!',
+      title: 'Here you can edit your profile!',
       message: $('#userForm'),
       show: false // We will show it manually later
   })

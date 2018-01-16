@@ -28,12 +28,13 @@ class LogicInter:
         f.close()
         return json.dumps(details)
 
-    def UpdateUserProfile(self,password,firstName,lastName,country,age):
+    def UpdateUserProfile(self,firstName,lastName,country,age):
         f = open("server//tmpFiles//userProfile.json", "r")
         profile = json.load(f)
         f.close()
         currUserName = profile['UserName']
-        self.dataBase.UpdateUserProfile(currUserName,password,firstName,lastName,country,age)
+        password = profile['Password']
+        self.dataBase.UpdateUserProfile(currUserName,firstName,lastName,country,age)
         newDic = {"UserName":currUserName,"Password":password,"FirstName":firstName,"LastName":lastName,"Country":country,"Age":age,"PlaylistPrivacy":profile['PlaylistPrivacy']}
         f = open("server//tmpFiles//userProfile.json","w")
         json.dump(newDic, f)

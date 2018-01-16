@@ -25,9 +25,9 @@
                 <input id="serachText" name="serachText" type="search" placeholder="Search" required>
                 <button type="submit" class="myButton">Search</button>
             </form>
-            <img src="{{ url_for('static', filename='cssPrivateZone/jukeboxTitle.png') }}" alt="" />
-            <a class="alert" href=#><i class="fa fa-circle fa-4x icon-background2"></i></a>
-            <a class="alert" href=#><i class="fa fa-user-o fa-2x icon-background3" aria-hidden="true"></i></a>
+            <img class="logoJukeBox" src="{{ url_for('static', filename='cssPrivateZone/jukeboxTitle.png') }}" alt="" />
+            <a href='http://127.0.0.1:8888/logOut/{{user}}'><i class="fa fa-sign-out fa-3x icon-background2" aria-hidden="true"></i></a>
+            <a class="alert" href=#><i class="fa fa-user-circle-o fa-3x icon-background3" aria-hidden="true"></i></a>
     </nav>
     <nav class="nav">
         <div class="burger">
@@ -38,7 +38,7 @@
                 <a href="#1" class="nav__link c-blue"><i class="fa fa-music"></i><span class="tooltiptext">Playlist</span></a>
             </li>
             <li class="nav__item">
-                <a href="#2" class="nav__link c-yellow scrolly"><i class="fa fa-bolt"></i><span class="tooltiptext">Trending</span></a>
+                <a href="#2" class="nav__link c-yellow scrolly"><i class="fa fa-fire" aria-hidden="true"></i><span class="tooltiptext">Trending</span></a>
             </li>
             <li class="nav__item">
                 <a href="#3" class="nav__link c-red"><i class="fa fa-heart-o"></i><span class="tooltiptext">Just 4 U</span></a>
@@ -48,7 +48,7 @@
             </li>
         </ul>
     </nav>
-    <section class="panel b-blue" id="1">
+    <section class="panel b-green" id="1">
     <div class="wrapper1" >
         <div class="first">
             <h1 class="panel__headline">
@@ -57,7 +57,8 @@
             </h1>
         </div>
         <div class="second">
-            <div class="table-responsive header-fixed" style="padding-top:-60px;text-align:left;height:500px;overflow-y:auto;">
+        <div class=scrollbox>
+            <div class="table-responsive header-fixed" style="padding-top:-60px;text-align:left;height:500px;">
                 <table class="table table-striped ">
                     <thead>
                         <tr>
@@ -107,16 +108,15 @@
                 </table>
             </div>
         </div>
-    </div>
+        </div>
     </section>
     <section class="panel b-green" id="2">
             <div class="wrapperTrending">
                     <div class="navGridTrending"></div>
-                    <div class="headTrending"><h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;Ooh that's hot!</h1>
-                        <div class="panel__block"></div>
+                    <div class="headTrending"><h1 class="panel__headline"><i class="fa fa-fire" aria-hidden="true"></i>&nbsp;Ooh That's Hot!</h1>
                     </div>
                     <div class="twoTrending">
-                        <p>Most trending artists</p>
+                        <p style="margin-top: -20px;">Top Trending Artists</p>
                         <select value="trendingArtists" name="trendingArtists" id="trendingArtists" class="custom-select4 sources">
                                 <option value="top20">Top 20</option>
                                 <option value="girls">Top 10 by girls</option>
@@ -126,7 +126,7 @@
                         </select>
                     </div>
                     <div class="threeTrending">
-                        <p>Most trending songs</p>
+                        <p style="margin-top: -20px;">Top Trending Songs</p>
                         <select value="trendingSongs" name="trendingSongs" id="trendingSongs" class="custom-select5 sources">
                                 <option value="top25">Top 25</option>
                                 <option value="girls">Top 10 by girls</option>
@@ -137,7 +137,7 @@
                         </select>
                     </div>
                     <div class="fourTrending">
-                        <p>Most trending collections</p>
+                        <p style="margin-top: -20px;">Top Trending Collections</p>
                         <select value="trendingAlbums" name="trendingAlbums" id="trendingAlbums" class="custom-select6 sources">
                                 <option value="top10">Top 10</option>
                                 <option value="girls">Top 10 by girls</option>
@@ -151,13 +151,15 @@
                     <div class="sevenTrending" id="sevenTrending"></div>
                   </div>
     </section>
-    <section class="panel b-blue" id="3">
+    <section class="panel b-green" id="3">
         <div class="wrapperRecommended">
+            
             <div class="navGridRecom"></div>
             <div class="headRecom"><h1 class="panel__headline"><i class="fa fa-heart-o"></i>&nbsp;Just 4 U {{user}}</h1>
             </div>
             <div class="SongSlide">
-                <div id="slider1" style="width: 1230px; height: 240px;">
+                <p class="songsForYou">Songs For You</p>
+                <div id="slider1" style="text-align:center;margin-top:-70px;width: 1230px; height: 250px;">
                     <a href="#" class="control_next1"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                     <a href="#" class="control_prev1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
                     <ul id=songSlideRows>
@@ -165,7 +167,8 @@
                 </div>
             </div>
             <div class="ArtistSlide">
-                <div id="slider2" style="width: 560px; height: 170px;">
+                <p class="artistsForYou">Artists For You</p>
+                <div id="slider2" style="text-align:center;margin-top:-40px;width: 560px; height: 170px;">
                     <a href="#" class="control_next2"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                     <a href="#" class="control_prev2"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
                     <ul id=artistSlideRows>
@@ -173,7 +176,8 @@
                 </div>
             </div>
             <div class="CollectionSlide">
-                <div id="slider3" style="width: 640px; height: 170px;">
+                <p class="collectionsForYou">Collections For You</p>
+                <div id="slider3" style="text-align:center;margin-top:-40px;width: 640px; height: 170px;">
                     <a href="#" class="control_next3"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                     <a href="#" class="control_prev3"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
                     <ul id=collectionSlideRows>
@@ -185,11 +189,10 @@
     <section class="panel b-green" id="4">
         <div class="wrapperTimeMachine">
                 <div class="navGrid"></div>
-                <div class="head"><h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;Hey {{user}}, this is Time Machine</h1>
-                    <div class="panel__block"></div>
+                <div class="head"><h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;The Time Machine</h1>
                 </div>
                 <div class="two">
-                    <p>Top 5 Artists, by decades</p>
+                    <p style="margin-top: -20px;">Top 5 Artists, by decades</p>
                     <select value="sourcesArtist" name="sourcesArtist" id="sourcesArtist" class="custom-select sources">
                             <option value="50s">50's</option>
                             <option value="60s">60's</option>
@@ -200,7 +203,7 @@
                     </select>
                 </div>
                 <div class="three">
-                    <p>Top 5 Songs, by decades</p>
+                    <p style="margin-top: -20px;">Top 5 Songs, by decades</p>
                     <select value="sourcesSongs" name="sourcesSongs" id="sourcesSongs" class="custom-select2 sources">
                             <option value="50s">50's</option>
                             <option value="60s">60's</option>
@@ -211,7 +214,7 @@
                     </select>
                 </div>
                 <div class="four">
-                    <p>Top 5 Genres, by decades</p>
+                    <p style="margin-top: -20px;">Top 5 Genres, by decades</p>
                     <select value="sourcesAlbums" name="sourcesAlbums" id="sourcesGenre" class="custom-select3 sources">
                             <option value="50s">50's</option>
                             <option value="60s">60's</option>
@@ -240,7 +243,7 @@
         <div class="form-group">
                 <label class="col-xs-3 control-label">password</label>
                 <div class="col-xs-5">
-                    <input type="text" class="form-control" name="passWord" required/>
+                    <input type="text" class="form-control" name="passWord" disabled="disabled"/>
                 </div>
         </div>
     

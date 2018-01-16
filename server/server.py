@@ -25,6 +25,14 @@ def LoginAction():
         else:
             return render_template('sign/loginPage.html', errorLogin="WrongCredentials", errorSign=None)
 
+@app.route('/logOut/<userName>', methods=['GET'])
+def logOut(userName):
+    resp = make_response(redirect(url_for('PrivateZone', name=userName)))
+    resp.set_cookie('failed_login', '', expires=0)
+    resp.set_cookie('userNameLogin', '', expires=0)
+    return make_response(redirect(url_for('loginPage')))
+
+
 @app.route('/sign/SignUpAction', methods=['POST'])
 def SignUpAction():
     if request.method == 'POST':
@@ -100,12 +108,11 @@ def ChangePlaylistPrivacy():
 
 @app.route('/UpdateUserProfile', methods=['POST'])
 def UpdateUserProfile():
-    password = request.form['passWord']
     firstName =  request.form['firstName']
     lastName = request.form['lastName']
     country =  request.form['country']
     age = request.form['age']
-    currUserName = logic.UpdateUserProfile(password,firstName,lastName,country,age)
+    currUserName = logic.UpdateUserProfile(firstName,lastName,country,age)
     return ('', 204)
 
 @app.route('/GetTableTimeMachine', methods=['GET'])

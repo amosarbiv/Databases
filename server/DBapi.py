@@ -203,8 +203,8 @@ class DB():
             return False
 
 
-    def UpdateUserProfile(self, user, password, firstName, lastName, country, age):
-        query = "UPDATE test.users SET userPassword='{}', userFirstName='{}', userLastName='{}', userCountry='{}', userAge={} WHERE userName='{}';".format(password, firstName, lastName, country, age, user)
+    def UpdateUserProfile(self, user, firstName, lastName, country, age):
+        query = "UPDATE test.users SET userFirstName='{}', userLastName='{}', userCountry='{}', userAge={} WHERE userName='{}';".format(firstName, lastName, country, age, user)
         try:
             self.cur.execute(query)
             self.DB.commit()

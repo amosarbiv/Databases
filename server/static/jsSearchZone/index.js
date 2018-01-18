@@ -51,7 +51,7 @@ var init = function() {
   window.addEventListener('load', scrollFx, false);
   $('a[href^="#"]').on('click',scrolly);
   $.ajax({
-    url: 'http://127.0.0.1:8888/GetUserProfile',
+    url: '/GetUserProfile',
     method: 'GET',
     }).success(function(response) {
       responseParse = JSON.parse(response);
@@ -66,7 +66,7 @@ var init = function() {
   $('#toggle-trigger').change(function() {
     if(!firstTimeToggle){
         $.ajax({
-          url: 'http://127.0.0.1:8888/ChangePlaylistPrivacy',
+          url: '/ChangePlaylistPrivacy',
           type: "POST",
           data: JSON.stringify({"privacy":$(this).prop('checked')}),
           dataType: "json",
@@ -116,14 +116,14 @@ var init = function() {
 
     var decade = $(this).text();
     $.ajax({
-      url: 'http://127.0.0.1:8888/GetUserSearchTerm',
+      url: '/GetUserSearchTerm',
       type: 'POST',
       data: JSON.stringify({"Type":'Artist',"Decade":decade}),
       dataType: "json",
       contentType: "application/json"
       }).success(function() {
         $.ajax({
-          url: 'http://127.0.0.1:8888/GetTableTimeMachine',
+          url: '/GetTableTimeMachine',
           type: 'GET',
           }).success(function(response) {
             responseParse = JSON.parse(response);
@@ -184,14 +184,14 @@ var init = function() {
 
     var decade = $(this).text();
     $.ajax({
-      url: 'http://127.0.0.1:8888/GetUserSearchTerm',
+      url: '/GetUserSearchTerm',
       type: 'POST',
       data: JSON.stringify({"Type":'Song',"Decade":decade}),
       dataType: "json",
       contentType: "application/json"
       }).success(function() {
         $.ajax({
-          url: 'http://127.0.0.1:8888/GetTableTimeMachine',
+          url: '/GetTableTimeMachine',
           type: 'GET',
           }).success(function(response) {
             responseParse = JSON.parse(response);
@@ -252,14 +252,14 @@ var init = function() {
 
     var decade = $(this).text();
     $.ajax({
-      url: 'http://127.0.0.1:8888/GetUserSearchTerm',
+      url: '/GetUserSearchTerm',
       type: 'POST',
       data: JSON.stringify({"Type":'Genre',"Decade":decade}),
       dataType: "json",
       contentType: "application/json"
       }).success(function() {
         $.ajax({
-          url: 'http://127.0.0.1:8888/GetTableTimeMachine',
+          url: '/GetTableTimeMachine',
           type: 'GET',
           }).success(function(response) {
             responseParse = JSON.parse(response);
@@ -283,7 +283,7 @@ var init = function() {
 
   //Inchare of retrieving the recommended data
   $.ajax({
-    url: 'http://127.0.0.1:8888/GetRecommendedData',
+    url: '/GetRecommendedData',
     method: 'GET',
     }).success(function(response) {
       responseParse = JSON.parse(response);
@@ -444,7 +444,7 @@ jQuery(document).ready(function ($) {
 
           $(document).on("click", ".AddToPlaylist", function (e) {
             $.ajax({
-              url: "http://127.0.0.1:8888/AddSongToPlaylist",
+              url: "/AddSongToPlaylist",
               data: JSON.stringify({'id': e.target.id}),
               dataType: "json",
               type: 'POST',
@@ -465,7 +465,7 @@ doc.on("click", ".alert", function(e) {
   //var id = $(this).attr('data-id');
 
   $.ajax({
-    url: 'http://127.0.0.1:8888/GetUserProfile',
+    url: '/GetUserProfile',
     method: 'GET',
     //data: $form.serialize()
 }).success(function(response) {

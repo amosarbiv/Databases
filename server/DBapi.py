@@ -385,7 +385,7 @@ class DB():
             self.DB.rollback()
             return {}
 
-    def GetRecommendedDbMysql15.Songs(self,user):
+    def GetRecommendedSongs(self,user):
         query = """SELECT	DbMysql15.Songs.trackName as Song, avg(DbMysql15.TrackUser.ranking) AS Rating, userPlaylist.numOfDbMysql15.Songs as numOfDbMysql15.Songs, DbMysql15.Collections.collectionName AS Album, DbMysql15.Artists.artistName AS Artist, DbMysql15.TrackUser.isInPlaylist,
 		DbMysql15.Songs.previewSong AS Preview, DbMysql15.Songs.trackId AS 'Track ID',
 		DbMysql15.Songs.trackGenre AS Genre, DbMysql15.Songs.trackReleaseDate AS 'Release Date', DbMysql15.Songs.trackPrice AS Price
@@ -419,7 +419,7 @@ LIMIT 100"""%user
             self.DB.rollback()
             return {}
 
-    def GetRecommendedDbMysql15.Collections(self,user):
+    def GetRecommendedCollections(self,user):
         query = """SELECT	DbMysql15.Collections.collectionName AS Album, DbMysql15.Collections.collectionPrice AS 'Price ($)', userPlaylist.artistName, convert(DbMysql15.Collections.collectionReleaseDate using utf8),DbMysql15.Collections.collectionGenre
 FROM	(
 		SELECT	DbMysql15.TrackUser.userName as tempUser, DbMysql15.TrackUser.trackId as track, DbMysql15.Artists.artistId as artistid, DbMysql15.Artists.artistName
@@ -444,7 +444,7 @@ LIMIT 10
             self.DB.rollback()
             return {}
 
-    def GetRecommendedDbMysql15.Artists(self,user):
+    def GetRecommendedArtists(self,user):
         query = """SELECT	DbMysql15.Artists.artistName as Artist, count(userPlaylist.track) as 'Number of DbMysql15.Songs You Like of This Artist',
 		        DbMysql15.Artists.artistId AS 'Artist ID'
                 FROM	(

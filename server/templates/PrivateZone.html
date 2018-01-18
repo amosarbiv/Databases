@@ -21,12 +21,12 @@
      {% endif %}
     <nav class="nav2">
         <div class="burger2">
-            <form id="demo-2" action="http://127.0.0.1:8888/RetrieveSearchInfo" method="POST" data-toggle="validator">
+            <form id="demo-2" action="/RetrieveSearchInfo" method="POST" data-toggle="validator">
                 <input id="serachText" name="serachText" type="search" placeholder="Search" required>
                 <button type="submit" class="myButton">Search</button>
             </form>
             <img class="logoJukeBox" src="{{ url_for('static', filename='cssPrivateZone/jukeboxTitle.png') }}" alt="" />
-            <a href='http://127.0.0.1:8888/logOut/{{user}}'><i class="fa fa-sign-out fa-3x icon-background2" aria-hidden="true"></i></a>
+            <a href='/logOut/{{user}}'><i class="fa fa-sign-out fa-3x icon-background2" aria-hidden="true"></i></a>
             <a class="alert" href=#><i class="fa fa-user-circle-o fa-3x icon-background3" aria-hidden="true"></i></a>
     </nav>
     <nav class="nav">
@@ -232,7 +232,7 @@
 
     <!-- The form which is used to populate the item data -->
     
-    <form id="userForm" action="http://127.0.0.1:8888/UpdateUserProfile" method="POST" class="form-horizontal" style="display: none;" data-toggle="validator">
+    <form id="userForm" action="/UpdateUserProfile" method="POST" class="form-horizontal" style="display: none;" data-toggle="validator">
         <div class="form-group">
             <label class="col-xs-3 control-label">userName</label>
             <div class="col-xs-5">

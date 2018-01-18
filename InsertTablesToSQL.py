@@ -1,7 +1,7 @@
 import MySQLdb
 import json
 
-cursor = MySQLdb.connect('localhost', db='test', user='root', password='6464', port=3306)
+cursor = MySQLdb.connect('localhost', db='test', user='root', password='LA1026vi', port=3306)
   
 try:
     json_data = open('Tables//ArtistsTable.json')

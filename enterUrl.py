@@ -5,33 +5,33 @@ import json
 
 def main():
     DB = sql.connect(host="localhost",
-                        user="root",
-                        passwd="6464",
-                        db="test",
-                        port=3306)
+                        user="DbMysql15",
+                        passwd="DbMysql15",
+                        db="DbMysql15",
+                        port=3305)
 
     f = open("preview.json")
     urls = json.load(f)
     f.close()
     cur = DB.cursor()
-    query = "ALTER TABLE test.SONGS \
-            ADD COLUMN previewSong VARCHAR(300) NOT NULL DEFAULT '\"\"' AFTER trackPrice"
+    #query = "ALTER TABLE test.SONGS \
+     #       ADD COLUMN previewSong VARCHAR(300) NOT NULL DEFAULT '\"\"' AFTER trackPrice"
 
-    cur.execute(query)
-    DB.commit()
+    #cur.execute(query)
+    #DB.commit()
 
     for songId in urls:
         
-        query = "UPDATE test.songs SET previewSong='%s' WHERE trackId='%s'"%(urls[songId], str(songId))
+        query = "UPDATE DbMysql15.Songs SET previewSong='%s' WHERE trackId='%s'"%(urls[songId], str(songId))
         cur.execute(query)
         
     DB.commit()
 
-    query = "ALTER TABLE test.artists \
-            ADD COLUMN artistPicture VARCHAR(300) NOT NULL DEFAULT '\"\"' AFTER artistPrimaryGenre"
+    #query = "ALTER TABLE test.artists \
+     #       ADD COLUMN artistPicture VARCHAR(300) NOT NULL DEFAULT '\"\"' AFTER artistPrimaryGenre"
 
-    cur.execute(query)
-    DB.commit()
+    #cur.execute(query)
+    #DB.commit()
     f = open("pictures.json")
     pictures = json.load(f)
     f.close()
@@ -40,7 +40,7 @@ def main():
         artistToInsert = artist.replace("\\","")
         artistToInsert = artistToInsert.replace('"', "")
         try:
-            query = "UPDATE test.artists SET artistPicture='%s' WHERE artistName='%s'"%(pictures[artist], artistToInsert)
+            query = "UPDATE DbMysql15.Artists SET artistPicture='%s' WHERE artistName='%s'"%(pictures[artist], artistToInsert)
             cur.execute(query)
         except:
             print(artistToInsert)

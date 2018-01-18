@@ -4,7 +4,7 @@ import LogicInterface
 import json
 
 app = Flask(__name__)
-logic = LogicInterface.LogicInter("root", "LA1026vi", "test")
+logic = LogicInterface.LogicInter("DbMysql15", "DbMysql15", "DbMysql15")
 wrongPatterntSearch = False
 tableResult = {}
 
@@ -168,7 +168,5 @@ def GetInfoPage():
     return ('', 204)
 
 if __name__ == '__main__':
-    """result = logic.RetrieveSearchInfo('AARONBENNETT','<rolling>')
-    print(result)"""
     app.secret_key = 'itsasecret'
-    app.run(port=8888, host="0.0.0.0", debug=True)
+    app.run(port=40001, host="0.0.0.0", debug=True)

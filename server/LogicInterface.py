@@ -1,4 +1,4 @@
-import MySQLdb as sql
+import pymysql as sql
 import logging
 import os
 import json

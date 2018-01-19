@@ -1,4 +1,4 @@
-import pymysql as sql
+import MySQLdb as sql
 import logging
 import os
 import json
@@ -164,7 +164,7 @@ LIMIT 5"""
 absPath = os.path.dirname(__file__) #<-- absolute dir the script is in
 
 class DB():
-    def __init__(self, DBUserName, DBPasswd, DBName, DBPort=3306, DBhost="mysqlsrv.cs.tau.ac.il"):
+    def __init__(self, DBUserName, DBPasswd, DBName, DBPort=3305, DBhost="localhost"):
 
         logging.basicConfig(level=logging.DEBUG)
         self.logger = logging.getLogger("DBapi")
@@ -173,7 +173,8 @@ class DB():
             self.DB = sql.connect(host=DBhost,
                                     user=DBUserName,
                                     passwd=DBPasswd,
-                                    db=DBName)
+                                    db=DBName,
+                                    port=3305)
         except Exception as e:
             self.logger.error("Error in logging to DB: %s"%str(e))
             os._exit(0)

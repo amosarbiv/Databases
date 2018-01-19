@@ -1,4 +1,4 @@
-import MySQLdb as sql
+import pymysql as sql
 import logging
 import os
 import json
@@ -173,8 +173,7 @@ class DB():
             self.DB = sql.connect(host=DBhost,
                                     user=DBUserName,
                                     passwd=DBPasswd,
-                                    db=DBName,
-                                    port=3305)
+                                    db=DBName)
         except Exception as e:
             self.logger.error("Error in logging to DB: %s"%str(e))
             os._exit(0)
@@ -391,15 +390,9 @@ class DB():
             return {}
 
     def GetRecommendedSongs(self,user):
-<<<<<<< HEAD
-        query = """SELECT	DbMysql15.Songs.trackName as Song, cast(avg(DbMysql15.TrackUser.ranking) as signed), userPlaylist.numOfSongs as numOfSongs, DbMysql15.Collections.collectionName AS Album, DbMysql15.Artists.artistName AS Artist, DbMysql15.TrackUser.isInPlaylist,
-		        DbMysql15.Songs.previewSong AS Preview, DbMysql15.Songs.trackId AS 'Track ID',
-		        DbMysql15.Songs.trackGenre AS Genre, convert(DbMysql15.Songs.trackReleaseDate using utf8), DbMysql15.Songs.trackPrice AS Price
-=======
         query = """SELECT	DbMysql15.Songs.trackName as Song,cast(avg(DbMysql15.TrackUser.ranking) as signed) AS Rating, userPlaylist.numOfSongs as numOfSongs, DbMysql15.Collections.collectionName AS Album, DbMysql15.Artists.artistName AS Artist, DbMysql15.TrackUser.isInPlaylist,
 		        DbMysql15.Songs.previewSong AS Preview, DbMysql15.Songs.trackId AS 'Track ID',
 		        DbMysql15.Songs.trackGenre AS Genre,convert(DbMysql15.Songs.trackReleaseDate using utf8), DbMysql15.Songs.trackPrice AS Price
->>>>>>> c01ebecf518050b31b9faa84166dc1113553c348
                 FROM	(
 		        SELECT	DISTINCT DbMysql15.TrackUser.userName as tempUser, count(DbMysql15.TrackUser.trackId) as numOfSongs, DbMysql15.Artists.artistId as artist
 		        FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists

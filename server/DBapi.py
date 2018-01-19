@@ -390,30 +390,29 @@ class DB():
             return {}
 
     def GetRecommendedSongs(self,user):
-        query = """SELECT	DbMysql15.Songs.trackName as Song, avg(DbMysql15.TrackUser.ranking) AS Rating, userPlaylist.numOfDbMysql15.Songs as numOfDbMysql15.Songs, DbMysql15.Collections.collectionName AS Album, DbMysql15.Artists.artistName AS Artist, DbMysql15.TrackUser.isInPlaylist,
-		DbMysql15.Songs.previewSong AS Preview, DbMysql15.Songs.trackId AS 'Track ID',
-		DbMysql15.Songs.trackGenre AS Genre, DbMysql15.Songs.trackReleaseDate AS 'Release Date', DbMysql15.Songs.trackPrice AS Price
-FROM	(
-		SELECT	DISTINCT DbMysql15.TrackUser.userName as tempUser, count(DbMysql15.TrackUser.trackId) as numOfDbMysql15.Songs, DbMysql15.Artists.artistId as artist
-		FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists
-		WHERE	DbMysql15.TrackUser.isInPlaylist = '1' AND
+        query = """SELECT	DbMysql15.Songs.trackName as Song, avg(DbMysql15.TrackUser.ranking) AS Rating, userPlaylist.numOfSongs as numOfSongs, DbMysql15.Collections.collectionName AS Album, DbMysql15.Artists.artistName AS Artist, DbMysql15.TrackUser.isInPlaylist,
+		        DbMysql15.Songs.previewSong AS Preview, DbMysql15.Songs.trackId AS 'Track ID',
+		        DbMysql15.Songs.trackGenre AS Genre, DbMysql15.Songs.trackReleaseDate AS 'Release Date', DbMysql15.Songs.trackPrice AS Price
+                FROM	(
+		        SELECT	DISTINCT DbMysql15.TrackUser.userName as tempUser, count(DbMysql15.TrackUser.trackId) as numOfSongs, DbMysql15.Artists.artistId as artist
+		        FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists
+		        WHERE	DbMysql15.TrackUser.isInPlaylist = '1' AND
 				DbMysql15.TrackUser.userName = "%s" AND
 				DbMysql15.TrackUser.trackId = DbMysql15.Songs.trackId AND
 				DbMysql15.Songs.collectionId = DbMysql15.Collections.collectionId AND
 				DbMysql15.Collections.collectionId = DbMysql15.CollectionsArtist.collectionId AND
 				DbMysql15.CollectionsArtist.artistId = DbMysql15.Artists.artistId
-		GROUP BY DbMysql15.Artists.artistId
-		) AS userPlaylist, DbMysql15.Songs, DbMysql15.TrackUser, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists
-
-WHERE	DbMysql15.Artists.artistId = userPlaylist.artist AND
-		DbMysql15.TrackUser.isInPlaylist='0' AND
-		userPlaylist.artist = DbMysql15.CollectionsArtist.artistId AND
-		DbMysql15.CollectionsArtist.collectionId = DbMysql15.Collections.collectionId AND
-		DbMysql15.Collections.collectionId = DbMysql15.Songs.collectionId AND
-		DbMysql15.TrackUser.trackId = DbMysql15.Songs.trackId
-GROUP BY DbMysql15.TrackUser.trackId
-ORDER BY 2 DESC
-LIMIT 100"""%user
+		        GROUP BY DbMysql15.Artists.artistId
+		        ) AS userPlaylist, DbMysql15.Songs, DbMysql15.TrackUser, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists
+                WHERE	DbMysql15.Artists.artistId = userPlaylist.artist AND
+		        DbMysql15.TrackUser.isInPlaylist='0' AND
+		        userPlaylist.artist = DbMysql15.CollectionsArtist.artistId AND
+		        DbMysql15.CollectionsArtist.collectionId = DbMysql15.Collections.collectionId AND
+		        DbMysql15.Collections.collectionId = DbMysql15.Songs.collectionId AND
+		        DbMysql15.TrackUser.trackId = DbMysql15.Songs.trackId
+                GROUP BY DbMysql15.TrackUser.trackId
+                ORDER BY 2 DESC
+                LIMIT 100"""%user
         try:
             self.cur.execute(query)
             results = self.cur.fetchall()
@@ -425,21 +424,20 @@ LIMIT 100"""%user
 
     def GetRecommendedCollections(self,user):
         query = """SELECT	DbMysql15.Collections.collectionName AS Album, DbMysql15.Collections.collectionPrice AS 'Price ($)', userPlaylist.artistName, convert(DbMysql15.Collections.collectionReleaseDate using utf8),DbMysql15.Collections.collectionGenre
-FROM	(
-		SELECT	DbMysql15.TrackUser.userName as tempUser, DbMysql15.TrackUser.trackId as track, DbMysql15.Artists.artistId as artistid, DbMysql15.Artists.artistName
-		FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists
-		WHERE	DbMysql15.TrackUser.isInPlaylist = '1' AND
+                FROM	(
+		        SELECT	DbMysql15.TrackUser.userName as tempUser, DbMysql15.TrackUser.trackId as track, DbMysql15.Artists.artistId as artistid, DbMysql15.Artists.artistName
+		        FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists
+		        WHERE	DbMysql15.TrackUser.isInPlaylist = '1' AND
 				DbMysql15.TrackUser.userName = "%s" AND
 				DbMysql15.TrackUser.trackId = DbMysql15.Songs.trackId AND
 				DbMysql15.Songs.collectionId = DbMysql15.Collections.collectionId AND
 				DbMysql15.Collections.collectionId = DbMysql15.CollectionsArtist.collectionId AND
 				DbMysql15.CollectionsArtist.artistId = DbMysql15.Artists.artistId
-		) AS userPlaylist, DbMysql15.Collections, DbMysql15.CollectionsArtist
-WHERE	userPlaylist.artistid = DbMysql15.CollectionsArtist.artistId AND
-		DbMysql15.CollectionsArtist.collectionId = DbMysql15.Collections.collectionId
-ORDER BY 1 ASC
-LIMIT 10    
-                """%user
+		        ) AS userPlaylist, DbMysql15.Collections, DbMysql15.CollectionsArtist
+                WHERE	userPlaylist.artistid = DbMysql15.CollectionsArtist.artistId AND
+		        DbMysql15.CollectionsArtist.collectionId = DbMysql15.Collections.collectionId
+                ORDER BY 1 ASC
+                LIMIT 10"""%user
         try:
             self.cur.execute(query)
             results = self.cur.fetchall()
@@ -495,22 +493,21 @@ LIMIT 10
             self.cur.execute(newQ % value)
             self.DB.commit()
 
-            newQ="""
-SELECT  @artistCurrentId:=artistId AS currentId, Song AS Song, Album AS Album, Artist AS Artist,
-		discNumber AS discNumber, trackPosition AS trackPosition, length AS length,
-        releaseDate AS releaseDate, Genre AS Genre, price AS price, numberOfTracks AS numberOfTracks,
-        CASE
-			WHEN (
+            newQ="""SELECT  @artistCurrentId:=artistId AS currentId, Song AS Song, Album AS Album, Artist AS Artist,
+		        discNumber AS discNumber, trackPosition AS trackPosition, length AS length,
+                releaseDate AS releaseDate, Genre AS Genre, price AS price, numberOfTracks AS numberOfTracks,
+                CASE
+			    WHEN (
 				SELECT COUNT(artistId) 
                 FROM DbMysql15.ArtistUser 
                 WHERE DbMysql15.ArtistUser.artistId=@artistCurrentId AND DbMysql15.ArtistUser.userName=@userName) > 0
-			THEN (
+			    THEN (
 				SELECT CAST(DbMysql15.ArtistUser.artistRanking AS char)
                 FROM DbMysql15.ArtistUser
                 WHERE DbMysql15.ArtistUser.artistId=@artistCurrentId AND DbMysql15.ArtistUser.userName=@userName)
-			ELSE null 
-            END AS ExtraParams
-FROM	(SELECT  null AS Song, null AS trackId,
+			    ELSE null 
+                END AS ExtraParams
+                FROM	(SELECT  null AS Song, null AS trackId,
 					null AS Album, 
                     DbMysql15.Artists.artistId as artistId,
 					DbMysql15.Artists.artistName AS Artist, null AS discNumber, 
@@ -519,25 +516,24 @@ FROM	(SELECT  null AS Song, null AS trackId,
 					null AS releaseDate,
 					DbMysql15.Artists.artistPrimaryGenre AS Genre, null AS price,
 					null AS numberOfTracks
-		FROM 	DbMysql15.Artists
-									 
-		WHERE 	DbMysql15.Artists.artistName REGEXP Concat("([ ]|^)", @sQ,"([,. ;]|$)")) AS nested
-UNION
-SELECT  @songCurerentId:=trackId AS currentId, Song AS Song, Album AS Album, Artist AS Artist,
-		discNumber AS discNumber, trackPosition AS trackPosition, length AS length,
-        releaseDate AS releaseDate, Genre AS Genre, price AS price, numberOfTracks AS numberOfTracks,
-        CASE
-			WHEN (
+		        FROM 	DbMysql15.Artists					 
+		        WHERE 	DbMysql15.Artists.artistName REGEXP Concat("([ ]|^)", @sQ,"([,. ;]|$)")) AS nested
+                UNION
+                SELECT  @songCurerentId:=trackId AS currentId, Song AS Song, Album AS Album, Artist AS Artist,
+		        discNumber AS discNumber, trackPosition AS trackPosition, length AS length,
+                releaseDate AS releaseDate, Genre AS Genre, price AS price, numberOfTracks AS numberOfTracks,
+                CASE
+			    WHEN (
 				SELECT COUNT(trackId) 
                 FROM DbMysql15.TrackUser 
                 WHERE DbMysql15.TrackUser.trackId=@songCurerentId AND DbMysql15.TrackUser.userName=@userName) > 0
-			THEN (
+			    THEN (
 				SELECT concat(CAST(DbMysql15.TrackUser.numberOfViews AS char), ",", CAST(DbMysql15.TrackUser.ranking AS char), ",", CAST(DbMysql15.TrackUser.isInPlaylist AS char))
                 FROM DbMysql15.TrackUser
                 WHERE DbMysql15.TrackUser.trackId=@songCurerentId AND DbMysql15.TrackUser.userName=@userName)
-			ELSE null 
-            END AS ExtraParams
-FROM	(SELECT  	DbMysql15.Songs.trackName AS Song, DbMysql15.Songs.trackId AS trackId,
+			    ELSE null 
+                END AS ExtraParams
+                FROM	(SELECT  	DbMysql15.Songs.trackName AS Song, DbMysql15.Songs.trackId AS trackId,
 					DbMysql15.Collections.collectionName AS Album, 
 					DbMysql15.Artists.artistName AS Artist, DbMysql15.Songs.discNumber AS discNumber, 
 					DbMysql15.Songs.trackPosition AS trackPosition, 
@@ -545,26 +541,25 @@ FROM	(SELECT  	DbMysql15.Songs.trackName AS Song, DbMysql15.Songs.trackId AS tra
 					DbMysql15.Songs.trackReleaseDate AS releaseDate,
 					DbMysql15.Songs.trackGenre AS Genre, DbMysql15.Songs.trackPrice AS price,
 					null AS numberOfTracks
-		FROM 		DbMysql15.Artists, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Songs
-		WHERE 	DbMysql15.Songs.trackName REGEXP Concat("([ ]|^)", @sQ,"([,. ;]|$)") AND
+		        FROM 		DbMysql15.Artists, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Songs
+		        WHERE 	DbMysql15.Songs.trackName REGEXP Concat("([ ]|^)", @sQ,"([,. ;]|$)") AND
                 DbMysql15.Songs.collectionId = DbMysql15.Collections.collectionId AND
 				DbMysql15.Collections.collectionId = DbMysql15.CollectionsArtist.collectionId AND
 				DbMysql15.CollectionsArtist.artistId = DbMysql15.Artists.artistId) AS nested
-UNION
-SELECT 	DbMysql15.Collections.collectionId AS currentId, null AS Song, DbMysql15.Collections.collectionName AS Album, 
-		DbMysql15.Artists.artistName AS Artist, null AS discNumber, 
-        null AS trackPosition, 
-        null AS length, 
-        DbMysql15.Collections.collectionReleaseDate AS releaseDate,
-        DbMysql15.Collections.collectionGenre AS genre,
-        DbMysql15.Collections.collectionPrice AS price,
-        DbMysql15.Collections.numberOfTracks AS numberOfTracks,
-		null as ExtraParams
-FROM 	DbMysql15.Artists,DbMysql15.Collections, DbMysql15.CollectionsArtist
-WHERE 	DbMysql15.Collections.collectionName REGEXP Concat("([ ]|^)", @sQ,"([,. ;]|$)") AND 
-		DbMysql15.Collections.collectionId = DbMysql15.CollectionsArtist.collectionId AND
-        DbMysql15.CollectionsArtist.artistId = DbMysql15.Artists.artistId;
-                    """
+                UNION
+                SELECT 	DbMysql15.Collections.collectionId AS currentId, null AS Song, DbMysql15.Collections.collectionName AS Album, 
+		        DbMysql15.Artists.artistName AS Artist, null AS discNumber, 
+                null AS trackPosition, 
+                null AS length, 
+                DbMysql15.Collections.collectionReleaseDate AS releaseDate,
+                DbMysql15.Collections.collectionGenre AS genre,
+                DbMysql15.Collections.collectionPrice AS price,
+                DbMysql15.Collections.numberOfTracks AS numberOfTracks,
+		        null as ExtraParams
+                FROM 	DbMysql15.Artists,DbMysql15.Collections, DbMysql15.CollectionsArtist
+                WHERE 	DbMysql15.Collections.collectionName REGEXP Concat("([ ]|^)", @sQ,"([,. ;]|$)") AND 
+		        DbMysql15.Collections.collectionId = DbMysql15.CollectionsArtist.collectionId AND
+                DbMysql15.CollectionsArtist.artistId = DbMysql15.Artists.artistId;"""
             self.cur.execute(newQ)
             results = self.cur.fetchall()
             return results

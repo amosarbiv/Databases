@@ -14,11 +14,11 @@ def main():
     urls = json.load(f)
     f.close()
     cur = DB.cursor()
-    #query = "ALTER TABLE test.SONGS \
-     #       ADD COLUMN previewSong VARCHAR(300) NOT NULL DEFAULT '\"\"' AFTER trackPrice"
+    query = "ALTER TABLE test.SONGS \
+           ADD COLUMN previewSong VARCHAR(300) NOT NULL DEFAULT '\"\"' AFTER trackPrice"
 
-    #cur.execute(query)
-    #DB.commit()
+    cur.execute(query)
+    DB.commit()
 
     for songId in urls:
         

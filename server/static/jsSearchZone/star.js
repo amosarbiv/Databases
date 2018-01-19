@@ -107,7 +107,7 @@ $(document).ready(function () {
 
   $(document).on('starrr:change', function (e, value) {
     $.ajax({
-      url: "http://127.0.0.1:8888/GetUserRating",
+      url: "/GetUserRating",
       data: JSON.stringify({'rating': value , 'id': e.target.id, 'name': this.title, 'isInPlaylist':0}),
       dataType: "json",
       type: 'POST',

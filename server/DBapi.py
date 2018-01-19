@@ -206,7 +206,7 @@ class DB():
 
 
     def UpdateUserProfile(self, user, firstName, lastName, country, age):
-        query = "UPDATE DbMysql15.Users FirstName='{}', userLastName='{}', userCountry='{}', userAge={} WHERE userName='{}';".format(firstName, lastName, country, age, user)
+        query = "UPDATE DbMysql15.Users SET userFirstName='{}', userLastName='{}', userCountry='{}', userAge={} WHERE userName='{}';".format(firstName, lastName, country, age, user)
         try:
             self.cur.execute(query)
             self.DB.commit()
@@ -391,9 +391,9 @@ class DB():
             return {}
 
     def GetRecommendedSongs(self,user):
-        query = """SELECT	DbMysql15.Songs.trackName as Song, avg(DbMysql15.TrackUser.ranking) AS Rating, userPlaylist.numOfSongs as numOfSongs, DbMysql15.Collections.collectionName AS Album, DbMysql15.Artists.artistName AS Artist, DbMysql15.TrackUser.isInPlaylist,
+        query = """SELECT	DbMysql15.Songs.trackName as Song,cast(avg(DbMysql15.TrackUser.ranking) as signed) AS Rating, userPlaylist.numOfSongs as numOfSongs, DbMysql15.Collections.collectionName AS Album, DbMysql15.Artists.artistName AS Artist, DbMysql15.TrackUser.isInPlaylist,
 		        DbMysql15.Songs.previewSong AS Preview, DbMysql15.Songs.trackId AS 'Track ID',
-		        DbMysql15.Songs.trackGenre AS Genre, DbMysql15.Songs.trackReleaseDate AS 'Release Date', DbMysql15.Songs.trackPrice AS Price
+		        DbMysql15.Songs.trackGenre AS Genre,convert(DbMysql15.Songs.trackReleaseDate using utf8), DbMysql15.Songs.trackPrice AS Price
                 FROM	(
 		        SELECT	DISTINCT DbMysql15.TrackUser.userName as tempUser, count(DbMysql15.TrackUser.trackId) as numOfSongs, DbMysql15.Artists.artistId as artist
 		        FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists

@@ -164,7 +164,7 @@ LIMIT 5"""
 absPath = os.path.dirname(__file__) #<-- absolute dir the script is in
 
 class DB():
-    def __init__(self, DBUserName, DBPasswd, DBName, DBPort=3305, DBhost="localhost"):
+    def __init__(self, DBUserName, DBPasswd, DBName, DBPort=3306, DBhost="mysqlsrv.cs.tau.ac.il"):
 
         logging.basicConfig(level=logging.DEBUG)
         self.logger = logging.getLogger("DBapi")

@@ -325,7 +325,7 @@
   
   .wrapper1 > div {
       text-align: center;
-    background-color: #5fc7ea;
+    background-color: #68e6ac;
     padding: 1em;
     grid-gap: 2px;
     color: #1a1a1a;
@@ -1091,7 +1091,7 @@ a.control_next3 {
 }
 
 ::selection {
-  background-color: #68e6ac;
+  background-color: #5fc7ea;
 }
 
 .tabbed {
@@ -1117,7 +1117,7 @@ a.control_next3 {
 
 .tabbed > label:hover,
 .tabbed > input:checked + label {
-  background: #68e6ac;
+  background: #5fc7ea;
 }
 
 .tabs {

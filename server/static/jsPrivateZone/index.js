@@ -492,13 +492,13 @@ var init = function() {
           htmlTableInsert1 += "<h1 class='panel__textHeader'>&nbsp;<i class='fa fa-check fa-1x' style='color:#1a1a1a;' aria-hidden='true'></i>&nbsp;&nbsp;"+element[0]+"</h1>"
         }
         else{
-          htmlTableInsert1 += "<h1 class='panel__textHeader' id='AddToPlaylist"+element[5]+"'>&nbsp;<a href=# class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"
+          htmlTableInsert1 += "<h1 class='panel__textHeader' id='AddToPlaylist"+element[7]+"'>&nbsp;<a href=# class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"
         }
-        htmlTableInsert1 += "<h1 class='panel__text'>&nbsp;Average Rating:&nbsp;"+element[6]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[1]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[2]+"&emsp;&emsp;Release Date:&nbsp;"+element[8]+"&emsp;&emsp;Genre:&nbsp;"+element[7]+"&emsp;&emsp;Price:&nbsp;"+element[9]+"$</h1>"+
+        htmlTableInsert1 += "<h1 class='panel__text'>&nbsp;Average Rating:&nbsp;"+element[1]+"</h1>" +
+        "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[3]+"</h1>" +
+        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[4]+"&emsp;&emsp;Release Date:&nbsp;"+element[9]+"&emsp;&emsp;Genre:&nbsp;"+element[8]+"&emsp;&emsp;Price:&nbsp;"+element[10]+"$</h1>"+
         "<h1 class='panel__text'><audio controls>"+
-        "<source src='"+element[4]+"' type='audio/ogg'></audio></h1>"+
+        "<source src='"+element[6]+"' type='audio/ogg'></audio></h1>"+
         "</li>"
       }
       songNode.innerHTML = htmlTableInsert1;

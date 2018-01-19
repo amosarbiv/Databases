@@ -109,7 +109,11 @@ $(document).ready(function () {
     console.log(this.title);
     console.log(e.target.id);
     $.ajax({
+<<<<<<< HEAD
       url: "/GetUserRating",
+=======
+      url: "http:/GetUserRating",
+>>>>>>> c01ebecf518050b31b9faa84166dc1113553c348
       data: JSON.stringify({'rating': value , 'id': e.target.id, 'name': this.title, 'isInPlaylist':1}),
       dataType: "json",
       type: 'POST',

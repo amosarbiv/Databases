@@ -5,6 +5,8 @@ import json
 import DBapi
 import decimal
 
+absPath = os.path.dirname(__file__) #<-- absolute dir the script is in
+
 class LogicInter:
 
     def __init__(self, DBUserName, DBPasswd, DBName):
@@ -23,20 +25,24 @@ class LogicInter:
         return self.dataBase.CreateUser(user, password, firstName, lastName, age, country, radioGender)
 
     def GetUserProfile(self):
-        f = open("server//tmpFiles//userProfile.json", "r")
+        rel_path = 'tmpFiles/userProfile.json'
+        fullPath = os.path.join(absPath, rel_path)
+        f = open(fullPath, "r")
         details = json.load(f)
         f.close()
         return json.dumps(details)
 
     def UpdateUserProfile(self,firstName,lastName,country,age):
-        f = open("server//tmpFiles//userProfile.json", "r")
+        rel_path = 'tmpFiles/userProfile.json'
+        fullPath = os.path.join(absPath, rel_path)
+        f = open(fullPath, "r")
         profile = json.load(f)
         f.close()
         currUserName = profile['UserName']
         password = profile['Password']
         self.dataBase.UpdateUserProfile(currUserName,firstName,lastName,country,age)
         newDic = {"UserName":currUserName,"Password":password,"FirstName":firstName,"LastName":lastName,"Country":country,"Age":age,"PlaylistPrivacy":profile['PlaylistPrivacy']}
-        f = open("server//tmpFiles//userProfile.json","w")
+        f = open(fullPath,"w")
         json.dump(newDic, f)
         f.close() 
         return currUserName
@@ -45,7 +51,9 @@ class LogicInter:
         self.dataBase.MakeJsonUserDetails(user)
 
     def ChangePlaylistPrivacy(self, privacy):
-        f = open("server//tmpFiles//userProfile.json", "r")
+        rel_path = 'tmpFiles/userProfile.json'
+        fullPath = os.path.join(absPath, rel_path)
+        f = open(fullPath, "r")
         profile = json.load(f)
         f.close()
         currUserName = profile['UserName']
@@ -56,7 +64,7 @@ class LogicInter:
             privacy = 0
             profile['PlaylistPrivacy'] = 0
         result = self.dataBase.UpdatePrivacy(privacy, currUserName)
-        f = open("server//tmpFiles//userProfile.json","w")
+        f = open(fullPath,"w")
         json.dump(profile, f)
         f.close() 
         return result
@@ -77,7 +85,9 @@ class LogicInter:
         return
 
     def GetTableTimeMachine(self):
-        f = open("server//tmpFiles//userSearchTerm.json", "r")
+        rel_path = 'tmpFiles/userSearchTerm.json'
+        fullPath = os.path.join(absPath, rel_path)
+        f = open(fullPath, "r")
         args = json.load(f)
         f.close()
         typeTimeMachine = args["Type"]
@@ -121,7 +131,9 @@ class LogicInter:
         return finalList
 
     def GetTableTrending(self):
-        f = open("server//tmpFiles//userSearchTerm.json", "r")
+        rel_path = 'tmpFiles/userSearchTerm.json'
+        fullPath = os.path.join(absPath, rel_path)
+        f = open(fullPath, "r")
         args = json.load(f)
         f.close()
         typeTrending = args["Type"]
@@ -182,7 +194,9 @@ class LogicInter:
         return finalList
 
     def GetUserSearchTerm(self, arg):
-        f = open("server//tmpFiles//userSearchTerm.json","w")
+        rel_path = 'tmpFiles/userSearchTerm.json'
+        fullPath = os.path.join(absPath, rel_path)
+        f = open(fullPath, "w")
         json.dump(arg, f)
         f.close()
 
@@ -198,7 +212,9 @@ class LogicInter:
         return recommendedTable
 
     def GetUserName(self):
-        f = open("server//tmpFiles//userProfile.json", "r")
+        rel_path = 'tmpFiles/userProfile.json'
+        fullPath = os.path.join(absPath, rel_path)
+        f = open(fullPath, "r")
         profile = json.load(f)
         f.close()
         return profile['UserName']

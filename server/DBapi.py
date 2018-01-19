@@ -161,6 +161,8 @@ ORDER BY 2 DESC, 1 ASC
 LIMIT 5"""
 ]
 
+absPath = os.path.dirname(__file__) #<-- absolute dir the script is in
+
 class DB():
     def __init__(self, DBUserName, DBPasswd, DBName, DBPort=3306, DBhost="mysqlsrv.cs.tau.ac.il"):
 
@@ -219,7 +221,9 @@ class DB():
             results = self.cur.fetchall()
             (userName, password,firstName,lastName,country,gender,age,privacy) = results[0]
             dic = {"UserName":userName,"Password":password,"FirstName":firstName,"LastName":lastName,"Country":country,"Age":age,"PlaylistPrivacy":privacy}
-            f = open("server//tmpFiles//userProfile.json","w")
+            rel_path = 'tmpFiles/userProfile.json'
+            fullPath = os.path.join(absPath, rel_path)
+            f = open(fullPath, "w")
             json.dump(dic, f)
             f.close() 
             return True

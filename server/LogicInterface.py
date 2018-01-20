@@ -1,3 +1,8 @@
+ #############################################################################
+#       This script recieves request through  server, it figures the right    #             #
+# Query and format that needed to be activated, and activate them using DBapi #
+ #############################################################################
+
 import pymysql as sql
 import logging
 import os

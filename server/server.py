@@ -1,3 +1,7 @@
+ ########################################################################
+# This script runs the server, all requests are pushed to logicinterface #             #
+#   Results are than pushed back to server and from there to the user.   #
+ ########################################################################
 from flask import Flask, render_template, redirect, url_for, request, make_response,session, send_file
 import datetime
 import LogicInterface

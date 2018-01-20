@@ -1,3 +1,8 @@
+ ################################################################
+# This script is designed to identify duplicate entries from API #             
+#                        And remove them.                        #
+ ################################################################
+
 import urllib.request
 import json, time
 from collections import defaultdict

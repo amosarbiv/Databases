@@ -1,3 +1,8 @@
+ ##################################################################
+# This scrips uses users data from Users folder and creates a json #             #
+#       That contains all users and their relevant details         #
+ ##################################################################
+
 import urllib.request
 import json
 from collections import defaultdict

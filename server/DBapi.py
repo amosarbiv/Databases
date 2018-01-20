@@ -1,3 +1,8 @@
+ ###################################################################
+# This scrips recieves queries from logicinterface, excecutes them  #             #
+#       and passes back responses. no logic impleneted here         #
+ ###################################################################
+
 import pymysql as sql
 import logging
 import os

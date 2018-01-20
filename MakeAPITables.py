@@ -1,3 +1,11 @@
+ ######################################################################################
+# This scrips take the result of GetAPI_Itunes and splits it across 4 different jsons: #
+#                   Artists: Contains all the artists in our database                  #
+#                 Collections: Contains all collections in our database                #
+#                       Songs:Contains all songs in our databases                      #
+#           artistCollections: contains all collections and their owning artist        #
+ ######################################################################################
+
 import json
 from collections import defaultdict
 

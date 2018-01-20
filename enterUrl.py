@@ -1,3 +1,9 @@
+  ##########################################################################
+# After building the database we decided to make our site even better..    #
+# We are now supporting Artists images & playing preview of each song in   # 
+# The system. The new fields are varchar and will contain the relevant url #
+ ##########################################################################
+
 import MySQLdb as sql
 import logging
 import os

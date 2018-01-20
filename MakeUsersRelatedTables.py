@@ -1,3 +1,8 @@
+ #####################################################################################
+#                   This script connects users to artists & songs by                  #
+# Creating trackUser json that contains all tracks user has viewed/ranked/in playlist #      #
+ ####################################################################################
+
 import json
 from collections import defaultdict
 from random import randint

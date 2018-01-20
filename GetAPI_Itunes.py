@@ -1,3 +1,10 @@
+  ####################################################################################
+#           This was the first stone we laid on our project's building.              #
+#     This script connects to itunes api and fetches artists, albums and songs       #
+#   And writes them as one big json. it extracts data by using the artist ids as     #
+# Found on artistId.json -- this file was created to contain 170 distinct artist Ids #
+ ####################################################################################
+
 import urllib.request
 import json, time
 from collections import defaultdict

@@ -38,7 +38,7 @@ def main():
 
     #cur.execute(query)
     #DB.commit()
-    f = open("pictures.json")
+    f = open("Tables//pictures.json")
     pictures = json.load(f)
     f.close()
 

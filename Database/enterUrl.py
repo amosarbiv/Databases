@@ -16,7 +16,7 @@ def main():
                         db="DbMysql15",
                         port=3305)
 
-    f = open("preview.json")
+    f = open("Tables//preview.json")
     urls = json.load(f)
     f.close()
     cur = DB.cursor()

@@ -33,7 +33,6 @@ class LogicInter:
         rel_path = 'tmpFiles/userProfile.json'
         fullPath = os.path.join(absPath, rel_path)
         f = open(fullPath, "r")
-        #f = open("server//tmpFiles//userProfile.json", "r")
         details = json.load(f)
         f.close()
         return json.dumps(details)
@@ -42,7 +41,6 @@ class LogicInter:
         rel_path = 'tmpFiles/userProfile.json'
         fullPath = os.path.join(absPath, rel_path)
         f = open(fullPath, "r")
-        #f = open("server//tmpFiles//userProfile.json", "r")
         profile = json.load(f)
         f.close()
         currUserName = profile['UserName']
@@ -50,7 +48,6 @@ class LogicInter:
         self.dataBase.UpdateUserProfile(currUserName,firstName,lastName,country,age)
         newDic = {"UserName":currUserName,"Password":password,"FirstName":firstName,"LastName":lastName,"Country":country,"Age":age,"PlaylistPrivacy":profile['PlaylistPrivacy']}
         f = open(fullPath, "w")
-        #f = open("server//tmpFiles//userProfile.json","w")
         json.dump(newDic, f)
         f.close() 
         return currUserName
@@ -62,7 +59,6 @@ class LogicInter:
         rel_path = 'tmpFiles/userProfile.json'
         fullPath = os.path.join(absPath, rel_path)
         f = open(fullPath, "r")
-        #f = open("server//tmpFiles//userProfile.json", "r")
         profile = json.load(f)
         f.close()
         currUserName = profile['UserName']
@@ -74,7 +70,6 @@ class LogicInter:
             profile['PlaylistPrivacy'] = 0
         result = self.dataBase.UpdatePrivacy(privacy, currUserName)
         f = open(fullPath, "w")
-        #f = open("server//tmpFiles//userProfile.json","w")
         json.dump(profile, f)
         f.close() 
         return result
@@ -101,7 +96,6 @@ class LogicInter:
         rel_path = 'tmpFiles/userSearchTerm.json'
         fullPath = os.path.join(absPath, rel_path)
         f = open(fullPath, "r")
-        #f = open("server//tmpFiles//userSearchTerm.json", "r")
         args = json.load(f)
         f.close()
         typeTimeMachine = args["Type"]
@@ -148,7 +142,6 @@ class LogicInter:
         rel_path = 'tmpFiles/userSearchTerm.json'
         fullPath = os.path.join(absPath, rel_path)
         f = open(fullPath, "r")
-        #f = open("server//tmpFiles//userSearchTerm.json", "r")
         args = json.load(f)
         f.close()
         typeTrending = args["Type"]
@@ -212,7 +205,6 @@ class LogicInter:
         rel_path = 'tmpFiles/userSearchTerm.json'
         fullPath = os.path.join(absPath, rel_path)
         f = open(fullPath, "w")
-        #f = open("server//tmpFiles//userSearchTerm.json","w")
         json.dump(arg, f)
         f.close()
 
@@ -231,7 +223,6 @@ class LogicInter:
         rel_path = 'tmpFiles/userProfile.json'
         fullPath = os.path.join(absPath, rel_path)
         f = open(fullPath, "r")
-        #f = open("server//tmpFiles//userProfile.json", "r")
         profile = json.load(f)
         f.close()
         return profile['UserName']

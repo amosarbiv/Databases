@@ -1,7 +1,7 @@
-SELECT	Songs.trackName as Song, count(TrackUser.isInPlaylist) as 'Number of Fond Users'
-FROM	TrackUser, Songs
-WHERE	TrackUser.isInPlaylist = '1' AND
-		TrackUser.trackId = Songs.trackId
-GROUP BY TrackUser.trackId
+SELECT	DbMysql15.Songs.trackName as Song, count(DbMysql15.TrackUser.isInPlaylist) as 'Number of Fond DbMysql15.Users'
+FROM	DbMysql15.TrackUser, DbMysql15.Songs
+WHERE	DbMysql15.TrackUser.isInPlaylist = '1' AND
+		DbMysql15.TrackUser.trackId = DbMysql15.Songs.trackId
+GROUP BY DbMysql15.TrackUser.trackId
 ORDER BY 2 DESC, 1 ASC
 LIMIT 25

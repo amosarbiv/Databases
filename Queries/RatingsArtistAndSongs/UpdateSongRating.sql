@@ -1,0 +1,1 @@
+UPDATE DbMysql15.TrackUser SET DbMysql15.TrackUser.ranking = '%s' WHERE DbMysql15.TrackUser.userName = '%s' AND DbMysql15.TrackUser.trackId = '%s';

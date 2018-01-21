@@ -1,0 +1,1 @@
+UPDATE DbMysql15.Users SET playlistPrivacy='{}' WHERE userName='{}';

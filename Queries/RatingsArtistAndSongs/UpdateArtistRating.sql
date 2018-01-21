@@ -1,0 +1,1 @@
+UPDATE DbMysql15.ArtistUser SET DbMysql15.ArtistUser.artistRanking = '%s' WHERE DbMysql15.ArtistUser.userName = '%s' AND DbMysql15.ArtistUser.artistId = '%s';

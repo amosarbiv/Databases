@@ -1,0 +1,1 @@
+UPDATE DbMysql15.TrackUser SET numberOfViews='%d' WHERE trackId='%s' and userName='%s';

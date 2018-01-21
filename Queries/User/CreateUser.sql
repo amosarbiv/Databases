@@ -1,0 +1,1 @@
+INSERT INTO DbMysql15.Users (userName, userPassword, userFirstName, userLastName, userCountry, userGender, userAge, playlistPrivacy) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d');

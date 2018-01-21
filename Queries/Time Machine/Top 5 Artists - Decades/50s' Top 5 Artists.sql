@@ -1,9 +1,9 @@
-SELECT	sum(Trackuser.ranking) as Rating, Artists.artistName as 'Artist'
-FROM	Trackuser, Songs, Artists, CollectionsArtist
-WHERE	TrackUser.trackId = Songs.trackId AND
-		Songs.collectionId = CollectionsArtist.collectionId AND
-		CollectionsArtist.artistId = Artists.artistId AND
-		Songs.trackReleaseDate BETWEEN '1950-01-01' AND '1959-12-31'
-GROUP BY Artists.artistName
-ORDER BY 1 DESC
-LIMIT 5
+SELECT	sum(DbMysql15.TrackUser.ranking) as Rating, DbMysql15.Artists.artistName as 'Artist'
+                FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Artists, DbMysql15.CollectionsArtist
+                WHERE	DbMysql15.TrackUser.trackId = DbMysql15.Songs.trackId AND
+		        DbMysql15.Songs.collectionId = DbMysql15.CollectionsArtist.collectionId AND
+		        DbMysql15.CollectionsArtist.artistId = DbMysql15.Artists.artistId AND
+		        DbMysql15.Songs.trackReleaseDate BETWEEN '1950-01-01' AND '1959-12-31'
+                GROUP BY DbMysql15.Artists.artistName
+                ORDER BY 1 DESC
+                LIMIT 5

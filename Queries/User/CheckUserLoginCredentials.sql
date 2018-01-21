@@ -1,0 +1,1 @@
+SELECT DbMysql15.Users.userName, DbMysql15.Users.userPassword FROM DbMysql15.Users WHERE DbMysql15.Users.userName='%s'

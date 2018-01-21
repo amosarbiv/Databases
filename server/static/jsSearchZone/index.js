@@ -76,7 +76,10 @@ var init = function() {
       console.log(tdId);
       var node = document.getElementById(tdId);
       node.innerHTML = "<i class='fa fa-check fa-2x' style='color:#1a1a1a;' aria-hidden='true'></i>" 
-      alert("The song has been added to your playlist");
+      bootbox.alert({
+        message: "The song has been added to your playlist.",
+        backdrop: true
+    });
       });
   });
 

@@ -106,9 +106,10 @@ $(function () {
 $(document).ready(function () {
 
   $(document).on('starrr:change', function (e, value) {
+    var arrayOfIds = e.target.id.split(' ');
     $.ajax({
       url: "/GetUserRating",
-      data: JSON.stringify({'rating': value , 'id': e.target.id, 'name': this.title, 'isInPlaylist':0}),
+      data: JSON.stringify({'rating': value , 'typeId': arrayOfIds[0], 'typeString':arrayOfIds[1] , 'name': this.title, 'isInPlaylist':arrayOfIds[2]}),
       dataType: "json",
       type: 'POST',
       contentType: "application/json"

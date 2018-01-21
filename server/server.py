@@ -1,3 +1,7 @@
+ ########################################################################
+# This script runs the server, all requests are pushed to logicinterface #             #
+#   Results are than pushed back to server and from there to the user.   #
+ ########################################################################
 from flask import Flask, render_template, redirect, url_for, request, make_response,session, send_file
 import datetime
 import LogicInterface
@@ -6,6 +10,7 @@ import json
 app = Flask(__name__)
 logic = LogicInterface.LogicInter("DbMysql15", "DbMysql15", "DbMysql15")
 wrongPatterntSearch = False
+IdAddedSong = -1
 tableResult = {}
 
 @app.route('/sign/loginPage.html', methods=['GET'])
@@ -83,9 +88,10 @@ def GetUserRating():
     results = request.get_json(silent=True)
     rating = results['rating']
     user = results['name'].split('-')[1].replace(" ","")
-    songId = [int(s) for s in results['id'].split() if s.isdigit()][0]
+    typeId = results['typeId']
+    typeString = results['typeString']
     isInPlaylist = results['isInPlaylist']
-    logic.playlistChangeRating(user, rating, songId, isInPlaylist)
+    logic.playlistChangeRating(user, rating, typeId, typeString, isInPlaylist)
     return ('', 204)
 
 @app.route('/AddSongToPlaylist', methods = ['POST'])
@@ -93,6 +99,8 @@ def AddSongToPlaylist():
     results = request.get_json(silent=True)
     user = logic.GetUserName()
     songId = [int(s) for s in results['id'].split() if s.isdigit()][0]
+    global IdAddedSong
+    IdAddedSong = songId
     logic.AddSongToPlaylist(user, songId)
     return ('', 204)
 
@@ -113,6 +121,15 @@ def UpdateUserProfile():
     country =  request.form['country']
     age = request.form['age']
     currUserName = logic.UpdateUserProfile(firstName,lastName,country,age)
+    return ('', 204)
+
+@app.route('/UpdateNumOfPlays', methods=['POST'])
+def UpdateNumOfPlays():
+    arguments = request.get_json(silent=True)
+    userName = logic.GetUserName()
+    trackId = arguments['id']
+    numOfPlays = arguments['numOfPlays']
+    logic.UpdateNumOfPlays(userName,trackId,numOfPlays)
     return ('', 204)
 
 @app.route('/GetTableTimeMachine', methods=['GET'])
@@ -159,14 +176,24 @@ def SearchZone(userName, searchTerm):
     artistsCount = len(tableResult['artist'])
     return render_template('SearchZone.html', userName=userName, searchTerm=searchTerm, SearchResult=tableResult, songsCount=songsCount,albumsCount=albumsCount,artistsCount=artistsCount)
 
-@app.route('/GetInfoPage', methods=['POST'])
-def GetInfoPage():
-    results = request.get_json(silent=True)
+@app.route('/GetArtistInfoPage/<name>/<idArtist>', methods=['GET'])
+def GetArtistInfoPage(name, idArtist):
+    resp = make_response(redirect(url_for('ArtistInfoPage', name=name,artistId=idArtist)))
+    return resp
+
+@app.route('/ArtistInfoPage.html/<name>/<artistId>', methods=['GET'])
+def ArtistInfoPage(name, artistId):
+    tableAlbums = logic.RetrieveAlbumsFromArtist(name,artistId)
+    return render_template('ArtistInfoPage.html', userName=name, tableAlbums=tableAlbums)
+
+@app.route('/GetSongAttributes', methods=['GET'])
+def GetSongAttributes():
     user = logic.GetUserName()
-    songId = [int(s) for s in results['id'].split() if s.isdigit()][0]
-    logic.AddSongToPlaylist(user, songId)
-    return ('', 204)
+    global IdAddedSong
+    songId = IdAddedSong
+    songTable = logic.GetSongAttributes(user,songId)
+    return json.dumps(songTable)
 
 if __name__ == '__main__':
     app.secret_key = 'itsasecret'
-    app.run(port=40001, host="0.0.0.0", debug=False)
+    app.run(port=8888, host="0.0.0.0", debug=False)

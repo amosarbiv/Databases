@@ -471,11 +471,11 @@
     grid-row: 1/12;
   }
   .first{
-    grid-column: 2 / 17;
+    grid-column: 1 / 17;
     grid-row: 1;
   }
   .second{
-    grid-column: 2/17;
+    grid-column: 1/17;
     grid-row: 2/12;
   }
 

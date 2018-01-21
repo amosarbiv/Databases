@@ -62,7 +62,6 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Song Name</th>
                             <th>Album</th>
                             <th>Artist</th>
@@ -72,25 +71,23 @@
                             <th>Media player</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id='PlayList'>
                         <script>
                             var playlist = {{ playlist | tojson | safe }};
-                            console.log(playlist);
                             for (x = 0; x < {{ playlistLen }}; x++) {
                                 var row = playlist[x];
                                 document.write("<tr>" +
-                                                "<td>" + (x+1) + "</td>" +
                                                 "<td class='col-md-2'><a id='"+row[0]+"songPressed' href=# style='color:black;'>" + row[1] + "</a></td>" +
                                                 "<td class='col-md-2'>" + row[3] + "</td>" +
                                                 "<td >" + row[2] + "</td>" +
-                                                "<td>" + row[5] + "</td>" +
+                                                "<td id='"+row[0]+" plays'>" + row[5] + "</td>" +
                                                 "<td>" + msToTime(row[8]) + "</td>" +
                                                 "<td class='col-md-1'>" +
                                                     "<div class='row lead'>\
                                                         <div id='"+row[0]+" starsSong' class='starrr' data-rating="+row[4]+"></div>\
                                                     </div>" +
                                                 "</td>" +
-                                                "<td><audio controls><source src='"+row[12]+"' type='audio/ogg'></audio></td>" +
+                                                "<td><audio controls id='"+row[0]+" audioControls' name='audioControls'><source src='"+row[12]+"' type='audio/ogg'></audio></td>" +
                                                 "</tr>");
                             }
                             function msToTime(s) {

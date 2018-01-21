@@ -106,11 +106,10 @@ $(function () {
 $(document).ready(function () {
 
   $(document).on('starrr:change', function (e, value) {
-    console.log(this.title);
-    console.log(e.target.id);
+    var arrayOfIds = e.target.id.split(' ');
     $.ajax({
       url: "/GetUserRating",
-      data: JSON.stringify({'rating': value , 'id': e.target.id, 'name': this.title, 'isInPlaylist':1}),
+      data: JSON.stringify({'rating': value , 'typeId': arrayOfIds[0], 'typeString':arrayOfIds[1] , 'name': this.title, 'isInPlaylist':1}),
       dataType: "json",
       type: 'POST',
       contentType: "application/json"

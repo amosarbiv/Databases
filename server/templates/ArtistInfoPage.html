@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>JukeBox - {{userName}}</title>
+    <script src="https://use.fontawesome.com/cd0dbeb8d3.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cssArtistInfoPage/StyleInfo.css') }}">
+    <link rel="icon" href= "{{ url_for('static', filename='css/icon.png') }}">
+</head>
+<body>
+    <nav class="nav2">
+        <div class="burger2">
+            <form id="demo-2" action="/RetrieveSearchInfo" method="POST" data-toggle="validator">
+                <input id="serachText" name="serachText" type="search" placeholder="Search" required>
+                <button type="submit" class="myButton">Search</button>
+            </form>
+            <a class="buttonHomePage" href="/PrivateZone.html/{{userName}}" method="POST">
+                <i class="fa fa-home fa-3x" aria-hidden="true"></i>
+            </a>
+            <img src="{{ url_for('static', filename='cssSearchZone/jukeboxTitle.png') }}" alt="" />
+    </nav>
+        <div class="wrapper1">
+            <div class="second">
+                <script>
+                    var result = {{tableAlbums | tojson | safe}};
+                    console.log(result);
+                    var firstElement = result[0];
+                    var htmlInsert = "";
+                    htmlInsert = "<h1 class='panel__textHeader'><img src='"+firstElement[10]+"'>&nbsp;&nbsp;"+firstElement[7]+"</h1>"+
+                    "<h1 class='panel__textHeader'>"+
+                    "<form id='"+firstElement[8]+" starsArtist' class='starrr' data-rating="+firstElement[11]+"></form>Genre:&nbsp;"+firstElement[9]+"&nbsp;&nbsp;</h1>";
+                    document.write(htmlInsert);
+                </script>
+            </div>
+            <div class="third">
+                <div class="table-responsive header-fixed" style="text-align:left;">
+                    <table class="table table-striped ">
+                        <thead >
+                            <tr>
+                                <th>Album</th>
+                                <th>Release-Date</th>
+                                <th>Price ($)</th>
+                                <th>Genre</th>
+                                <th>Country publish</th>
+                                <th>#Tracks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <script>
+                                var result = {{tableAlbums | tojson | safe}};
+                                for (x=0; x < result.length ;x++){
+                                    var element = result[x];
+                                    document.write( "<tr>" +
+                                        "<td><a id='albumPressed' href=# style='color:black;'>"+element[1]+"</a></td>" +
+                                        "<td>"+element[2]+"</td>" +
+                                        "<td>"+element[3]+"</td>" +
+                                        "<td>"+element[4]+"</td>" +
+                                        "<td>"+element[5]+"</td>" +
+                                        "<td>"+element[6]+"</td>" +
+                                    "</tr>"); 
+                                }
+                            </script>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.6/prefixfree.min.js"></script>
+    <script  src="{{ url_for('static', filename='jsArtistInfoPage/index.js') }}"></script>
+    <script  src="{{ url_for('static', filename='jsArtistInfoPage/star.js') }}"></script>
+</body>
+</html>

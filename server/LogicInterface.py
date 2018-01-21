@@ -1,3 +1,8 @@
+ #############################################################################
+#       This script recieves request through  server, it figures the right    #             #
+# Query and format that needed to be activated, and activate them using DBapi #
+ #############################################################################
+
 import pymysql as sql
 import logging
 import os
@@ -81,8 +86,11 @@ class LogicInter:
         else:
             return playList
 
-    def playlistChangeRating(self, user, rating, songId, isInPlaylist):
-        self.dataBase.changeRating(user, rating, songId, isInPlaylist)
+    def playlistChangeRating(self, user, rating, typeId, typeString, isInPlaylist):
+        if(typeString == 'starsSong'):
+            self.dataBase.changeTrackRating(user, rating, typeId, isInPlaylist)
+        else:
+            self.dataBase.changeArtistRating(user, rating, typeId)
         return
 
     def AddSongToPlaylist(self, user, songId):
@@ -295,10 +303,15 @@ class LogicInter:
         if(song != "" and album != "" and artist != "" and inInd == True and byInd == True):
             result = self.dataBase.RetrieveSongAlbumArtist(userName, song, album, artist)
 
-        result = self.PrepareDictionary(result)   
+        resultAVG = self.dataBase.GetAverageRating()
+        result = self.PrepareDictionary(result, resultAVG)   
         return result
 
-    def PrepareDictionary(self, table):
+    def PrepareDictionary(self, table, resultAVG):
+        avgDic = {}
+        for i in range(0,len(resultAVG)):
+            avgDic[resultAVG[i][0]] = resultAVG[i]
+
         result = {}
         songList = []
         artistList = []
@@ -313,9 +326,9 @@ class LogicInter:
             discNumber = row[4]
             trackPosition = row[5]
             length = row[6]
-            releaseDate = row[7]
-            genre = row[8]
-            price = row[9]
+            genre = row[7]
+            price = row[8]
+            previewSong = row[9]
             numOfTracks = row[10]
             extraParams = row[11]
             if(song != None):
@@ -326,19 +339,22 @@ class LogicInter:
                 tmpDic['discNumber'] = discNumber
                 tmpDic['trackPosition'] = trackPosition
                 tmpDic['length'] = length
-                tmpDic['releaseDate'] = releaseDate
                 tmpDic['genre'] = genre
                 tmpDic['price'] = price
+                tmpDic['previewSong'] = previewSong
                 if (extraParams != None):
                     tmpDic['extraParams'] = extraParams
                 else:
                     tmpDic['extraParams'] = -1
+                if(currId in avgDic):
+                    tmpDic['rating'] = avgDic[currId][1]
+                else:
+                    tmpDic['rating'] = 0
                 songList.append(tmpDic)
             elif(album != None):
                 tmpDic['id'] = currId
                 tmpDic['album'] = album
                 tmpDic['artist'] = artist
-                tmpDic['releaseDate'] = releaseDate
                 tmpDic['genre'] = genre
                 tmpDic['price'] = price
                 tmpDic['numOfTracks'] = numOfTracks
@@ -356,5 +372,14 @@ class LogicInter:
         result['album'] = collectionList
         result['artist'] = artistList
         return result
+
+    def GetSongAttributes(self, user, songId):
+        return self.dataBase.GetSongAttributes(user, songId)
+
+    def UpdateNumOfPlays(self,userName,trackId,numOfPlays):
+        self.dataBase.UpdateNumOfPlays(userName,trackId,numOfPlays)
+
+    def RetrieveAlbumsFromArtist(self,userName,artistId):
+        return self.dataBase.RetrieveAlbumsFromArtist(userName,artistId)
 
     

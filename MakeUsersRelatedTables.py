@@ -22,39 +22,35 @@ def main():
         s = set()
         for i in range(0,length):
             trackUserDic = {}
-            
             isInPlaylist = randint(0,1)
-
             viewNum = randint(1, 20)
-            
             songIdRand = randint(0, len(songsId)-1)
             while(songIdRand in s):
                 songIdRand = randint(0, len(songsId)-1)
             s.add(songIdRand)
             rankTrack = randint(1, 5)
-            
 
             trackUserDic["trackId"] = songsId[songIdRand]["trackId"]
             trackUserDic["userName"] = user["userName"]
             trackUserDic["numberOfViews"] = viewNum
             trackUserDic["ranking"] = rankTrack
             trackUserDic["isInPlaylist"] = isInPlaylist
-            trackUser.append(trackUserDic)
-            
-            rankArtists = randint(1, 10)
-            s1 = set()
-            for i in range(0,rankArtists):
-                artistRankingDic = {}
+            trackUser.append(trackUserDic) 
+
+        rankArtists = randint(1, 10)
+        s1 = set()
+        for i in range(0,rankArtists):
+            artistRankingDic = {}
+            randArtist = randint(0, len(artists)-1)
+            while(randArtist in s1):
                 randArtist = randint(0, len(artists)-1)
-                while(randArtist in s1):
-                    randArtist = randint(0, len(artists)-1)
-                s1.add(randArtist)
+            s1.add(randArtist)
                 
-                rank = randint(1, 5)
-                artistRankingDic["userName"] = user["userName"]
-                artistRankingDic["artistId"] = artists[randArtist]["artistId"]
-                artistRankingDic["artistRanking"] = rank
-                artistRanking.append(artistRankingDic)
+            rank = randint(1, 5)
+            artistRankingDic["userName"] = user["userName"]
+            artistRankingDic["artistId"] = artists[randArtist]["artistId"]
+            artistRankingDic["artistRanking"] = rank
+            artistRanking.append(artistRankingDic)
         counter += 1
 
 

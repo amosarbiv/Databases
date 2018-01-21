@@ -483,20 +483,18 @@ var init = function() {
       var artistNode = document.getElementById('artistSlideRows');
       var collectionNode = document.getElementById('collectionSlideRows');
       var htmlTableInsert1 = "";
-      console.log(songTable);
       for (let index = 0; index < songTable.length; index++) {
         const element = songTable[index];
-        console.log(element);
         htmlTableInsert1 += "<li>"
-        if(element[3] == 1){
+        if(element[5] == 1){
           htmlTableInsert1 += "<h1 class='panel__textHeader'>&nbsp;<i class='fa fa-check fa-1x' style='color:#1a1a1a;' aria-hidden='true'></i>&nbsp;&nbsp;"+element[0]+"</h1>"
         }
         else{
-          htmlTableInsert1 += "<h1 class='panel__textHeader' id='AddToPlaylist"+element[7]+"'>&nbsp;<a href=# class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"
+          htmlTableInsert1 += "<h1 class='panel__textHeader' id='AddToPlaylist"+element[7]+"'>&nbsp;<a href='#3' class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' id='"+element[7]+" AddPlaylist' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"
         }
         htmlTableInsert1 += "<h1 class='panel__text'>&nbsp;Average Rating:&nbsp;"+element[1]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[3]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[4]+"&emsp;&emsp;Release Date:&nbsp;"+element[9]+"&emsp;&emsp;Genre:&nbsp;"+element[8]+"&emsp;&emsp;Price:&nbsp;"+element[10]+"$</h1>"+
+        "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[4]+"</h1>" +
+        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[5]+"&emsp;&emsp;Release Date:&nbsp;"+element[9]+"&emsp;&emsp;Genre:&nbsp;"+element[8]+"&emsp;&emsp;Price:&nbsp;"+element[10]+"$</h1>"+
         "<h1 class='panel__text'><audio controls>"+
         "<source src='"+element[6]+"' type='audio/ogg'></audio></h1>"+
         "</li>"
@@ -505,9 +503,11 @@ var init = function() {
 
       var htmlTableInsert2 = "";
       artistTable.forEach(element => {
+        console.log(element);
         htmlTableInsert2 += "<li>" +
         "<h1 class='panel__textHeader__Small'>&nbsp;"+element[0]+"</h1>"+
-        "<h1 class='panel__text__Small'>&nbsp;Average Rating::&nbsp;"+element[1]+"&emsp;&emsp;Genre:&nbsp;"+element[2]+"</h1>" +
+        "<h1 class='panel__text__Small'>&nbsp;Number of songs you like:&nbsp;"+element[1]+"</h1>" +
+        "<h1 class='panel__text__Small'>&nbsp;Genre:&nbsp;"+element[2]+"</h1>" +
         "</li>"
       });
       artistNode.innerHTML = htmlTableInsert2;
@@ -523,6 +523,47 @@ var init = function() {
       collectionNode.innerHTML = htmlTableInsert3;
       
   });
+
+  $(document).on("click", ".AddToPlaylist", function (e) {
+    $.ajax({
+      url: "/AddSongToPlaylist",
+      data: JSON.stringify({'id': e.target.id}),
+      dataType: "json",
+      type: 'POST',
+      contentType: "application/json"
+    }).success(function() {
+      var list = (e.target.id).split(" ");
+      var arrayOfList = (e.target.id).split("<");
+      var songName = arrayOfList[1];
+      songName = songName.replace(">","");
+      var tdId = "AddToPlaylist"+list[0];
+      var node = document.getElementById(tdId);
+      node.innerHTML = "<i class='fa fa-check fa-1x' style='color:#1a1a1a;' aria-hidden='true'></i>&nbsp;&nbsp;"+songName 
+      bootbox.alert({
+        message: "The song has been added to your playlist. Please refresh the page to see the song in your playlist.",
+        backdrop: true
+    });
+      });
+  });
+
+  var player = document.getElementsByName("audioControls");
+  for (let index = 0; index < player.length; index++) {
+    player[index].addEventListener('play', function (e) {
+        var idPlay = e.target.id.split(' ')[0];
+        var idNumPlays = idPlay+" plays";
+        var numOfPlays = document.getElementById(idNumPlays);
+        var newNumOfPlays = parseInt(numOfPlays.innerHTML)+1;
+        numOfPlays.innerHTML =  newNumOfPlays;
+        $.ajax({
+          url: '/UpdateNumOfPlays',
+          type: "POST",
+          data: JSON.stringify({"id":idPlay, "numOfPlays":newNumOfPlays}),
+          dataType: "json",
+          contentType: "application/json"
+      })
+    });
+    
+  }
 
 }
 
@@ -637,8 +678,20 @@ jQuery(document).ready(function ($) {
           $('a.control_next3').click(function () {
               moveRight3();
           });
+
+          $("#saveProfile").on('click', function(e){
+            alert("Your profile has been updated!")
+          })
   
   });    
+
+doc.on("click", ".questionAlert", function(e){
+  bootbox.alert({
+    message: "This alert can be dismissed by clicking on the background!",
+    backdrop: true
+});
+})
+
 
 doc.on("click", ".alert", function(e) {
     // Get the record's ID via attribute

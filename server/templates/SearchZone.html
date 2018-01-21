@@ -20,7 +20,7 @@
                 <input id="serachText" name="serachText" type="search" value={{searchTerm}} placeholder="Search" required>
                 <button type="submit" class="myButton">Search</button>
             </form>
-            <a class="buttonHomePage" href=/PrivateZone.html/{{userName}} method="POST">
+            <a class="buttonHomePage" href="/PrivateZone.html/{{userName}}" method="POST">
                 <i class="fa fa-home fa-3x" aria-hidden="true"></i>
             </a>
             <img src="{{ url_for('static', filename='cssSearchZone/jukeboxTitle.png') }}" alt="" />
@@ -56,19 +56,38 @@
                                                         resultSongs = result['songs'];
                                                         for (x=0; x < resultSongs.length ;x++){
                                                             var element = resultSongs[x];
-                                                            var ranking = 0;
+                                                            var ranking = element['rating'];
+                                                            var isInPlaylist = -1;
                                                             if (element['extraParams'] != -1){
-                                                                ranking = element['extraParams'];
+                                                                htmlInner = "<tr>";
+                                                                var arrayOfStrings = element['extraParams'].split(',');
+                                                                isInPlaylist = arrayOfStrings[2];
+                                                                if(isInPlaylist == '1'){
+                                                                    htmlInner += "<td><i class='fa fa-check fa-2x' style='color:#1a1a1a;' aria-hidden='true'></i></td>";
+                                                                }
+                                                                else{
+                                                                    htmlInner += "<td id='AddToPlaylist"+element['id']+"'><a href=# class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-2x' id='"+element['id']+" AddPlaylist' style='color:#1a1a1a;' aria-hidden='true'></i></a></td>";
+                                                                }
+                                                                htmlInner +="<td><a id='"+element['id']+"songPressed' href=# style='color:black;'>"+element['song']+"</a></td>" +
+                                                                "<td>"+element['album']+"</td>" +
+                                                                "<td>"+element['artist']+"</td>" +
+                                                                "<td>"+msToTime(element['length'])+"</td>" +
+                                                                "<td class='col-md-1'><div class='row lead'><div id='"+element['id']+" starsSong "+isInPlaylist+"' class='starrr' data-rating="+ranking+"></div></div></td>" +
+                                                                "<td><audio controls><source src='"+element['previewSong']+"' type='audio/ogg'></audio></td>" +
+                                                                "</tr>"
+                                                                document.write(htmlInner); 
                                                             }
+                                                            else{
                                                             document.write( "<tr>" +
                                                                 "<td id='AddToPlaylist"+element['id']+"'><a href=# class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-2x' id='"+element['id']+" AddPlaylist' style='color:#1a1a1a;' aria-hidden='true'></i></a></td>" +
                                                                 "<td><a id='"+element['id']+"songPressed' href=# style='color:black;'>"+element['song']+"</a></td>" +
                                                                 "<td>"+element['album']+"</td>" +
                                                                 "<td>"+element['artist']+"</td>" +
                                                                 "<td>"+msToTime(element['length'])+"</td>" +
-                                                                "<td class='col-md-1'><div class='row lead'><div id='"+element['id']+" starsSong' class='starrr' data-rating='"+ranking+"'></div></div></td>" +
-                                                                "<td><audio controls><source src='https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/Music/v4/4e/44/b7/4e44b7dc-aaa2-c63b-fb38-88e1635b5b29/mzaf_1844128138535731917.plus.aac.p.m4a' type='audio/ogg'></audio></td>" +
+                                                                "<td class='col-md-1'><div class='row lead'><div id='"+element['id']+" starsSong "+isInPlaylist+"' class='starrr' data-rating="+ranking+"></div></div></td>" +
+                                                                "<td><audio controls><source src='"+element['previewSong']+"' type='audio/ogg'></audio></td>" +
                                                             "</tr>"); 
+                                                            }
                                                         }
                                                         function msToTime(s) {
                                                             var ms = s % 1000;
@@ -101,11 +120,21 @@
                                                         resultArtists = result['artist'];
                                                         for (x=0; x < resultArtists.length ;x++){
                                                             var element = resultArtists[x];
-                                                            document.write( "<tr>" +
-                                                                "<td><a id='"+element['id']+" artistPressed' href=# style='color:black;'>"+element['artist']+"</a></td>" +
+                                                            if (element['extraParams'] != -1){
+                                                                var arrayOfStrings = element['extraParams'].split(',');
+                                                                document.write( "<tr>" +
+                                                                "<td><a href='/GetArtistInfoPage/{{userName}}/"+element['id']+"' style='color:black;'>"+element['artist']+"</a></td>" +
                                                                 "<td>"+element['genre']+"</td>" +
-                                                                "<td><div class='row lead'><div id='"+element['id']+" starsArtists' class='starrr' data-rating='"+ranking+"'></div></div></td>" +
+                                                                "<td><div class='row lead'><div id='"+element['id']+" starsArtists 0' class='starrr' data-rating="+element['extraParams']+"></div></div></td>" +
                                                             "</tr>"); 
+                                                            }
+                                                            else{
+                                                            document.write( "<tr>" +
+                                                                "<td><a href='/GetArtistInfoPage/{{userName}}/"+element['id']+"' style='color:black;'>"+element['artist']+"</a></td>" +
+                                                                "<td>"+element['genre']+"</td>" +
+                                                                "<td><div class='row lead'><div id='"+element['id']+" starsArtists 0' class='starrr' data-rating="+0+"></div></div></td>" +
+                                                            "</tr>");
+                                                            } 
                                                         }
                                                     </script>
                                                 </tbody>

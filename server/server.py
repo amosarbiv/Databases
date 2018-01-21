@@ -196,4 +196,4 @@ def GetSongAttributes():
 
 if __name__ == '__main__':
     app.secret_key = 'itsasecret'
-    app.run(port=8888, host="0.0.0.0", debug=False)
+    app.run(port=40001, host="0.0.0.0", debug=False)

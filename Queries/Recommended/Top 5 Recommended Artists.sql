@@ -1,5 +1,6 @@
 SELECT	DbMysql15.Artists.artistName as Artist, count(userPlaylist.track) as 'Number of DbMysql15.Songs You Like of This Artist',
-		        DbMysql15.Artists.artistPrimaryGenre AS 'Artist Genre'
+		        DbMysql15.Artists.artistPrimaryGenre AS 'Artist Genre',
+                DbMysql15.Artists.artistId as ArtistId
                 FROM	(
 		        SELECT	DbMysql15.TrackUser.userName as tempUser, DbMysql15.TrackUser.trackId as track, DbMysql15.Artists.artistId as artist
 		        FROM	DbMysql15.TrackUser, DbMysql15.Songs, DbMysql15.Collections, DbMysql15.CollectionsArtist, DbMysql15.Artists

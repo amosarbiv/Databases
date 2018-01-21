@@ -485,21 +485,30 @@ var init = function() {
       var htmlTableInsert1 = "";
       for (let index = 0; index < songTable.length; index++) {
         const element = songTable[index];
+        var price = "no price";
+        if(element[10] != -1){
+          price =element[10] ;
+        }
         htmlTableInsert1 += "<li>"
         if(element[5] == 1){
           htmlTableInsert1 += "<h1 class='panel__textHeader'>&nbsp;<i class='fa fa-check fa-1x' style='color:#1a1a1a;' aria-hidden='true'></i>&nbsp;&nbsp;"+element[0]+"</h1>"
         }
         else{
-          htmlTableInsert1 += "<h1 class='panel__textHeader' id='AddToPlaylist"+element[7]+"'>&nbsp;<a href='#3' class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' id='"+element[7]+" AddPlaylist' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"
+          htmlTableInsert1 += "<h1 class='panel__textHeader' id='AddToPlaylist"+element[7]+"'>&nbsp;<a href='#3' class='AddToPlaylist' data-tooltip='Add to Playlist'><i class='fa fa-plus-square-o fa-lg' id='"+element[7]+" AddPlaylist ("+element[0]+")' style='color:#1a1a1a;' aria-hidden='true'></i></a>&nbsp;&nbsp;"+element[0]+"</h1>"
         }
         htmlTableInsert1 += "<h1 class='panel__text'>&nbsp;Average Rating:&nbsp;"+element[1]+"</h1>" +
         "<h1 class='panel__text'>&nbsp;Collection:&nbsp;"+element[4]+"</h1>" +
-        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[5]+"&emsp;&emsp;Release Date:&nbsp;"+element[9]+"&emsp;&emsp;Genre:&nbsp;"+element[8]+"&emsp;&emsp;Price:&nbsp;"+element[10]+"$</h1>"+
+        "<h1 class='panel__text'>&nbsp;Artist:&nbsp;"+element[5]+"&emsp;&emsp;Release Date:&nbsp;"+element[9]+"&emsp;&emsp;Genre:&nbsp;"+element[8]+"&emsp;&emsp;Price:&nbsp;"+price+"$</h1>"+
         "<h1 class='panel__text'><audio controls>"+
         "<source src='"+element[6]+"' type='audio/ogg'></audio></h1>"+
         "</li>"
       }
+      if(songTable.length != 0){
       songNode.innerHTML = htmlTableInsert1;
+      }
+      else{
+        songNode.innerHTML = "<li><h1 class='panel__textHeader'>&nbsp;Please add songs to your playlist in order to see our songs recommendations for you.</h1>"
+      }
 
       var htmlTableInsert2 = "";
       artistTable.forEach(element => {
@@ -510,7 +519,13 @@ var init = function() {
         "<h1 class='panel__text__Small'>&nbsp;Genre:&nbsp;"+element[2]+"</h1>" +
         "</li>"
       });
-      artistNode.innerHTML = htmlTableInsert2;
+      
+      if(artistTable.length != 0){
+        artistNode.innerHTML = htmlTableInsert2;
+      }
+      else{
+          artistNode.innerHTML = "<li><h1 class='panel__textHeader__Small'>&nbsp;Please add songs to your playlist in order to see our artists recommendations for you.</h1>"
+      }
 
       var htmlTableInsert3 = "";
       collectionTable.forEach(element => {
@@ -520,7 +535,12 @@ var init = function() {
         "<h1 class='panel__text__Small'>&nbsp;Release Date:&nbsp;"+element[3]+"&emsp;&emsp;Genre:&nbsp;"+element[4]+"&emsp;&emsp;Price:&nbsp;"+element[1]+"$</h1>" +
         "</li>"
       });
-      collectionNode.innerHTML = htmlTableInsert3;
+      if(collectionTable.length != 0){
+        collectionNode.innerHTML = htmlTableInsert3;
+      }
+      else{
+        collectionNode.innerHTML = "<li><h1 class='panel__textHeader__Small'>&nbsp;Please add songs to your playlist in order to see our albums recommendations for you.</h1>"
+      }
       
   });
 
@@ -533,9 +553,9 @@ var init = function() {
       contentType: "application/json"
     }).success(function() {
       var list = (e.target.id).split(" ");
-      var arrayOfList = (e.target.id).split("<");
+      var arrayOfList = (e.target.id).split("(");
       var songName = arrayOfList[1];
-      songName = songName.replace(">","");
+      songName = songName.replace(")","");
       var tdId = "AddToPlaylist"+list[0];
       var node = document.getElementById(tdId);
       node.innerHTML = "<i class='fa fa-check fa-1x' style='color:#1a1a1a;' aria-hidden='true'></i>&nbsp;&nbsp;"+songName 

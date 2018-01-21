@@ -237,6 +237,14 @@ class LogicInter:
         return profile['UserName']
 
     def RetrieveSearchInfo(self, userName, searchTerm):
+        if((searchTerm.find(';') != -1) or (searchTerm.find('"') != -1)):
+            return False
+        if(searchTerm.find('<') == -1 and searchTerm.find('>') == -1):
+            result = self.dataBase.RetrieveAllTypes(userName, searchTerm)
+            resultAVG = self.dataBase.GetAverageRating()
+            result = self.PrepareDictionary(result, resultAVG)   
+            return result
+        
         song=""
         album=""
         artist=""
@@ -296,11 +304,11 @@ class LogicInter:
         result = []
         if(song != "" and album == "" and artist == ""):
             result = self.dataBase.RetrieveAllTypes(userName, song)
-        if(song != "" and album != "" and artist == "" and inInd == True and byInd == False):
+        elif(song != "" and album != "" and artist == "" and inInd == True and byInd == False):
             result = self.dataBase.RetrieveSongAlbum(userName, song, album)
-        if(song != "" and album == "" and artist != "" and inInd == False and byInd == True):
+        elif(song != "" and album == "" and artist != "" and inInd == False and byInd == True):
             result = self.dataBase.RetrieveSongORAlbumArtist(userName, song, artist)
-        if(song != "" and album != "" and artist != "" and inInd == True and byInd == True):
+        elif(song != "" and album != "" and artist != "" and inInd == True and byInd == True):
             result = self.dataBase.RetrieveSongAlbumArtist(userName, song, album, artist)
 
         resultAVG = self.dataBase.GetAverageRating()

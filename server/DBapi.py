@@ -318,7 +318,7 @@ class DB():
             self.DB.rollback()
             return {}
         if(len(results) == 0):
-            query2 = "INSERT INTO DbMysql15.TrackUser (trackId, userName, numberOfViews, ranking, isInPlaylist) VALUES ('%s', '%s', '%s', '%s', %d);"%(songId, user, 0, rating,isInPlaylist)
+            query2 = "INSERT INTO DbMysql15.TrackUser (trackId, userName, numberOfViews, ranking, isInPlaylist) VALUES ('%s', '%s', '%s', '%s', '%s');"%(songId, user, 0, rating,isInPlaylist)
             try:
                 self.cur.execute(query2)
                 self.DB.commit()
